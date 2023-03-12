@@ -156,8 +156,8 @@ static func fetch_data(url: String, method: int = HTTPClient.METHOD_GET, body = 
 	if !(free_clients is Array):
 		free_clients = []
 		_get_global().free_http_clients[origin] = free_clients
-	var client: HTTPClient = free_clients.pop_back() if free_clients else HTTPClient.new()
 
+	var client: HTTPClient = free_clients.pop_back() if free_clients else HTTPClient.new()
 	if client.get_status() != HTTPClient.STATUS_CONNECTED:
 		client.connect_to_host(host, port) # TODO: function changed, is SSL/TSL ok like this (compared to prior)?
 		client.poll()
@@ -246,11 +246,11 @@ static func get_engine_unix_time() -> int:
 
 
 static func _get_global() -> GlobalData:
-	var _global = get_static_variable(_GotmUtility, "_global", {"value": null})
-	if !_global.value:
-		_global.value = GlobalData.new()
+	var _global = get_static_variable(_GotmUtility, "_global", null)
+	if !_global:
+		_global = GlobalData.new()
 		set_static_variable(_GotmUtility, "_global", _global)
-	return _global.value
+	return _global
 
 
 # Converts UNIX epoch time in milliseconds to a date ISO 8601 string.

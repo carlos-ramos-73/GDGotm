@@ -10,7 +10,7 @@ I will try to adhere to the official style guide here: https://docs.godotengine.
 ## Process
 | File Name                 | Status  | TODOs          | Reviewed | Unit Tested | Documentation |
 | ------------------------- |:-------:| --------------:|:--------:|:-----------:|:-------------:|
-| impl/_Gotm.gd             | 0%      | 0              | —        | —           | —             |
+| impl/_Gotm.gd             | ☑      | 2              | —        | —           | —             |
 | impl/_GotmAuth.gd         | 0%      | 0              | —        | —           | —             |
 | impl/_GotmAuthLocal.gd    | 0%      | 0              | —        | —           | —             |
 | impl/_GotmBlob.gd         | 0%      | 0              | —        | —           | —             |
@@ -33,7 +33,7 @@ I will try to adhere to the official style guide here: https://docs.godotengine.
 | Gotm.gd                   | 0%      | 0              | —        | —           | —             |
 | GotmAuth.gd               | 0%      | 0              | —        | —           | —             |    
 | GotmBlob.gd               | 0%      | 0              | —        | —           | —             |
-| GotmConfig.gd             | 0%      | 0              | —        | —           | —             |
+| GotmConfig.gd             | ☑      | 0              | CR       | N/A         | ☑             |
 | GotmContent.gd            | 0%      | 0              | —        | —           | —             |
 | GotmDebug.gd              | 0%      | 0              | —        | —           | —             |
 | GotmFile.gd               | 0%      | 0              | —        | —           | —             |
