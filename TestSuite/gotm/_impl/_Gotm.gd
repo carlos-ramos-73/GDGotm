@@ -4,10 +4,6 @@ class_name _Gotm
 const _version = "0.0.1" # TODO: Need to change? Is it useless?
 
 
-static func create_instance(name: String):
-	return get_global().classes[name].new()
-
-
 static func get_config() -> GotmConfig:
 	return get_global().config
 
@@ -42,10 +38,9 @@ static func has_global_api() -> bool:
 	return is_global_api("scores") || is_global_api("contents") || is_global_api("marks")
 
 
-static func initialize(config: GotmConfig, classes: Dictionary) -> void:
+static func initialize(config: GotmConfig) -> void:
 	var global := get_global()
 	global.config = _GotmUtility.copy(config, GotmConfig.new())
-	global.classes = classes
 	var directory = DirAccess.open("res://")
 	directory.make_dir_recursive(get_local_path(""))
 
@@ -77,4 +72,3 @@ class _GotmGlobalData:
 	var apiOrigin: String = "https://api.gotm.io"
 	var apiWorkerOrigin: String = "https://gotm-api-worker-eubrk3zsia-uk.a.run.app"
 	var storageApiEndpoint: String = "https://storage.googleapis.com/gotm-api-production-d13f0.appspot.com"
-	var classes: Dictionary = {}
