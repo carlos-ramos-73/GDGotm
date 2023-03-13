@@ -306,7 +306,7 @@ static func get_static_variable(script: Script, name: String, default_value):
 	if script.has_meta(name):
 		return script.get_meta(name)
 	script.set_meta(name, default_value)
-	return default_value
+	return script.get_meta(name)
 
 
 static func get_tree() -> SceneTree:
