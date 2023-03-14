@@ -1,11 +1,11 @@
 class_name _GotmAuthLocal
 
 
-static func get_auth():
+static func get_auth() -> _GotmAuthLocalCache:
 	return _get_cache()
 
 
-static func get_auth_async():
+static func get_auth_async() -> _GotmAuthLocalCache:
 	await _GotmUtility.get_tree().process_frame
 	return get_auth()
 
