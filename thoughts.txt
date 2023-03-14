@@ -3,7 +3,7 @@
 Notes:
 - #warnings-disable does not work. They seemed to be in favor of removing: https://github.com/godotengine/godot-proposals/issues/753#issuecomment-619533712
 - const dictionaries/arrays used to be shallow in Godot 3. This plugin utilized that fact to make the equivilant of "static variables" (i.e. _global in _GotmUtility). That is no longer the case: https://github.com/godotengine/godot/pull/71051
-- HTTPClient.connect_to_host() has changed
+- Do I need _impl in GotmUser??? Is there no better way to store private variables in objects?
 
 Suggestions:
-- implement Godot's new in-editor documentation feature
+- implement Godot's new in-editor documentation feature whereever possiblem

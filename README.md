@@ -28,7 +28,7 @@ I will try to adhere to the official style guide here: https://docs.godotengine.
 | impl/_GotmScore.gd        | 0%      | 0              | —        | —           | —             |
 | impl/_GotmScoreLocal.gd   | 0%      | 0              | —        | —           | —             |
 | impl/_GotmStore.gd        | ☑      | 0              | —        | —           | —             |
-| impl/_GotmUser.gd         | 0%      | 0              | —        | —           | —             |
+| impl/_GotmUser.gd         | ☑      | 0              | —        | —           | —             |
 | impl/_GotmUserLocal.gd    | ☑      | 1              | —        | —           | —             |
 | impl/_GotmUtility.gd      | 90%+    | 2              | —        | —           | —             |
 | impl/_LocalStore.gd       | 0%      | 0              | —        | —           | —             |
@@ -46,4 +46,4 @@ I will try to adhere to the official style guide here: https://docs.godotengine.
 | GotmPeriod.gd             | 0%      | 0              | —        | —           | —             |
 | GotmQuery.gd              | 0%      | 0              | —        | —           | —             |
 | GotmScore.gd              | 0%      | 0              | —        | —           | —             |
-| GotmUser.gd               | 0%      | 0              | —        | —           | —             |
+| GotmUser.gd               | ☑      | 0              | —        | —           | ☑             |
