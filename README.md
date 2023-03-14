@@ -27,7 +27,7 @@ I will try to adhere to the official style guide here: https://docs.godotengine.
 | impl/_GotmQuery.gd        | 0%      | 0              | —        | —           | —             |
 | impl/_GotmScore.gd        | 0%      | 0              | —        | —           | —             |
 | impl/_GotmScoreLocal.gd   | 0%      | 0              | —        | —           | —             |
-| impl/_GotmStore.gd        | 0%      | 0              | —        | —           | —             |
+| impl/_GotmStore.gd        | ☑      | 0              | —        | —           | —             |
 | impl/_GotmUser.gd         | 0%      | 0              | —        | —           | —             |
 | impl/_GotmUserLocal.gd    | ☑      | 1              | —        | —           | —             |
 | impl/_GotmUtility.gd      | 90%+    | 2              | —        | —           | —             |
