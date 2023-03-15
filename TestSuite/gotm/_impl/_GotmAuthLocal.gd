@@ -20,7 +20,8 @@ static func _get_cache() -> _GotmAuthLocalCache:
 	var content = _GotmUtility.read_file(file_path)
 	if content:
 		_GotmUtility.copy(JSON.parse_string(content), _cache)
-		# TODO is code below useless now that there is a _GotmAuthLocalCache class?
+		# TODO: Is the code below useless now that there is a _GotmAuthLocalCache class?
+		# Why would 'content' read from file have a property called 'user'?
 		if !_cache.get("owner") && _cache.get("user"):
 			_cache.owner = _cache.user
 			_cache.erase("user")
