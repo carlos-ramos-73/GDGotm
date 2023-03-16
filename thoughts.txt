@@ -1,9 +1,10 @@
 - impl/_GotmUserLocal seems useless? Ask for clarification maybe.
 
 Notes:
-- #warnings-disable does not work. They seemed to be in favor of removing: https://github.com/godotengine/godot-proposals/issues/753#issuecomment-619533712
-- const dictionaries/arrays used to be shallow in Godot 3. This plugin utilized that fact to make the equivilant of "static variables" (i.e. _global in _GotmUtility). That is no longer the case: https://github.com/godotengine/godot/pull/71051
-- Do I need _impl in GotmUser??? Is there no better way to store private variables in objects?
+- #warnings-disable does not work. They seemed to be in favor of removing: https://github.com/godotengine/godot-proposals/issues/753#issuecomment-619533712 ... perhaps for the better?
+- const dictionaries/arrays used to be shallow in Godot 3. This plugin utilized that fact to make the equivilant of "static variables" (i.e. _global in _GotmUtility). That is no longer the case: https://github.com/godotengine/godot/pull/71051. Using get/set meta instead as a hacky workaround...
+- Do I need _impl in GotmUser??? Is there no better way to store private variables in objects? Currently there are no "private" vars or functions. Maybe it is needed...
 
 Suggestions:
-- implement Godot's new in-editor documentation feature whereever possiblem
+- move some _GotmScore functions to _GotmLeaderboard i.e. get_rank, list, list_by_rank, etc. I think it is better to decouple as much as possible.z
+- implement Godot's new in-editor documentation feature wherever possible
