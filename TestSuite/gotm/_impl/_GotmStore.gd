@@ -182,7 +182,7 @@ static func _take_rate_limiting_token() -> bool:
 	return true
 
 
-static func update(path, data: Dictionary, options: Dictionary = {}) -> Dictionary:
+static func update(path: String, data: Dictionary, options: Dictionary = {}) -> Dictionary:
 	var updated := await _request(create_request_path(path, "", {}, options), HTTPClient.METHOD_PATCH, data, true)
 	if !updated.is_empty():
 		_set_cache(path, updated)
