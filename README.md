@@ -22,7 +22,7 @@ I will try to adhere to the official style guide here: https://docs.godotengine.
 | impl/_GotmImplUtility.gd  | Removed | 0              | —        | —           | —             |
 | impl/_GotmLeaderboard.gd  | 0%      | 0              | —        | —           | —             |
 | impl/_GotmMark.gd         | 0%      | 0              | —        | —           | —             |
-| impl/_GotmMarkLocal.gd    | 0%      | 0              | —        | —           | —             |
+| impl/_GotmMarkLocal.gd    | ☑      | 0              | —        | —           | —             |
 | impl/_GotmPeriod.gd       | ☑      | 0              | —        | —           | —             |
 | impl/_GotmQuery.gd        | ☑      | 0              | —        | —           | —             |
 | impl/_GotmScore.gd        | ☑      | 5              | —        | —           | —             |
