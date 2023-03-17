@@ -90,17 +90,17 @@ static func decompress_gzip(data: PackedByteArray) -> PackedByteArray:
 	return PackedByteArray()
 
 
-static func defer_signal(sig) -> DeferredSignal:
-	var deferred := DeferredSignal.new()
-	deferred.tree = get_tree()
-	# TODO: Replace below?
+# TODO: Validate if needed for rewrite (I think not with the new Godot 4 await signals)
+#static func defer_signal(sig) -> DeferredSignal:
+#	var deferred := DeferredSignal.new()
+#	deferred.tree = get_tree()
 #	if !(sig is GDScriptFunctionState):
 #		deferred.is_completed = true
 #		deferred.value = sig
 #		return deferred
-	deferred._signal = sig
-	sig.connect("completed", deferred, "_on_completed")
-	return deferred
+#	deferred._signal = sig
+#	sig.connect("completed", deferred, "_on_completed")
+#	return deferred
 
 
 static func delete_empty(dictionary: Dictionary) -> Dictionary:
@@ -327,8 +327,9 @@ static func get_unix_time_from_iso(iso: String) -> int:
 	return Time.get_unix_time_from_datetime_string(iso)
 
 
-static func get_yieldable(sig):
-	return await defer_signal(sig).get_yieldable()
+# TODO: Validate if needed for rewrite (I think not with the new Godot 4 await signals)
+#static func get_yieldable(sig):
+#	return await defer_signal(sig).get_yieldable()
 
 
 static func is_fuzzy_equal(a, b) -> bool:
@@ -440,25 +441,26 @@ static func write_file(path: String, data):
 	file.close()
 
 
-class DeferredSignal:
-	var is_completed := false
-	var value
-	var _signal
-	var tree: SceneTree
-
-	func get_yieldable() -> Yieldable:
-		if is_completed:
-			await tree.process_frame
-			return value
-		else:
-			return _signal
-
-	func _on_completed(v):
-		value = v
-		is_completed = true
-
-	class Yieldable:
-		signal completed()
+# TODO: Validate if needed for rewrite (I think not with the new Godot 4 await signals)
+#class DeferredSignal:
+#	var is_completed := false
+#	var value
+#	var _signal
+#	var tree: SceneTree
+#
+#	func get_yieldable() -> Yieldable:
+#		if is_completed:
+#			await tree.process_frame
+#			return value
+#		else:
+#			return _signal
+#
+#	func _on_completed(v):
+#		value = v
+#		is_completed = true
+#
+#	class Yieldable:
+#		signal completed()
 
 
 class FakeSignal:
