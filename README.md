@@ -25,7 +25,7 @@ I will try to adhere to the official style guide here: https://docs.godotengine.
 | impl/_GotmMarkLocal.gd    | 0%      | 0              | —        | —           | —             |
 | impl/_GotmPeriod.gd       | ☑      | 0              | —        | —           | —             |
 | impl/_GotmQuery.gd        | ☑      | 0              | —        | —           | —             |
-| impl/_GotmScore.gd        | 0%      | 0              | —        | —           | —             |
+| impl/_GotmScore.gd        | ☑      | 5              | —        | —           | —             |
 | impl/_GotmScoreLocal.gd   | ☑      | 0              | —        | —           | —             |
 | impl/_GotmStore.gd        | ☑      | 0              | —        | —           | —             |
 | impl/_GotmUser.gd         | ☑      | 0              | —        | —           | —             |
@@ -33,9 +33,9 @@ I will try to adhere to the official style guide here: https://docs.godotengine.
 | impl/_GotmUtility.gd      | ☑      | 4              | —        | —           | —             |
 | impl/_LocalStore.gd       | ☑      | 0              | —        | —           | —             |
 | Gotm.gd                   | 0%      | 0              | —        | —           | —             |
-| GotmAuth.gd               | ☑      | 0              | CR       | —           | ☑             |    
+| GotmAuth.gd               | ☑      | 0              | —        | —           | ☑             |    
 | GotmBlob.gd               | 0%      | 0              | —        | —           | —             |
-| GotmConfig.gd             | ☑      | 0              | CR       | N/A         | ☑             |
+| GotmConfig.gd             | ☑      | 0              | —        | —           | ☑             |
 | GotmContent.gd            | 0%      | 0              | —        | —           | —             |
 | GotmDebug.gd              | 0%      | 0              | —        | —           | —             |
 | GotmFile.gd               | 0%      | 0              | —        | —           | —             |
@@ -45,5 +45,5 @@ I will try to adhere to the official style guide here: https://docs.godotengine.
 | GotmMark.gd               | 0%      | 0              | —        | —           | —             |
 | GotmPeriod.gd             | ☑      | 0              | —        | —           | ☑             |
 | GotmQuery.gd              | ☑      | 0              | —        | —           | ☑             |
-| GotmScore.gd              | 0%      | 0              | —        | —           | —             |
+| GotmScore.gd              | ☑      | 0              | —        | —           | Some          |
 | GotmUser.gd               | ☑      | 0              | —        | —           | ☑             |
