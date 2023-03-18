@@ -131,7 +131,7 @@ static func get_counts(leaderboard, minimum_value: float, maximum_value: float, 
 	return counts
 
 
-static func get_implementation(id = ""):
+static func get_implementation(id: String = ""):
 	if !_Gotm.is_global_api("scores") || !_LocalStore.fetch(id).is_empty():
 		return _GotmScoreLocal
 	return _GotmStore
