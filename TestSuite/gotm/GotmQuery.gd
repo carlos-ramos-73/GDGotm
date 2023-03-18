@@ -1,4 +1,5 @@
 class_name GotmQuery
+const _CLASS_NAME := "GotmQuery"
 
 
 ## A GotmQuery is used for complex filtering and sorting when fetching 

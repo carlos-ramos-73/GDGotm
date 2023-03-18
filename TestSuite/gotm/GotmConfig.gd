@@ -1,4 +1,5 @@
 class_name GotmConfig
+const _CLASS_NAME := "GotmConfig"
 
 ## Configuration options when initializing GDGotm.
 

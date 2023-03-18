@@ -1,4 +1,5 @@
 class_name GotmPeriod
+const _CLASS_NAME := "GotmPeriod"
 
 
 ## A utility class for representing a time period.

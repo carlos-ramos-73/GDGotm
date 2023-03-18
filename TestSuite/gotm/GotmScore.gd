@@ -1,4 +1,5 @@
 class_name GotmScore
+const _CLASS_NAME := "GotmScore"
 
 
 ## [BETA FEATURE] A score entry used for leaderboards.

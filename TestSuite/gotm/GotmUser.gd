@@ -1,4 +1,5 @@
 class_name GotmUser
+const _CLASS_NAME := "GotmUser"
 
 
 ## Holds information about a Gotm user.

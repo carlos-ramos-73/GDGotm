@@ -1,4 +1,5 @@
 class_name GotmAuth
+const _CLASS_NAME := "GotmAuth"
 
 
 ## A GotmAuth gives permission to do things on behalf of a user.
