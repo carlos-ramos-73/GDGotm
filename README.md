@@ -21,7 +21,7 @@ I will try to adhere to the official style guide here: https://docs.godotengine.
 | impl/_GotmImpl.gd         | 0%      | 0              | —        | —           | —             |
 | impl/_GotmImplUtility.gd  | Removed | 0              | —        | —           | —             |
 | impl/_GotmLeaderboard.gd  | 0%      | 0              | —        | —           | —             |
-| impl/_GotmMark.gd         | 0%      | 0              | —        | —           | —             |
+| impl/_GotmMark.gd         | ☑      | 0              | —        | —           | —             |
 | impl/_GotmMarkLocal.gd    | ☑      | 0              | —        | —           | —             |
 | impl/_GotmPeriod.gd       | ☑      | 0              | —        | —           | —             |
 | impl/_GotmQuery.gd        | ☑      | 0              | —        | —           | —             |
@@ -42,7 +42,7 @@ I will try to adhere to the official style guide here: https://docs.godotengine.
 | GotmLeaderboard.gd        | 0%      | 0              | —        | —           | —             |
 | GotmLobby.gd              | 0%      | 0              | —        | —           | —             |
 | GotmLobbyFetch.gd         | 0%      | 0              | —        | —           | —             |
-| GotmMark.gd               | 0%      | 0              | —        | —           | —             |
+| GotmMark.gd               | ☑      | 0              | —        | —           | Some          |
 | GotmPeriod.gd             | ☑      | 0              | —        | —           | ☑             |
 | GotmQuery.gd              | ☑      | 0              | —        | —           | ☑             |
 | GotmScore.gd              | ☑      | 0              | —        | —           | Some          |
