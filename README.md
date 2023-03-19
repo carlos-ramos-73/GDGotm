@@ -14,7 +14,7 @@ I will try to adhere to the official style guide here: https://docs.godotengine.
 | impl/_GotmAuth.gd         | ☑      | 2              | —        | —           | —             |
 | impl/_GotmAuthLocal.gd    | ☑      | 1              | —        | —           | —             |
 | impl/_GotmBlob.gd         | 0%      | 0              | —        | —           | —             |
-| impl/_GotmBlobLocal.gd    | 0%      | 0              | —        | —           | —             |
+| impl/_GotmBlobLocal.gd    | ☑      | 0              | —        | —           | —             |
 | impl/_GotmContent.gd      | 0%      | 0              | —        | —           | —             |
 | impl/_GotmContentLocal.gd | 0%      | 0              | —        | —           | —             |
 | impl/_GotmDebugImpl.gd    | 0%      | 0              | —        | —           | —             |
