@@ -29,6 +29,7 @@ static func create(name: String, value: float, properties: Dictionary = {}, is_l
 
 static func delete(score_or_id) -> void:
 	if !(score_or_id is GotmScore || score_or_id is String):
+		await _GotmUtility.get_tree().process_frame
 		push_error("Expected a GotmScore or GotmScore.id string.")
 		return
 
@@ -56,6 +57,7 @@ static func encode_cursor(score_id_or_value, ascending: bool) -> String:
 
 static func fetch(score_or_id) -> GotmScore:
 	if !(score_or_id is GotmScore || score_or_id is String):
+		await _GotmUtility.get_tree().process_frame
 		push_error("Expected a GotmScore or GotmScore.id string.")
 		return null
 
@@ -157,6 +159,7 @@ static func _get_project() -> String:
 static func get_rank(leaderboard, score_id_or_value) -> int:
 	if !(score_id_or_value is GotmScore || score_id_or_value is String
 			|| score_id_or_value is int || score_id_or_value is float):
+		await _GotmUtility.get_tree().process_frame
 		push_error("Expected a GotmScore, GotmScore.id string, int, or float.")
 		return 0
 
@@ -197,8 +200,8 @@ static func get_rank(leaderboard, score_id_or_value) -> int:
 
 #static func _list(leaderboard: GotmLeaderboard, after, ascending: bool, limit: int = 0) -> Array: # TODO: implement leaderboard and then switch to this line
 static func _list(leaderboard, after, ascending: bool, limit: int = 0) -> Array:
-	if !(after is GotmScore || after is String
-			|| after is int || after is float):
+	if !(after is GotmScore || after is String || after is int || after is float):
+		await _GotmUtility.get_tree().process_frame
 		push_error("Expected a GotmScore, GotmScore.id string, int, or float.")
 		return []
 
@@ -264,6 +267,7 @@ static func list_by_rank(leaderboard, after, ascending: bool) -> Array:
 
 static func update(score_or_id, value = null, properties = null) -> GotmScore:
 	if !(score_or_id is GotmScore || score_or_id is String):
+		await _GotmUtility.get_tree().process_frame
 		push_error("Expected a GotmScore or GotmScore.id string.")
 		return null
 
