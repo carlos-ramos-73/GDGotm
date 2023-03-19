@@ -1,5 +1,4 @@
 class_name GotmAuth
-const _CLASS_NAME := "GotmAuth"
 
 
 ## A GotmAuth gives permission to do things on behalf of a user.
@@ -38,3 +37,9 @@ var is_registered: bool
 ## will represent an unregistered anonymous user (a guest).
 static func fetch() -> GotmAuth:
 	return await _GotmAuth.fetch()
+
+##############################################################
+# PRIVATE
+##############################################################
+
+const _CLASS_NAME := "GotmAuth"

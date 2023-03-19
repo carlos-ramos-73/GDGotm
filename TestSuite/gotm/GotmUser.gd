@@ -1,5 +1,4 @@
 class_name GotmUser
-const _CLASS_NAME := "GotmUser"
 
 
 ## Holds information about a Gotm user.
@@ -37,5 +36,5 @@ static func fetch(id: String) -> GotmUser:
 # PRIVATE
 ##############################################################
 
-## Private variable for internal use
+const _CLASS_NAME := "GotmUser"
 var _impl: Dictionary = {}

@@ -1,5 +1,4 @@
 class_name GotmPeriod
-const _CLASS_NAME := "GotmPeriod"
 
 
 ## A utility class for representing a time period.
@@ -105,3 +104,10 @@ class TimeGranularity:
 	const DAY: String = "day"
 ## Starts at the absolute beginning of time and ends at the absolut ending of time.
 	const ALL: String = ""
+
+
+##############################################################
+# PRIVATE
+##############################################################
+
+const _CLASS_NAME := "GotmPeriod"

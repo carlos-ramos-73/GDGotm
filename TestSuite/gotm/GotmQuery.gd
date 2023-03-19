@@ -1,5 +1,4 @@
 class_name GotmQuery
-const _CLASS_NAME := "GotmQuery"
 
 
 ## A GotmQuery is used for complex filtering and sorting when fetching 
@@ -75,3 +74,10 @@ class Sort:
 	var property_path: String
 ## If true, sort in ascending order so that the lowest value comes first.
 	var ascending: bool = false
+
+
+##############################################################
+# PRIVATE
+##############################################################
+
+const _CLASS_NAME := "GotmQuery"

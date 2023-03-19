@@ -1,5 +1,4 @@
 class_name GotmScore
-const _CLASS_NAME := "GotmScore"
 
 
 ## [BETA FEATURE] A score entry used for leaderboards.
@@ -108,3 +107,10 @@ static func delete(score_or_id) -> void:
 ## Get an existing score.
 static func fetch(score_or_id) -> GotmScore:
 	return await _GotmScore.fetch(score_or_id)
+
+
+##############################################################
+# PRIVATE
+##############################################################
+
+const _CLASS_NAME := "GotmScore"
