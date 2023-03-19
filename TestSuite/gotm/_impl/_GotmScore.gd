@@ -1,8 +1,11 @@
 class_name _GotmScore
 
+enum AuthImplementation { GOTM_AUTH, GOTM_AUTH_LOCAL }
+enum Implementation { GOTM_STORE, GOTM_SCORE_LOCAL }
+
 
 static func _clear_cache() -> void:
-	if get_implementation() == _GotmScoreLocal:
+	if get_implementation() == Implementation.GOTM_SCORE_LOCAL:
 		_GotmScoreLocal.clear_cache("scores")
 		_GotmScoreLocal.clear_cache("stats")
 	else:
@@ -18,7 +21,7 @@ static func create(name: String, value: float, properties: Dictionary = {}, is_l
 	value = _GotmUtility.clean_for_json(value)
 	properties = _GotmUtility.clean_for_json(properties)
 	var data: Dictionary
-	if is_local || get_implementation() == _GotmScoreLocal:
+	if is_local || get_implementation() == Implementation.GOTM_SCORE_LOCAL:
 		data = await _GotmScoreLocal.create("scores", {"name": name, "value": value, "props": properties})
 	else:
 		data = await _GotmStore.create("scores", {"name": name, "value": value, "props": properties})
@@ -34,7 +37,7 @@ static func delete(score_or_id) -> void:
 		return
 
 	var id := _coerce_id(score_or_id)
-	if get_implementation(id) == _GotmScoreLocal:
+	if get_implementation(id) == Implementation.GOTM_SCORE_LOCAL:
 		await _GotmScoreLocal.delete(id)
 	else:
 		await _GotmStore.delete(id)
@@ -63,7 +66,7 @@ static func fetch(score_or_id) -> GotmScore:
 
 	var id := _coerce_id(score_or_id)
 	var data: Dictionary
-	if get_implementation(id) == _GotmScoreLocal:
+	if get_implementation(id) == Implementation.GOTM_SCORE_LOCAL:
 		data = await _GotmScoreLocal.fetch(id)
 	else:
 		data = await _GotmStore.fetch(id)
@@ -83,10 +86,10 @@ static func _format(data: Dictionary, score: GotmScore) -> GotmScore:
 	return score
 
 
-static func get_auth_implementation():
-	if get_implementation() == _GotmScoreLocal:
-		return _GotmAuthLocal
-	return _GotmAuth
+static func get_auth_implementation() -> AuthImplementation:
+	if get_implementation() == Implementation.GOTM_SCORE_LOCAL:
+		return AuthImplementation.GOTM_AUTH_LOCAL
+	return AuthImplementation.GOTM_AUTH
 
 
 #static func get_counts(leaderboard: GotmLeaderboard, minimum_value: float, maximum_value: float, segment_count: int) -> Array: # TODO: implement leaderboard and then switch to this line
@@ -120,7 +123,7 @@ static func get_counts(leaderboard, minimum_value: float, maximum_value: float, 
 	params.min = minimum_value
 	params.max = maximum_value
 	var stats: Array
-	if leaderboard.is_local || get_implementation() == _GotmScoreLocal:
+	if leaderboard.is_local || get_implementation() == Implementation.GOTM_SCORE_LOCAL:
 		stats = await _GotmScoreLocal.list("stats", "countByScoreSort", params)
 	else:
 		stats = await _GotmStore.list("stats", "countByScoreSort", params)
@@ -133,16 +136,16 @@ static func get_counts(leaderboard, minimum_value: float, maximum_value: float, 
 	return counts
 
 
-static func get_implementation(id: String = ""):
+static func get_implementation(id: String = "") -> Implementation:
 	if !_Gotm.is_global_api("scores") || !_LocalStore.fetch(id).is_empty():
-		return _GotmScoreLocal
-	return _GotmStore
+		return Implementation.GOTM_SCORE_LOCAL
+	return Implementation.GOTM_STORE
 
 
 static func _get_project() -> String:
 	var auth
 	var local := false
-	if get_auth_implementation() == _GotmAuthLocal:
+	if get_auth_implementation() == AuthImplementation.GOTM_AUTH:
 		auth = _GotmAuthLocal.get_auth()
 		local = true
 	else:
@@ -189,7 +192,7 @@ static func get_rank(leaderboard, score_id_or_value) -> int:
 		return 0
 
 	var stat: Dictionary
-	if leaderboard.is_local || get_implementation(params.get("score")) == _GotmScoreLocal:
+	if leaderboard.is_local || get_implementation(params.get("score")) == Implementation.GOTM_SCORE_LOCAL:
 		stat = await _GotmScoreLocal.fetch("stats/rank", "rankByScoreSort", params)
 	else:
 		stat = await _GotmStore.fetch("stats/rank", "rankByScoreSort", params)
@@ -238,7 +241,7 @@ static func _list(leaderboard, after, ascending: bool, limit: int = 0) -> Array:
 		params.afterRank = after_rank
 
 	var data_list: Array
-	if leaderboard.is_local || get_implementation(after_id) == _GotmScoreLocal:
+	if leaderboard.is_local || get_implementation(after_id) == Implementation.GOTM_SCORE_LOCAL:
 		data_list = await _GotmScoreLocal.list("scores", "byScoreSort", params)
 	else:
 		data_list = await _GotmStore.list("scores", "byScoreSort", params)
@@ -275,7 +278,7 @@ static func update(score_or_id, value = null, properties = null) -> GotmScore:
 	value = _GotmUtility.clean_for_json(value)
 	properties = _GotmUtility.clean_for_json(properties)
 	var data: Dictionary
-	if get_implementation(id) == _GotmScoreLocal:
+	if get_implementation(id) == Implementation.GOTM_SCORE_LOCAL:
 		data = await _GotmScoreLocal.update(id, _GotmUtility.delete_null({"value": value, "props": properties}))
 	else:
 		data = await _GotmStore.update(id, _GotmUtility.delete_null({"value": value, "props": properties}))
