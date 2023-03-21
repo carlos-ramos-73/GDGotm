@@ -20,12 +20,12 @@ I will try to adhere to the official style guide here: https://docs.godotengine.
 | impl/_GotmDebugImpl.gd    | 0%      | 0              | —        | —           | —             |
 | impl/_GotmImpl.gd         | 0%      | 0              | —        | —           | —             |
 | impl/_GotmImplUtility.gd  | Removed | 0              | —        | —           | —             |
-| impl/_GotmLeaderboard.gd  | 0%      | 0              | —        | —           | —             |
+| impl/_GotmLeaderboard.gd  | ☑      | 1              | —        | —           | —             |
 | impl/_GotmMark.gd         | ☑      | 0              | —        | —           | —             |
 | impl/_GotmMarkLocal.gd    | ☑      | 0              | —        | —           | —             |
 | impl/_GotmPeriod.gd       | ☑      | 0              | —        | —           | —             |
 | impl/_GotmQuery.gd        | ☑      | 0              | —        | —           | —             |
-| impl/_GotmScore.gd        | ☑      | 5              | —        | —           | —             |
+| impl/_GotmScore.gd        | ☑      | 0              | —        | —           | —             |
 | impl/_GotmScoreLocal.gd   | ☑      | 0              | —        | —           | —             |
 | impl/_GotmStore.gd        | ☑      | 0              | —        | —           | —             |
 | impl/_GotmUser.gd         | ☑      | 0              | —        | —           | —             |
@@ -39,7 +39,7 @@ I will try to adhere to the official style guide here: https://docs.godotengine.
 | GotmContent.gd            | 0%      | 0              | —        | —           | —             |
 | GotmDebug.gd              | 0%      | 0              | —        | —           | —             |
 | GotmFile.gd               | 0%      | 0              | —        | —           | —             |
-| GotmLeaderboard.gd        | 0%      | 0              | —        | —           | —             |
+| GotmLeaderboard.gd        | ☑      | 0              | —        | —           | Some          |
 | GotmLobby.gd              | 0%      | 0              | —        | —           | —             |
 | GotmLobbyFetch.gd         | 0%      | 0              | —        | —           | —             |
 | GotmMark.gd               | ☑      | 0              | —        | —           | Some          |
