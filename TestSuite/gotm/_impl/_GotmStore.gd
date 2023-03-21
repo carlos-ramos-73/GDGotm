@@ -4,7 +4,7 @@ class_name _GotmStore
 const _EVICTION_TIMEOUT_SECONDS = 5
 
 
-static func _cached_get_request(path: String, authenticate: bool = false) -> Dictionary:
+static func _cached_get_request(path: String, authenticate: bool = false):
 	if path.is_empty():
 		await _GotmUtility.get_tree().process_frame
 		return {}
@@ -22,7 +22,7 @@ static func _cached_get_request(path: String, authenticate: bool = false) -> Dic
 
 	var queue_signal = _GotmUtility.QueueSignal.new()
 	_signal_cache[path] = queue_signal
-	var value := await _request(path, HTTPClient.METHOD_GET, null, authenticate)
+	var value = await _request(path, HTTPClient.METHOD_GET, null, authenticate)
 	if !value.is_empty():
 		value = _set_cache(path, value)
 		if value is Dictionary && value.get("data") is Array && value.get("next") is String:
@@ -42,7 +42,7 @@ static func clear_cache(path: String) -> void:
 
 
 static func create(api, data: Dictionary, _options: Dictionary = {}) -> Dictionary:
-	var created := await _request(create_request_path(api, "", {}, {}), HTTPClient.METHOD_POST, data, true)
+	var created: Dictionary = await _request(create_request_path(api, "", {}, {}), HTTPClient.METHOD_POST, data, true)
 	if !created.is_empty():
 		_set_cache(created.path, created)
 	return created
@@ -70,14 +70,18 @@ static func fetch(path, query: String = "", params: Dictionary = {}, authenticat
 	return await _cached_get_request(create_request_path(path, query, params, options), authenticate)
 
 
+static func fetch_blob(path, query: String = "", params: Dictionary = {}, authenticate: bool = false, options: Dictionary = {}) -> PackedByteArray:
+	return await _cached_get_request(create_request_path(path, query, params, options), authenticate)
+
+
 static func list(api, query: String, params: Dictionary = {}, authenticate: bool = false, options: Dictionary = {}) -> Array:
-	var data := await _cached_get_request(create_request_path(api, query, params, options), authenticate)
+	var data: Dictionary = await _cached_get_request(create_request_path(api, query, params, options), authenticate)
 	if data.is_empty() || !data.has(data):
 		return []
 	return data.data
 
 
-static func _request(path, method: int, body = null, authenticate: bool = false) -> Dictionary:
+static func _request(path, method: int, body = null, authenticate: bool = false):
 	if !path:
 		await _GotmUtility.get_tree().process_frame
 		return {}
@@ -148,7 +152,7 @@ static func _set_cache(path: String, data):
 	var _cache: Dictionary = _GotmUtility.get_static_variable(_GotmStore, "_cache", {})
 	if !data:
 		_cache.erase(path)
-		return
+		return null
 	if data is Dictionary:
 		for key in ["created", "updated", "expired"]:
 			if key in data:
@@ -183,7 +187,7 @@ static func _take_rate_limiting_token() -> bool:
 
 
 static func update(path: String, data: Dictionary, options: Dictionary = {}) -> Dictionary:
-	var updated := await _request(create_request_path(path, "", {}, options), HTTPClient.METHOD_PATCH, data, true)
+	var updated: Dictionary = await _request(create_request_path(path, "", {}, options), HTTPClient.METHOD_PATCH, data, true)
 	if !updated.is_empty():
 		_set_cache(path, updated)
 	return updated

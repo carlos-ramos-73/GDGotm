@@ -368,24 +368,24 @@ static func parse_url(url: String) -> Dictionary:
 	return {"origin": origin, "host": host, "port": port, "pathname": pathname, "query": query, "path": pathname + query}
 
 
-static func read_file(path: String) -> PackedByteArray:
-	var file := FileAccess.open(path, FileAccess.READ)
-	if file == null:
-		push_error("[FileAccess Error " + str(FileAccess.get_open_error()) +"] Cannot open file at path: ", path)
-		return PackedByteArray()
-
-	var content = file.get_buffer(file.get_len()) if file.is_open() else PackedByteArray()
-	file.close()
-	return content
-
-
-static func read_file_as_text(path: String) -> String:
+static func read_file(path: String) -> String:
 	var file := FileAccess.open(path, FileAccess.READ)
 	if file == null:
 		push_error("[FileAccess Error " + str(FileAccess.get_open_error()) +"] Cannot open file at path: ", path)
 		return ""
 
-	var content = file.get_as_text() if file.is_open() else ""
+	var content := file.get_as_text() if file.is_open() else ""
+	file.close()
+	return content
+
+
+static func read_file_as_binary(path: String) -> PackedByteArray:
+	var file := FileAccess.open(path, FileAccess.READ)
+	if file == null:
+		push_error("[FileAccess Error " + str(FileAccess.get_open_error()) +"] Cannot open file at path: ", path)
+		return PackedByteArray()
+
+	var content := file.get_buffer(file.get_len()) if file.is_open() else PackedByteArray()
 	file.close()
 	return content
 

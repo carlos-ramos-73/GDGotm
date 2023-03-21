@@ -35,8 +35,8 @@ static func _get_store(path_or_api: String) -> Dictionary:
 	if existing is Dictionary:
 		return existing
 
-	var content = _GotmUtility.read_file(_Gotm.get_local_path(api + ".json"))
-	if content:
+	var content := _GotmUtility.read_file(_Gotm.get_local_path(api + ".json"))
+	if !content.is_empty():
 		_global[api] = JSON.parse_string(content)
 		if !_global[api]:
 			_global[api] = {}

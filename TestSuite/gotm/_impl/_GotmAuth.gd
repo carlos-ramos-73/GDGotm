@@ -51,7 +51,7 @@ static func get_auth() -> _GotmAuthData:
 			_global.auth = auth
 	# Only return valid project auths
 	if !_is_auth_valid(auth) || !auth.project || !auth.project_key:
-		return
+		return null
 	return auth
 
 
@@ -63,7 +63,7 @@ static func get_auth_async() -> _GotmAuthData:
 	
 	var _global: _GotmAuthGlobalData = _GotmUtility.get_static_variable(_GotmAuth, "_global", _GotmAuthGlobalData.new())
 	if _global.queue:
-		await _global.queue.add()
+		_global.queue.add()
 		return get_auth()
 
 	var queue := _GotmUtility.QueueSignal.new()
@@ -99,7 +99,7 @@ static func _get_refreshed_project_auth(auth: _GotmAuthData) -> _GotmAuthData:
 	var project_key := _Gotm.get_project_key()
 	if project_key.is_empty():
 		await _GotmUtility.get_tree().process_frame
-		return
+		return null
 	if auth && !auth.refresh_token.is_empty() && !auth.project.is_empty() && !auth.project_key.is_empty() && auth.project_key == project_key:
 		var data = await _refresh_auth(auth)
 		if data:
@@ -146,9 +146,9 @@ static func _is_auth_valid(auth: _GotmAuthData) -> bool:
 
 
 static func _read_auth(name: String) -> _GotmAuthData:
-	var content = _GotmUtility.read_file(_Gotm.get_path(name))
-	if !content:
-		return
+	var content := _GotmUtility.read_file(_Gotm.get_path(name))
+	if content.is_empty():
+		return null
 	var parsed = JSON.parse_string(content)
 	var auth := _format_auth_data(parsed.data)
 	auth.project_key = parsed.project_key
