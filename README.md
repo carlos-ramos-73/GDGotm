@@ -19,7 +19,7 @@ I will try to adhere to the official style guide here: https://docs.godotengine.
 | impl/_GotmContentLocal.gd | 0%      | 0              | —        | —           | —             |
 | impl/_GotmDebugImpl.gd    | 0%      | 0              | —        | —           | —             |
 | impl/_GotmImpl.gd         | 0%      | 0              | —        | —           | —             |
-| impl/_GotmImplUtility.gd  | Removed | 0              | —        | —           | —             |
+| impl/_GotmImplUtility.gd  | Removed | -              | —        | —           | —             |
 | impl/_GotmLeaderboard.gd  | ☑      | 1              | —        | —           | —             |
 | impl/_GotmMark.gd         | ☑      | 0              | —        | —           | —             |
 | impl/_GotmMarkLocal.gd    | ☑      | 0              | —        | —           | —             |
@@ -29,7 +29,7 @@ I will try to adhere to the official style guide here: https://docs.godotengine.
 | impl/_GotmScoreLocal.gd   | ☑      | 0              | —        | —           | —             |
 | impl/_GotmStore.gd        | ☑      | 0              | —        | —           | —             |
 | impl/_GotmUser.gd         | ☑      | 0              | —        | —           | —             |
-| impl/_GotmUserLocal.gd    | ☑      | 1              | —        | —           | —             |
+| impl/_GotmUserLocal.gd    | Removed | -              | —        | —           | —             |
 | impl/_GotmUtility.gd      | ☑      | 1              | —        | —           | —             |
 | impl/_LocalStore.gd       | ☑      | 0              | —        | —           | —             |
 | Gotm.gd                   | 0%      | 0              | —        | —           | —             |
