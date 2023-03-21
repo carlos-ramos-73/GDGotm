@@ -92,8 +92,7 @@ static func get_auth_implementation() -> AuthImplementation:
 	return AuthImplementation.GOTM_AUTH
 
 
-#static func get_counts(leaderboard: GotmLeaderboard, minimum_value: float, maximum_value: float, segment_count: int) -> Array: # TODO: implement leaderboard and then switch to this line
-static func get_counts(leaderboard, minimum_value: float, maximum_value: float, segment_count: int) -> Array:
+static func get_counts(leaderboard: GotmLeaderboard, minimum_value: float, maximum_value: float, segment_count: int) -> Array:
 	minimum_value = _GotmUtility.clean_for_json(minimum_value)
 	maximum_value = _GotmUtility.clean_for_json(maximum_value)
 	segment_count = _GotmUtility.clean_for_json(segment_count)
@@ -158,8 +157,7 @@ static func _get_project() -> String:
 	return auth.project
 
 
-#static func get_rank(leaderboard: GotmLeaderboard, score_id_or_value) -> int: # TODO: implement leaderboard and then switch to this line
-static func get_rank(leaderboard, score_id_or_value) -> int:
+static func get_rank(leaderboard: GotmLeaderboard, score_id_or_value) -> int:
 	if !(score_id_or_value is GotmScore || score_id_or_value is String
 			|| score_id_or_value is int || score_id_or_value is float):
 		await _GotmUtility.get_tree().process_frame
@@ -201,16 +199,15 @@ static func get_rank(leaderboard, score_id_or_value) -> int:
 	return stat.value
 
 
-#static func _list(leaderboard: GotmLeaderboard, after, ascending: bool, limit: int = 0) -> Array: # TODO: implement leaderboard and then switch to this line
-static func _list(leaderboard, after, ascending: bool, limit: int = 0) -> Array:
-	if !(after is GotmScore || after is String || after is int || after is float):
+static func _list(leaderboard: GotmLeaderboard, after, ascending: bool, limit: int = 0) -> Array:
+	if !(after is GotmScore || after is String || after is int || after is float || after == null):
 		await _GotmUtility.get_tree().process_frame
 		push_error("Expected a GotmScore, GotmScore.id string, int, or float.")
 		return []
 
 	if after is int || after is float:
 		after = _GotmUtility.clean_for_json(after)
-	else:
+	elif after != null:
 		after = _coerce_id(after)
 	var after_id: String = after if after is String else ""
 	var project := await _get_project()
@@ -254,15 +251,13 @@ static func _list(leaderboard, after, ascending: bool, limit: int = 0) -> Array:
 	return scores 
 
 
-#static func list(leaderboard: GotmLeaderboard, after, ascending: bool) -> Array: # TODO: implement leaderboard and then switch to this line
-static func list(leaderboard, after, ascending: bool) -> Array:
+static func list(leaderboard: GotmLeaderboard, after, ascending: bool) -> Array:
 	if after is int:
 		after = float(after)
 	return await _list(leaderboard, after, ascending)
 
 
-#static func list_by_rank(leaderboard: GotmLeaderboard, after, ascending: bool) -> Array: # TODO: implement leaderboard and then switch to this line
-static func list_by_rank(leaderboard, after, ascending: bool) -> Array:
+static func list_by_rank(leaderboard: GotmLeaderboard, after, ascending: bool) -> Array:
 	if after is float:
 		after = int(after)
 	return await _list(leaderboard, after, ascending)
