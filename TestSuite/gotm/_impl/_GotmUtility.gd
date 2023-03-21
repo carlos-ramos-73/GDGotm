@@ -385,7 +385,7 @@ static func read_file_as_binary(path: String) -> PackedByteArray:
 		push_error("[FileAccess Error " + str(FileAccess.get_open_error()) +"] Cannot open file at path: ", path)
 		return PackedByteArray()
 
-	var content := file.get_buffer(file.get_len()) if file.is_open() else PackedByteArray()
+	var content := file.get_buffer(file.get_length()) if file.is_open() else PackedByteArray()
 	file.close()
 	return content
 
