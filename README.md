@@ -13,7 +13,7 @@ I will try to adhere to the official style guide here: https://docs.godotengine.
 | impl/_Gotm.gd             | ☑      | 2              | —        | —           | —             |
 | impl/_GotmAuth.gd         | ☑      | 2              | —        | —           | —             |
 | impl/_GotmAuthLocal.gd    | ☑      | 1              | —        | —           | —             |
-| impl/_GotmBlob.gd         | 0%      | 0              | —        | —           | —             |
+| impl/_GotmBlob.gd         | ☑      | 1              | —        | —           | —             |
 | impl/_GotmBlobLocal.gd    | ☑      | 1              | —        | —           | —             |
 | impl/_GotmContent.gd      | 0%      | 0              | —        | —           | —             |
 | impl/_GotmContentLocal.gd | 0%      | 0              | —        | —           | —             |
@@ -34,7 +34,7 @@ I will try to adhere to the official style guide here: https://docs.godotengine.
 | impl/_LocalStore.gd       | ☑      | 0              | —        | —           | —             |
 | Gotm.gd                   | 0%      | 0              | —        | —           | —             |
 | GotmAuth.gd               | ☑      | 0              | —        | —           | ☑             |    
-| GotmBlob.gd               | 0%      | 0              | —        | —           | —             |
+| GotmBlob.gd               | ☑      | 0              | —        | —           | Some          |
 | GotmConfig.gd             | ☑      | 0              | —        | —           | ☑             |
 | GotmContent.gd            | 0%      | 0              | —        | —           | —             |
 | GotmDebug.gd              | 0%      | 0              | —        | —           | —             |

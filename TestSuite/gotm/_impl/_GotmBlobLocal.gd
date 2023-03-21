@@ -26,20 +26,21 @@ static func delete_sync(path: String) -> void:
 	_GotmUtility.write_file(_Gotm.get_local_path(blob.path), null)
 
 
+# TODO: Validate changes from 3.X, old code didnt make sense to me since there was a non-dictionary return as PackedByteArray when returning the 'read_file' line
 static func fetch(path: String, _query: String = "", _params: Dictionary = {}, _authenticate: bool = false) -> Dictionary:
 	await _GotmUtility.get_tree().process_frame
-	var is_data := path.begins_with(_Gotm.get_global().storageApiEndpoint) # TODO: Why is storageApiEndpoint here if it is a local class?
-	if is_data:
-		path = path.replace(_Gotm.get_global().storageApiEndpoint + "/", "")
-	
 	var blob := _LocalStore.fetch(path)
 	if blob.is_empty():
 		return {}
-
-	if is_data:
-		return _GotmUtility.read_file(_Gotm.get_local_path(blob.path), true)
-
 	return _format(blob)
+
+
+static func fetch_blob(path: String) -> PackedByteArray:
+	await _GotmUtility.get_tree().process_frame
+	var blob := _LocalStore.fetch(path)
+	if blob.is_empty():
+		return PackedByteArray()
+	return _GotmUtility.read_file_as_binary(_Gotm.get_local_path(blob.path))
 
 
 static func _format(data: Dictionary) -> Dictionary:
