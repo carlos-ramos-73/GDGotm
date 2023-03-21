@@ -28,7 +28,7 @@ static func delete_sync(path: String) -> void:
 
 static func fetch(path: String, _query: String = "", _params: Dictionary = {}, _authenticate: bool = false) -> Dictionary:
 	await _GotmUtility.get_tree().process_frame
-	var is_data := path.begins_with(_Gotm.get_global().storageApiEndpoint)
+	var is_data := path.begins_with(_Gotm.get_global().storageApiEndpoint) # TODO: Why is storageApiEndpoint here if it is a local class?
 	if is_data:
 		path = path.replace(_Gotm.get_global().storageApiEndpoint + "/", "")
 	
