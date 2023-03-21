@@ -23,13 +23,13 @@ static func clean_for_json(value):
 	return value
 
 
-static func coerce_resource_id(data, expected_api = ""):
-	if !(data is Object) && !(data is Dictionary) && !(data is String):
+static func coerce_resource_id(data, expected_api: String = ""):
+	if !(data is Object || data is Dictionary || data is String):
 		return data
 	var id = data if data is String else data.get("id")
 	if !(id is String):
 		return data
-	if id && expected_api && !id.begins_with(expected_api + "/"):
+	if !(id as String).is_empty() && !expected_api.is_empty() && !(id as String).begins_with(expected_api + "/"):
 		push_error("Expected an id starting with '" + expected_api + "/', got '" + id + "'.")
 		return
 	return id
@@ -88,19 +88,6 @@ static func decompress_gzip(data: PackedByteArray) -> PackedByteArray:
 			return decompressed
 		decompressed_size *= 2
 	return PackedByteArray()
-
-
-# TODO: Validate if needed for rewrite (I think not with the new Godot 4 await signals)
-#static func defer_signal(sig) -> DeferredSignal:
-#	var deferred := DeferredSignal.new()
-#	deferred.tree = get_tree()
-#	if !(sig is GDScriptFunctionState):
-#		deferred.is_completed = true
-#		deferred.value = sig
-#		return deferred
-#	deferred._signal = sig
-#	sig.connect("completed", deferred, "_on_completed")
-#	return deferred
 
 
 static func delete_empty(dictionary: Dictionary) -> Dictionary:
@@ -196,6 +183,7 @@ static func fetch_data(url: String, method: int = HTTPClient.METHOD_GET, body = 
 		"headers": client.get_response_headers_as_dictionary(),
 		"ok": client.get_response_code() >= 200 && client.get_response_code() <= 299
 	}), FetchDataResult.new())
+
 	while client.get_status() == HTTPClient.STATUS_BODY:
 		# While there is body left to be read
 		client.poll()
@@ -261,7 +249,7 @@ static func get_iso_from_unix_time(unix_time_ms: int = get_engine_unix_time()) -
 
 
 static func _get_keys(object) -> Array:
-	if object == null || object is float || object is bool || object is int:
+	if object == null || !(object is Array || object is Dictionary || object is Object):
 		return []
 
 	if object is Array:
@@ -278,10 +266,8 @@ static func _get_keys(object) -> Array:
 	return keys
 
 
-static func get_last_element(array):
-	if !array || !(array is Array):
-		return
-	return array[array.size() - 1]
+static func get_last_element(array: Array):
+	return array.back()
 
 
 static func get_nested_value(path_or_parts, object, undefined_value = null, path_index: int = 0):
@@ -327,11 +313,6 @@ static func get_unix_time_from_iso(iso: String) -> int:
 	return Time.get_unix_time_from_datetime_string(iso)
 
 
-# TODO: Validate if needed for rewrite (I think not with the new Godot 4 await signals)
-#static func get_yieldable(sig):
-#	return await defer_signal(sig).get_yieldable()
-
-
 static func is_fuzzy_equal(a, b) -> bool:
 	return !is_less(a, b) && !is_greater(a, b)
 
@@ -371,7 +352,7 @@ static func join(array: Array, separator: String = ",") -> String:
 	return string
 
 
-static func parse_url(url: String):
+static func parse_url(url: String) -> Dictionary:
 	var url_parts = url.split("/")
 	var origin = url_parts[0] + "//" + url_parts[2]
 	var origin_parts = origin.split(":")
@@ -387,20 +368,30 @@ static func parse_url(url: String):
 	return {"origin": origin, "host": host, "port": port, "pathname": pathname, "query": query, "path": pathname + query}
 
 
-static func read_file(path: String, as_binary: bool = false):
+static func read_file(path: String) -> PackedByteArray:
 	var file := FileAccess.open(path, FileAccess.READ)
-	var content
-	if as_binary:
-		content = file.get_buffer(file.get_len()) if file.is_open() else PackedByteArray()
-	else:
-		content = file.get_as_text() if file.is_open() else ""
+	if file == null:
+		push_error("[FileAccess Error " + str(FileAccess.get_open_error()) +"] Cannot open file at path: ", path)
+		return PackedByteArray()
+
+	var content = file.get_buffer(file.get_len()) if file.is_open() else PackedByteArray()
 	file.close()
 	return content
 
 
-static func set_static_variable(script: Script, name: String, value):
+static func read_file_as_text(path: String) -> String:
+	var file := FileAccess.open(path, FileAccess.READ)
+	if file == null:
+		push_error("[FileAccess Error " + str(FileAccess.get_open_error()) +"] Cannot open file at path: ", path)
+		return ""
+
+	var content = file.get_as_text() if file.is_open() else ""
+	file.close()
+	return content
+
+
+static func set_static_variable(script: Script, name: String, value) -> void:
 	script.set_meta(name, value)
-	return
 
 
 static func suppress_error_messages(suppress: bool) -> void:
@@ -423,7 +414,11 @@ static func to_stable_json(value) -> String:
 	return JSON.stringify(value)
 
 
-static func write_file(path: String, data):
+static func write_file(path: String, data) -> void:
+	if !(data == null || data is String || data is PackedByteArray):
+		push_error("Data expected to be either null, String, or PackedByteArray.")
+		return
+
 	if data == null:
 		DirAccess.open("res://").remove(path)
 		return
@@ -433,34 +428,16 @@ static func write_file(path: String, data):
 		var directory := DirAccess.open("res://")
 		directory.make_dir_recursive(path.get_base_dir())
 		file = FileAccess.open(path, FileAccess.WRITE)
+		if file == null:
+			push_error("[FileAccess Error " + str(FileAccess.get_open_error()) +"] Cannot open file at path: ", path)
+			return
+
 	if file.is_open():
 		if data is String:
 			file.store_string(data)
 		else:
 			file.store_buffer(data)
 	file.close()
-
-
-# TODO: Validate if needed for rewrite (I think not with the new Godot 4 await signals)
-#class DeferredSignal:
-#	var is_completed := false
-#	var value
-#	var _signal
-#	var tree: SceneTree
-#
-#	func get_yieldable() -> Yieldable:
-#		if is_completed:
-#			await tree.process_frame
-#			return value
-#		else:
-#			return _signal
-#
-#	func _on_completed(v):
-#		value = v
-#		is_completed = true
-#
-#	class Yieldable:
-#		signal completed()
 
 
 class FakeSignal:
@@ -482,7 +459,7 @@ class GlobalData:
 	var start_unix_time = Time.get_unix_time_from_system() * 1000
 	var start_ticks = Time.get_ticks_msec()
 
-	func _init():
+	func _init() -> void:
 		rng.randomize()
 
 	# Simplify string somewhat. We want exact matches, but with some reasonable fuzziness.
