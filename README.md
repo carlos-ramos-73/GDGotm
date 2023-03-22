@@ -38,7 +38,7 @@ I will try to adhere to the official style guide here: https://docs.godotengine.
 | GotmConfig.gd             | ☑      | 0              | —        | —           | ☑             |
 | GotmContent.gd            | 0%      | 0              | —        | —           | —             |
 | GotmDebug.gd              | 0%      | 0              | —        | —           | —             |
-| GotmFile.gd               | 0%      | 0              | —        | —           | —             |
+| GotmFile.gd               | ☑      | 0              | —        | —           | Some          |
 | GotmLeaderboard.gd        | ☑      | 0              | —        | —           | Some          |
 | GotmLobby.gd              | 0%      | 0              | —        | —           | —             |
 | GotmLobbyFetch.gd         | 0%      | 0              | —        | —           | —             |
