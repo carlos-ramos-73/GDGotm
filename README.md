@@ -16,7 +16,7 @@ I will try to adhere to the official style guide here: https://docs.godotengine.
 | impl/_GotmBlob.gd         | ☑      | 1              | —        | —           | —             |
 | impl/_GotmBlobLocal.gd    | ☑      | 1              | —        | —           | —             |
 | impl/_GotmContent.gd      | 0%      | 0              | —        | —           | —             |
-| impl/_GotmContentLocal.gd | 0%      | 0              | —        | —           | —             |
+| impl/_GotmContentLocal.gd | ☑      | 0              | —        | —           | —             |
 | impl/_GotmDebugImpl.gd    | 0%      | 0              | —        | —           | —             |
 | impl/_GotmImpl.gd         | 0%      | 0              | —        | —           | —             |
 | impl/_GotmImplUtility.gd  | Removed | -              | —        | —           | —             |
