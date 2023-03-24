@@ -143,15 +143,17 @@ static func get_implementation(id: String = "") -> Implementation:
 
 static func _get_project() -> String:
 	var auth
-	var local := false
+	var local := true
 	if get_auth_implementation() == AuthImplementation.GOTM_AUTH:
-		auth = _GotmAuthLocal.get_auth()
-		local = true
-	else:
 		auth = _GotmAuth.get_auth()
+		local = false
+	else:
+		auth = _GotmAuthLocal.get_auth()
 	if !auth:
-		if local: auth = await _GotmAuthLocal.get_auth_async()
-		else: auth = await _GotmAuth.get_auth_async()
+		if local:
+			auth = await _GotmAuthLocal.get_auth_async()
+		else: 
+			auth = await _GotmAuth.get_auth_async()
 	if !auth:
 		return ""
 	return auth.project
