@@ -54,7 +54,7 @@ func sort(property_path: String, ascending: bool = false) -> GotmQuery:
 
 
 ## Represents a filter created by a call to GotmQuery.filter, GotmQuery.filter_min or GotmQuery.filter_max.
-class Filter:
+class Filter:  # TODO This is not implemented, either implement properly, or delete?
 ## The path of the property to apply the filter to.
 	var property_path: String
 ## Value which the property must be equal to.
@@ -69,7 +69,7 @@ class Filter:
 	var is_max_exclusive: bool = false
 
 ## Represents a sort created by a call to GotmQuery.sort.
-class Sort:
+class Sort: # TODO This is not implemented, either implement properly, or delete?
 ## The path of the property to sort by.
 	var property_path: String
 ## If true, sort in ascending order so that the lowest value comes first.

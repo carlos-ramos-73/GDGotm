@@ -44,6 +44,6 @@ I will try to adhere to the official style guide here: https://docs.godotengine.
 | GotmLobbyFetch.gd         | 0%      | 0              | —        | —           | —             |
 | GotmMark.gd               | ☑      | 0              | —        | —           | Some          |
 | GotmPeriod.gd             | ☑      | 0              | —        | —           | ☑             |
-| GotmQuery.gd              | ☑      | 0              | —        | —           | ☑             |
+| GotmQuery.gd              | ☑      | 2              | —        | —           | ☑             |
 | GotmScore.gd              | ☑      | 0              | —        | —           | Some          |
 | GotmUser.gd               | ☑      | 0              | —        | —           | ☑             |
