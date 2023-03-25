@@ -1,9 +1,14 @@
 Questions
 - What would be the version number for this plugin?
+    - Answer: 2.0.0
 - Discuss the usage of GotmMark. It is strictly just to upvote and downvote GotmContent as of this moment. What future usage can this class hold? Would it be better to move the upvote and downvote functionality inside the GotmContent itself? What possible other types and targets can it include?
+    - Answer: Keep GotmMark API, but also add functionality to GotmContent directly
 - Discuss GotmBlob. To the end user, GotmBlob seems confusing. Little documentation and end-user usage is weird. Would it be better to put functionality inside of GotmContent? Does blob have any future prospects besides GotmContent?
+    - Answer: Remove GotmBlob, move functionality to GotmContent
 - Do I need _impl in GotmUser and in other end-user classes? Is there no better way to store private variables in objects? Currently there are no "private" vars or functions. Maybe we can use get/set meta as well? (not on the script but on the instanced objects)
+    - Remove anything and everything _impl
 - Are Leaderboards/Scores/Content/etc. still beta features?
+    - No, remove beta from documentation and test functions
 
 Notes:
 - All functions have been sorted alphabetically for legibility reasons, this is due to the new documentation generation in Godot 4 putting everything alphabetically.
