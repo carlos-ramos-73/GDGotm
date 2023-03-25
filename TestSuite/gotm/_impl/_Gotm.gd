@@ -1,9 +1,6 @@
 class_name _Gotm
 
 
-const _version = "0.0.1" # TODO: Need to change? Is it useless?
-
-
 static func get_config() -> GotmConfig:
 	return get_global().config
 
@@ -59,16 +56,12 @@ static func is_global_api(api: String) -> bool:
 
 
 static func is_global_feature(forceLocal: bool = false, forceGlobal: bool = false) -> bool:
-	return !forceLocal && (is_live() || forceGlobal) && !get_project_key().is_empty()
-
-
-static func is_live() -> bool:
-	return !!get_singleton()
+	return !forceLocal && forceGlobal && !get_project_key().is_empty()
 
 
 class _GotmGlobalData:
 	var config: GotmConfig
-	var version: String = "0.0.1" # TODO: Need to change? Is it useless?
+	var version: String = "2.0.0"
 	var apiOrigin: String = "https://api.gotm.io"
 	var apiWorkerOrigin: String = "https://gotm-api-worker-eubrk3zsia-uk.a.run.app"
 	var storageApiEndpoint: String = "https://storage.googleapis.com/gotm-api-production-d13f0.appspot.com"

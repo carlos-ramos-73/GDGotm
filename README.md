@@ -32,7 +32,7 @@ I will try to adhere to the official style guide here: https://docs.godotengine.
 | impl/_GotmUserLocal.gd    | Removed | -              | —        | —           | —             |
 | impl/_GotmUtility.gd      | ☑      | 1              | —        | —           | —             |
 | impl/_LocalStore.gd       | ☑      | 0              | —        | —           | —             |
-| Gotm.gd                   | 0%      | 0              | —        | —           | —             |
+| Gotm.gd                   | ☑      | 3              | —        | —           | —             |
 | GotmAuth.gd               | ☑      | 0              | —        | —           | ☑             |    
 | GotmBlob.gd               | ☑      | 0              | —        | —           | Some          |
 | GotmConfig.gd             | ☑      | 0              | —        | —           | ☑             |
