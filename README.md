@@ -17,8 +17,8 @@ I will try to adhere to the official style guide here: https://docs.godotengine.
 | impl/_GotmBlobLocal.gd    | ☑      | 1              | —        | —           | —             |
 | impl/_GotmContent.gd      | ☑      | 1              | —        | —           | —             |
 | impl/_GotmContentLocal.gd | ☑      | 0              | —        | —           | —             |
-| impl/_GotmDebugImpl.gd    | 0%      | 0              | —        | —           | —             |
-| impl/_GotmImpl.gd         | 0%      | 0              | —        | —           | —             |
+| impl/_GotmDebugImpl.gd    | Removed | 0              | —        | —           | —             |
+| impl/_GotmImpl.gd         | Removed | 0              | —        | —           | —             |
 | impl/_GotmImplUtility.gd  | Removed | -              | —        | —           | —             |
 | impl/_GotmLeaderboard.gd  | ☑      | 1              | —        | —           | —             |
 | impl/_GotmMark.gd         | ☑      | 0              | —        | —           | —             |
@@ -37,11 +37,11 @@ I will try to adhere to the official style guide here: https://docs.godotengine.
 | GotmBlob.gd               | ☑      | 0              | —        | —           | Some          |
 | GotmConfig.gd             | ☑      | 0              | —        | —           | ☑             |
 | GotmContent.gd            | ☑      | 1              | —        | —           | Some          |
-| GotmDebug.gd              | 0%      | 0              | —        | —           | —             |
-| GotmFile.gd               | ☑      | 0              | —        | —           | Some          |
+| GotmDebug.gd              | Removed | 0              | —        | —           | —             |
+| GotmFile.gd               | Removed | 0              | —        | —           | Some          |
 | GotmLeaderboard.gd        | ☑      | 0              | —        | —           | Some          |
-| GotmLobby.gd              | 0%      | 0              | —        | —           | —             |
-| GotmLobbyFetch.gd         | 0%      | 0              | —        | —           | —             |
+| GotmLobby.gd              | Removed | 0              | —        | —           | —             |
+| GotmLobbyFetch.gd         | Removed | 0              | —        | —           | —             |
 | GotmMark.gd               | ☑      | 0              | —        | —           | Some          |
 | GotmPeriod.gd             | ☑      | 0              | —        | —           | ☑             |
 | GotmQuery.gd              | ☑      | 2              | —        | —           | ☑             |
