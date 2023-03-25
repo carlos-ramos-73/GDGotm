@@ -11,8 +11,38 @@ class_name GotmContent
 # PROPERTIES
 ##############################################################
 
+## UNIX epoch time (in milliseconds). Use OS.get_datetime_from_unix_time(content.created / 1000) to convert to date.
+var created: int
+
 ## Unique immutable identifier.
 var id: String
+
+## Is true if this content was created with GotmContent.create_local and is only stored locally on the user's device.
+## Is useful for data that does not need to be accessible to other devices, such as game saves for offline games.
+var is_local: bool
+
+## Optionally make this content inaccessible to other users. Private content can only be fetched by the user
+## who created it via GotmContent.list. Is useful for personal data such as game saves.
+var is_private: bool = false
+
+## Optional unique key.
+var key: String = ""
+
+## Optional name searchable with partial search.
+var name: String = ""
+
+## Optionally make this content a child to other contents.
+## If all parents are deleted, this content is deleted too.
+var parent_ids: Array = []
+
+## Optional metadata to attach to the content, 
+## for example {level: "desert1", difficulty: "hard"}.
+## When listing contents GotmContent.list, you can optionally 
+## filter and sort with these properties. 
+var properties: Dictionary = {}
+
+## UNIX epoch time (in milliseconds). Use OS.get_datetime_from_unix_time(content.created / 1000) to convert to date.
+var updated: int
 
 ## Unique identifier of the user who owns the content.
 ## Is automatically set to the current user's id when creating the content.
@@ -21,39 +51,6 @@ var id: String
 ## If the content is created while the game is running on Gotm with a signed in
 ## user, you can get their display name via GotmUser.fetch.
 var user_id: String
-
-## Optional unique key.
-var key: String = ""
-
-## Optional name searchable with partial search.
-var name: String = ""
-
-## Unique identifier of this content's data. Use GotmBlob.get_data(content.blob_id) to get the data as a PoolByteArray.
-var blob_id: String = ""
-
-## Optional metadata to attach to the content, 
-## for example {level: "desert1", difficulty: "hard"}.
-## When listing contents GotmContent.list, you can optionally 
-## filter and sort with these properties. 
-var properties: Dictionary = {}
-
-## Optionally make this content a child to other contents.
-## If all parents are deleted, this content is deleted too.
-var parent_ids: Array = []
-
-## Optionally make this content inaccessible to other users. Private content can only be fetched by the user
-## who created it via GotmContent.list. Is useful for personal data such as game saves.
-var is_private: bool = false
-
-## Is true if this content was created with GotmContent.create_local and is only stored locally on the user's device.
-## Is useful for data that does not need to be accessible to other devices, such as game saves for offline games.
-var is_local: bool
-
-## UNIX epoch time (in milliseconds). Use OS.get_datetime_from_unix_time(content.created / 1000) to convert to date.
-var updated: int
-
-## UNIX epoch time (in milliseconds). Use OS.get_datetime_from_unix_time(content.created / 1000) to convert to date.
-var created: int
 
 
 ##############################################################
@@ -68,6 +65,14 @@ static func create(data = null, _key: String = "", _properties: Dictionary = {},
 ## Create content that is only stored locally on the user's device. Local content is not accessible to any other player or device.
 static func create_local(data = null, _key: String = "", _properties: Dictionary = {}, _name: String = "", _parent_ids: Array = [], _is_private: bool = false)  -> GotmContent:
 	return await _GotmContent.create(data, _properties, _key, _name, _parent_ids, _is_private, true)
+
+# TODO
+static func create_local_mark() -> void:
+	pass
+
+# TODO
+static func create_mark() -> void:
+	pass
 
 ## Delete existing content.
 static func delete(content_or_id) -> void:
@@ -92,6 +97,10 @@ static func get_data(content_or_id) -> PackedByteArray:
 ## Get existing content's data as bytes by key.
 static func get_data_by_key(_key: String) -> PackedByteArray:
 	return await _GotmContent.get_by_key(_key, "data")
+
+# TODO
+static func get_mark_count() -> void:
+	pass
 
 ## Get existing content's data as an instanced Node.
 static func get_node(content_or_id) -> Node:
@@ -133,7 +142,6 @@ static func get_variant_by_key(_key: String):
 ## * key: The content's key field.
 ## * name: The content's name field.
 ## * user_id: The content's user_id field.
-## * blob_id: The content's blob_id field.
 ## * is_private: The content's is_private field. If filtering on a true value, a user_id filter on the current
 ## user's id is implicitly added. For example, doing GotmQuery.new().filter("is_private", true) would result
 ## in GotmQuery.new().filter("is_private", true).filter("user_id", Gotm.user.id). This is because a user
@@ -167,6 +175,10 @@ static func get_variant_by_key(_key: String):
 ## GotmQuery.new().filter_min("created", 0).sort("created").
 static func list(query = GotmQuery.new(), after_content_or_id = null) -> Array:
 	return await _GotmContent.list(query, after_content_or_id)
+
+# TODO
+static func list_marks() -> void:
+	pass
 
 ## Update existing content.
 ## Null is ignored.
