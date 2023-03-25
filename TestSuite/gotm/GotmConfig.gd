@@ -16,18 +16,15 @@ class_name GotmConfig
 ## players.
 var project_key: String = ""
 
-## Scores and Leaderboards are currently beta features and are always local when 
-## Gotm.is_live is false.
+## Scores and Leaderboards are always local when Gotm.is_live is false.
 ## If true, the features are local even if a project key is provided.
 var force_local_scores: bool = false
 
-## Contents are currently beta features and are always local when 
-## Gotm.is_live is false.
+## Contents are always local when Gotm.is_live is false.
 ## If true, the features are local even if a project key is provided.
 var force_local_contents: bool = false
 
-## Marks are currently beta features and are always local when 
-## Gotm.is_live is false.
+## Marks are always local when Gotm.is_live is false.
 ## If true, the features are local even if a project key is provided.
 var force_local_marks: bool = false
 
