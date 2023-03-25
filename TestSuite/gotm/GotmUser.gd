@@ -15,12 +15,8 @@ var id: String = ""
 
 ## Current nickname. Can be changed at https://gotm.io/settings.
 ## Read only.
-var display_name: String = ""
+var name: String = ""
 
-## The IP address of the user.
-## Is empty if you are not in the same lobby.
-## Read only.
-var address: String = ""
 
 ##############################################################
 # METHODS
@@ -37,4 +33,3 @@ static func fetch(id: String) -> GotmUser:
 ##############################################################
 
 const _CLASS_NAME := "GotmUser"
-var _impl: Dictionary = {}
