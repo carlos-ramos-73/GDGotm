@@ -34,7 +34,7 @@ I will try to adhere to the official style guide here: https://docs.godotengine.
 | impl/_LocalStore.gd       | ☑      | 0              | —        | —           | —             |
 | Gotm.gd                   | ☑      | 3              | —        | —           | —             |
 | GotmAuth.gd               | ☑      | 0              | —        | —           | ☑             |    
-| GotmBlob.gd               | ☑      | 0              | —        | —           | Some          |
+| GotmBlob.gd               | Removed | 0              | —        | —           | —             |
 | GotmConfig.gd             | ☑      | 0              | —        | —           | ☑             |
 | GotmContent.gd            | ☑      | 1              | —        | —           | Some          |
 | GotmDebug.gd              | Removed | 0              | —        | —           | —             |
@@ -42,7 +42,7 @@ I will try to adhere to the official style guide here: https://docs.godotengine.
 | GotmLeaderboard.gd        | ☑      | 0              | —        | —           | Some          |
 | GotmLobby.gd              | Removed | 0              | —        | —           | —             |
 | GotmLobbyFetch.gd         | Removed | 0              | —        | —           | —             |
-| GotmMark.gd               | ☑      | 0              | —        | —           | Some          |
+| GotmMark.gd               | ☑      | 1              | —        | —           | Some          |
 | GotmPeriod.gd             | ☑      | 0              | —        | —           | ☑             |
 | GotmQuery.gd              | ☑      | 2              | —        | —           | ☑             |
 | GotmScore.gd              | ☑      | 0              | —        | —           | Some          |

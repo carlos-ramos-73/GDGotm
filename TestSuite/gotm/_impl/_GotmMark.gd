@@ -3,7 +3,10 @@ class_name _GotmMark
 enum AuthImplementation { GOTM_AUTH, GOTM_AUTH_LOCAL }
 enum Implementation { GOTM_STORE, GOTM_MARK_LOCAL }
 
-const ALLOWED_TYPES = ["downvote", "upvote"]
+const ALLOWED_TYPES = {
+	GotmMark.Types.UPVOTE: "upvote",
+	GotmMark.Types.DOWNVOTE: "downvote"
+	}
 const ALLOWED_TARGET_APIS = {"contents": "GotmContent"}
 
 
@@ -20,7 +23,7 @@ static func _coerce_id(resource_or_id) -> String:
 	return _GotmUtility.coerce_resource_id(resource_or_id, "marks")
 
 
-static func create(target_or_id, type: String, is_local: bool = false) -> GotmMark:
+static func create(target_or_id, type: GotmMark.Types, is_local: bool = false) -> GotmMark:
 	if !(target_or_id is String || ALLOWED_TARGET_APIS.values().has(target_or_id.get("_CLASS_NAME"))):
 		await _GotmUtility.get_tree().process_frame
 		push_error("Expected a GotmContent or GotmContent.id string.")
@@ -29,14 +32,13 @@ static func create(target_or_id, type: String, is_local: bool = false) -> GotmMa
 	var target_id: String = _GotmUtility.coerce_resource_id(target_or_id)
 	if !_is_mark_allowed(target_id, type):
 		await _GotmUtility.get_tree().process_frame
-		push_error("Invalid mark target '" + _GotmUtility.to_stable_json(target_id) + "' or mark type '" + _GotmUtility.to_stable_json(type) + "'.")
 		return null
 
 	var data: Dictionary
 	if is_local || get_implementation(target_id) == Implementation.GOTM_MARK_LOCAL || !((await _GotmAuth.fetch()).is_registered):
-		data = await _GotmMarkLocal.create("marks", {"target": target_id, "name": type})
+		data = await _GotmMarkLocal.create("marks", {"target": target_id, "name": ALLOWED_TYPES[type]})
 	else:
-		data = await _GotmStore.create("marks", {"target": target_id, "name": type})
+		data = await _GotmStore.create("marks", {"target": target_id, "name": ALLOWED_TYPES[type]})
 	if data:
 		_clear_cache()
 	return _format(data, GotmMark.new())
@@ -89,14 +91,19 @@ static func get_auth_implementation() -> AuthImplementation:
 	return AuthImplementation.GOTM_AUTH
 
 
-static func get_count(target_or_id, type: String) -> int:
+static func get_count(target_or_id, type: String = "") -> int:
 	if !(target_or_id is String || ALLOWED_TARGET_APIS.values().has(target_or_id.get("_CLASS_NAME"))):
 		await _GotmUtility.get_tree().process_frame
 		push_error("Expected a GotmContent or GotmContent.id string.")
 		return 0
 
 	var target_id: String = _GotmUtility.coerce_resource_id(target_or_id)
-	if target_id.is_empty() || type.is_empty() || !_is_mark_allowed(target_id, type):
+	var is_allowed: bool
+	if type.is_empty():
+		is_allowed = _is_mark_allowed(target_id, GotmMark.Types.values()[0])
+	else:
+		is_allowed = _is_mark_allowed(target_id, ALLOWED_TYPES.find_key(type))
+	if !is_allowed:
 		await _GotmUtility.get_tree().process_frame
 		return 0
 
@@ -119,19 +126,26 @@ static func get_count(target_or_id, type: String) -> int:
 	return value
 
 
+static func get_count_with_type(target_or_id, type: GotmMark.Types) -> int:
+	return await get_count(target_or_id, ALLOWED_TYPES[type])
+
+
 static func get_implementation(id: String = "") -> Implementation:
 	if !_Gotm.is_global_api("marks") || !_LocalStore.fetch(id).is_empty():
 		return Implementation.GOTM_MARK_LOCAL
 	return Implementation.GOTM_STORE
 
 
-static func _is_mark_allowed(target_id: String, type: String) -> bool:
-	if target_id.is_empty() || type.is_empty() || !ALLOWED_TYPES.has(type):
-		return false
-	return ALLOWED_TARGET_APIS.has(target_id.split("/")[0])
+static func _is_mark_allowed(target_id: String, type: GotmMark.Types) -> bool:
+	var allowed := false
+	if ALLOWED_TYPES.has(type) && !target_id.is_empty() && ALLOWED_TARGET_APIS.has(target_id.split("/")[0]):
+		allowed = true
+	if !allowed:
+		push_error("Invalid mark target '" + target_id + "' or mark type.")
+	return allowed
 
 
-static func list_by_target(target_or_id, type: String) -> Array:
+static func list_by_target(target_or_id, type: String = "") -> Array:
 	if !(target_or_id is String || ALLOWED_TARGET_APIS.values().has(target_or_id.get("_CLASS_NAME"))):
 		await _GotmUtility.get_tree().process_frame
 		push_error("Expected a GotmContent or GotmContent.id string.")
@@ -142,10 +156,19 @@ static func list_by_target(target_or_id, type: String) -> Array:
 		auth = await _GotmAuthLocal.get_auth_async()
 	else:
 		auth = await _GotmAuth.get_auth_async()
-	var target_id = _GotmUtility.coerce_resource_id(target_or_id)
-	if !auth || !target_id || (!type.is_empty() && !_is_mark_allowed(target_id, type)):
+	var target_id: String = _GotmUtility.coerce_resource_id(target_or_id)
+	if !auth || target_id.is_empty():
 		return []
-	
+
+	var is_allowed: bool
+	if type.is_empty():
+		is_allowed = _is_mark_allowed(target_id, GotmMark.Types.values()[0])
+	else:
+		is_allowed = _is_mark_allowed(target_id, ALLOWED_TYPES.find_key(type))
+	if !is_allowed:
+		await _GotmUtility.get_tree().process_frame
+		return []
+
 	var params = _GotmUtility.delete_empty({
 		"name": type,
 		"target": target_id,
@@ -169,3 +192,7 @@ static func list_by_target(target_or_id, type: String) -> Array:
 		for data in local_data_list:
 			marks.append(_format(data, GotmMark.new()))
 	return marks
+
+
+static func list_by_target_with_type(target_or_id, type: GotmMark.Types) -> Array:
+	return await list_by_target(target_or_id, ALLOWED_TYPES[type])

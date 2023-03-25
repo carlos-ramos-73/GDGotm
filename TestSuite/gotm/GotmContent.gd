@@ -66,13 +66,13 @@ static func create(data = null, _key: String = "", _properties: Dictionary = {},
 static func create_local(data = null, _key: String = "", _properties: Dictionary = {}, _name: String = "", _parent_ids: Array = [], _is_private: bool = false)  -> GotmContent:
 	return await _GotmContent.create(data, _properties, _key, _name, _parent_ids, _is_private, true)
 
-# TODO
-static func create_local_mark() -> void:
-	pass
+# Creates a local mark on the content
+func create_local_mark(type: GotmMark.Types) -> GotmMark:
+	return await _GotmMark.create(self, type, true)
 
-# TODO
-static func create_mark() -> void:
-	pass
+# Creates a mark on the content
+func create_mark(type: GotmMark.Types) -> GotmMark:
+	return await _GotmMark.create(self, type)
 
 ## Delete existing content.
 static func delete(content_or_id) -> void:
@@ -98,9 +98,13 @@ static func get_data(content_or_id) -> PackedByteArray:
 static func get_data_by_key(_key: String) -> PackedByteArray:
 	return await _GotmContent.get_by_key(_key, "data")
 
-# TODO
-static func get_mark_count() -> void:
-	pass
+## Get the number of marks all users have assigned to this content.
+func get_mark_count() -> int:
+	return await _GotmMark.get_count(self)
+
+## Get the number of marks with a type all users have assigned to this content.
+func get_mark_count_with_type(type: GotmMark.Types) -> int:
+	return await _GotmMark.get_count_with_type(self, type)
 
 ## Get existing content's data as an instanced Node.
 static func get_node(content_or_id) -> Node:
@@ -176,9 +180,13 @@ static func get_variant_by_key(_key: String):
 static func list(query = GotmQuery.new(), after_content_or_id = null) -> Array:
 	return await _GotmContent.list(query, after_content_or_id)
 
-# TODO
-static func list_marks() -> void:
-	pass
+## Get all marks the current user has created to this content.
+func list_marks() -> Array:
+	return await _GotmMark.list_by_target(self)
+
+## Get the marks with a type the current user has created to this content.
+func list_marks_with_type(type: GotmMark.Types) -> Array:
+	return await _GotmMark.list_by_target_with_type(self, type)
 
 ## Update existing content.
 ## Null is ignored.

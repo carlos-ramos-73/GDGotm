@@ -9,6 +9,7 @@ class_name GotmMark
 ## with [method GotmMark.create], the mark will be local as if it was created 
 ## with [method GotmMark.create_local].
 ##
+## # TODO: Redo documentation
 ## [br][br] [b][u]Creating a GotmMark Upvote/Downvote[/u][/b]
 ## [br] When creating a GotmMark, you need to provide two things to the [method create] function:
 ## [br] 1. A valid target or a valid target.id. Valid targets: [GotmContent]
@@ -49,10 +50,8 @@ class_name GotmMark
 # PROPERTIES
 ##############################################################
 
-## Mark Type: Downvote
-const DOWNVOTE := "downvote"
-## Mark Type: Upvote
-const UPVOTE := "upvote"
+## The types of marks that is available
+enum Types { UPVOTE, DOWNVOTE }
 
 ## Unique immutable identifier.
 var id: String
@@ -101,11 +100,11 @@ var created: int
 ## See PROPERTIES above for descriptions of the arguments.
 ## If the target is local or the current user is unregistered (see GotmAuth.is_registered), the mark will be local as if 
 ## it was created by GotmMark.create_local.
-static func create(target_or_id, type: String) -> GotmMark:
+static func create(target_or_id, type: Types) -> GotmMark:
 	return await _GotmMark.create(target_or_id, type)
 
 ## Create a mark that is only stored locally on the user's device. Local marks are not accessible to any other player or device.
-static func create_local(target_or_id, type: String) -> GotmMark:
+static func create_local(target_or_id, type: Types) -> GotmMark:
 	return await _GotmMark.create(target_or_id, type, true)
 
 ## Delete an existing mark.
@@ -117,15 +116,21 @@ static func delete(mark_or_id) -> void:
 static func fetch(mark_or_id) -> GotmMark:
 	return await _GotmMark.fetch(mark_or_id)
 
-## Get all marks the current user has created for a particular target.
-## If type is provided, only fetch the mark with that type.
-static func list_by_target(target_or_id, type: String = "") -> Array:
-	return await _GotmMark.list_by_target(target_or_id, type)
+## Get all marks all users have assigned to a target.
+static func get_count(target_or_id) -> int:
+	return await _GotmMark.get_count(target_or_id)
 
-## Get the number of marks all users have assigned to a target.
-## If type is provided, only count marks with that type.
-static func get_count(target_or_id, type: String = "") -> int:
-	return await _GotmMark.get_count(target_or_id, type)
+## Get the number of marks with a type all users have assigned to a target.
+static func get_count_with_type(target_or_id, type: Types) -> int:
+	return await _GotmMark.get_count_with_type(target_or_id, type)
+
+## Get all marks the current user has created for a particular target.
+static func list_by_target(target_or_id) -> Array:
+	return await _GotmMark.list_by_target(target_or_id)
+
+## Get the marks with a type the current user has created for a particular target.
+static func list_by_target_with_type(target_or_id, type: Types) -> Array:
+	return await _GotmMark.list_by_target_with_type(target_or_id, type)
 
 
 ##############################################################
