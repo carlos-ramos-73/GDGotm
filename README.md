@@ -8,42 +8,42 @@ I will try to adhere to the official style guide here: https://docs.godotengine.
 
 
 ## Process
-| File Name                 | Status  | TODOs          | Reviewed | Unit Tested | Documentation |
-| ------------------------- |:-------:| --------------:|:--------:|:-----------:|:-------------:|
-| impl/_Gotm.gd             | ☑      | 2              | —        | —           | —             |
-| impl/_GotmAuth.gd         | ☑      | 2              | —        | —           | —             |
-| impl/_GotmAuthLocal.gd    | ☑      | 1              | —        | —           | —             |
-| impl/_GotmBlob.gd         | ☑      | 1              | —        | —           | —             |
-| impl/_GotmBlobLocal.gd    | ☑      | 1              | —        | —           | —             |
-| impl/_GotmContent.gd      | ☑      | 1              | —        | —           | —             |
-| impl/_GotmContentLocal.gd | ☑      | 0              | —        | —           | —             |
-| impl/_GotmDebugImpl.gd    | Removed | —              | —        | —           | —             |
-| impl/_GotmImpl.gd         | Removed | —              | —        | —           | —             |
-| impl/_GotmImplUtility.gd  | Removed | —              | —        | —           | —             |
-| impl/_GotmLeaderboard.gd  | ☑      | 1              | —        | —           | —             |
-| impl/_GotmMark.gd         | ☑      | 0              | —        | —           | —             |
-| impl/_GotmMarkLocal.gd    | ☑      | 0              | —        | —           | —             |
-| impl/_GotmPeriod.gd       | ☑      | 0              | —        | —           | —             |
-| impl/_GotmQuery.gd        | ☑      | 0              | —        | —           | —             |
-| impl/_GotmScore.gd        | ☑      | 0              | —        | —           | —             |
-| impl/_GotmScoreLocal.gd   | ☑      | 0              | —        | —           | —             |
-| impl/_GotmStore.gd        | ☑      | 0              | —        | —           | —             |
-| impl/_GotmUser.gd         | ☑      | 0              | —        | —           | —             |
-| impl/_GotmUserLocal.gd    | Removed | —              | —        | —           | —             |
-| impl/_GotmUtility.gd      | ☑      | 1              | —        | —           | —             |
-| impl/_LocalStore.gd       | ☑      | 0              | —        | —           | —             |
-| Gotm.gd                   | ☑      | 3              | —        | —           | —             |
-| GotmAuth.gd               | ☑      | 0              | —        | —           | ☑             |    
-| GotmBlob.gd               | Removed | —              | —        | —           | —             |
-| GotmConfig.gd             | ☑      | 0              | —        | —           | ☑             |
-| GotmContent.gd            | ☑      | 1              | —        | —           | Some          |
-| GotmDebug.gd              | Removed | —              | —        | —           | —             |
-| GotmFile.gd               | Removed | —              | —        | —           | Some          |
-| GotmLeaderboard.gd        | ☑      | 0              | —        | —           | Some          |
-| GotmLobby.gd              | Removed | —              | —        | —           | —             |
-| GotmLobbyFetch.gd         | Removed | —              | —        | —           | —             |
-| GotmMark.gd               | ☑      | 1              | —        | —           | Some          |
-| GotmPeriod.gd             | ☑      | 0              | —        | —           | ☑             |
-| GotmQuery.gd              | ☑      | 2              | —        | —           | ☑             |
-| GotmScore.gd              | ☑      | 0              | —        | —           | Some          |
-| GotmUser.gd               | ☑      | 0              | —        | —           | ☑             |
+| File Name                 | Status  | TODOs | Offline Tested | Online Tested | Unit Tested | Documentation | Reviewed |
+| ------------------------- |:-------:| -----:|:--------------:|:-------------:|:-----------:|:-------------:|:--------:|
+| impl/_Gotm.gd             | ☑      | 2     | —              | —             | —           | —             | —        |
+| impl/_GotmAuth.gd         | ☑      | 2     | —              | —             | —           | —             | —        |
+| impl/_GotmAuthLocal.gd    | ☑      | 1     | —              | —             | —           | —             | —        |
+| impl/_GotmBlob.gd         | ☑      | 1     | —              | —             | —           | —             | —        |
+| impl/_GotmBlobLocal.gd    | ☑      | 1     | —              | —             | —           | —             | —        |
+| impl/_GotmContent.gd      | ☑      | 1     | —              | —             | —           | —             | —        |
+| impl/_GotmContentLocal.gd | ☑      | 0     | —              | —             | —           | —             | —        |
+| impl/_GotmDebugImpl.gd    | Removed | —     | —              | —             | —           | —             | —        |
+| impl/_GotmImpl.gd         | Removed | —     | —              | —             | —           | —             | —        |
+| impl/_GotmImplUtility.gd  | Removed | —     | —              | —             | —           | —             | —        |
+| impl/_GotmLeaderboard.gd  | ☑      | 1     | —              | —             | —           | —             | —        |
+| impl/_GotmMark.gd         | ☑      | 0     | —              | —             | —           | —             | —        |
+| impl/_GotmMarkLocal.gd    | ☑      | 0     | —              | —             | —           | —             | —        |
+| impl/_GotmPeriod.gd       | ☑      | 0     | —              | —             | —           | —             | —        |
+| impl/_GotmQuery.gd        | ☑      | 0     | —              | —             | —           | —             | —        |
+| impl/_GotmScore.gd        | ☑      | 0     | —              | —             | —           | —             | —        |
+| impl/_GotmScoreLocal.gd   | ☑      | 0     | —              | —             | —           | —             | —        |
+| impl/_GotmStore.gd        | ☑      | 0     | —              | —             | —           | —             | —        |
+| impl/_GotmUser.gd         | ☑      | 0     | —              | —             | —           | —             | —        |
+| impl/_GotmUserLocal.gd    | Removed | —     | —              | —             | —           | —             | —        |
+| impl/_GotmUtility.gd      | ☑      | 1     | —              | —             | —           | —             | —        |
+| impl/_LocalStore.gd       | ☑      | 0     | —              | —             | —           | —             | —        |
+| Gotm.gd                   | ☑      | 3     | —              | —             | —           | —             | —        |
+| GotmAuth.gd               | ☑      | 0     | —              | —             | —           | ☑             | —        |
+| GotmBlob.gd               | Removed | —     | —              | —             | —           | —             | —        |
+| GotmConfig.gd             | ☑      | 0     | —              | —             | —           | ☑             | —        |
+| GotmContent.gd            | ☑      | 2     | —              | —             | —           | Some          | —        |
+| GotmDebug.gd              | Removed | —     | —              | —             | —           | —             | —        |
+| GotmFile.gd               | Removed | —     | —              | —             | —           | —             | —        |
+| GotmLeaderboard.gd        | ☑      | 0     | —              | —             | —           | Some          | —        |
+| GotmLobby.gd              | Removed | —     | —              | —             | —           | —             | —        |
+| GotmLobbyFetch.gd         | Removed | —     | —              | —             | —           | —             | —        |
+| GotmMark.gd               | ☑      | 1     | —              | —             | —           | Some          | —        |
+| GotmPeriod.gd             | ☑      | 0     | —              | —             | —           | ☑             | —        |
+| GotmQuery.gd              | ☑      | 2     | —              | —             | —           | ☑             | —        |
+| GotmScore.gd              | ☑      | 0     | —              | —             | —           | Some          | —        |
+| GotmUser.gd               | ☑      | 0     | —              | —             | —           | ☑             | —        |
