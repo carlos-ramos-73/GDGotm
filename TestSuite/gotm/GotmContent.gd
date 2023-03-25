@@ -41,6 +41,9 @@ var parent_ids: Array = []
 ## filter and sort with these properties. 
 var properties: Dictionary = {}
 
+## The size of the contents's data in bytes.
+var size: int # TODO: Might need to check where code uses this and do changes
+
 ## UNIX epoch time (in milliseconds). Use OS.get_datetime_from_unix_time(content.created / 1000) to convert to date.
 var updated: int
 
