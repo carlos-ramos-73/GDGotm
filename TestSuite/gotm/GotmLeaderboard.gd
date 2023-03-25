@@ -1,7 +1,7 @@
 class_name GotmLeaderboard
 
 
-## [BETA FEATURE] Used for fetching ranks and scores.
+## Used for fetching ranks and scores.
 ##
 ## You do not need to create a leaderboard before creating scores.
 ##

@@ -1,7 +1,7 @@
 class_name GotmMark
 
 
-## [BETA FEATURE] A GotmMark is an action that a user assigns to something,
+## A GotmMark is an action that a user assigns to something,
 ## for example an upvote on a GotmContent.
 ##
 ## Only registered users (see [method GotmAuth.is_registered]) can create non-local
