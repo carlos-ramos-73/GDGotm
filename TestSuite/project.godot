@@ -10,10 +10,10 @@ config_version=5
 
 [application]
 
-config/name="TestSuite"
+config/name="GotmTestSuite"
 run/main_scene="res://scenes/test_suite.tscn"
 config/features=PackedStringArray("4.0", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="res://icon.png"
 
 [rendering]
 

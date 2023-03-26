@@ -1,10 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://crgb4y8e867ra"]
+[gd_scene load_steps=2 format=3 uid="uid://dv4ativ254x8k"]
 
-[ext_resource type="Script" path="res://test_scripts/_GotmUtilityTest.gd" id="2_3f5g7"]
+[ext_resource type="Script" path="res://unit_test_scripts/_GotmUtilityTest.gd" id="1_5jxtk"]
 
 [node name="TestSuite" type="Node"]
 
-[node name="_impl" type="Node" parent="."]
+[node name="UnitTests" type="Node" parent="."]
 
-[node name="_GotmUtility" type="Node" parent="_impl"]
-script = ExtResource("2_3f5g7")
+[node name="_impl" type="Node" parent="UnitTests"]
+
+[node name="_GotmUtility" type="Node" parent="UnitTests/_impl"]
+script = ExtResource("1_5jxtk")
