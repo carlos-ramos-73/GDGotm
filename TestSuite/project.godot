@@ -15,6 +15,11 @@ run/main_scene="res://scenes/test_suite.tscn"
 config/features=PackedStringArray("4.0", "GL Compatibility")
 config/icon="res://icon.png"
 
+[display]
+
+window/size/resizable=false
+window/stretch/mode="canvas_items"
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

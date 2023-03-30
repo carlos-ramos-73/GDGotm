@@ -17,6 +17,9 @@ static func delete(path: String) -> void:
 static func fetch(path: String) -> Dictionary:
 	if path.is_empty():
 		return {}
+	var fetched = _get_store(path).get(path)
+	if fetched == null:
+		return {}
 	return _get_store(path).get(path)
 
 
@@ -38,7 +41,7 @@ static func _get_store(path_or_api: String) -> Dictionary:
 	var content := _GotmUtility.read_file(_Gotm.get_local_path(api + ".json"))
 	if !content.is_empty():
 		_global[api] = JSON.parse_string(content)
-		if !_global[api]:
+		if _global[api] == null:
 			_global[api] = {}
 	else:
 		_global[api] = {}

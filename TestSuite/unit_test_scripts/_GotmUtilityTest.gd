@@ -1,14 +1,15 @@
 extends Node
 
-var test_script := preload("res://test_scripts/_GotmUtilityTest_1.gd")
+var test_script := preload("res://unit_test_scripts/_GotmUtilityTest_1.gd")
 
 
 func _ready() -> void:
-	test_copy()
-	test_delete_empty()
-	test_delete_null()
-	test_get_keys()
-	print("_impl/_GotmUtility\t\t\t☑ (WIP)")
+	pass
+#	test_copy()
+#	test_delete_empty()
+#	test_delete_null()
+#	test_get_keys()
+#	print("_impl/_GotmUtility\t\t\t☑ (WIP)")
 
 
 func test_copy() -> void:

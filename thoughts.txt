@@ -1,4 +1,5 @@
 Questions
+- Where do you move Gotm.is_live()?
 - What would be the version number for this plugin?
     - Answer: 2.0.0
 - Discuss the usage of GotmMark. It is strictly just to upvote and downvote GotmContent as of this moment. What future usage can this class hold? Would it be better to move the upvote and downvote functionality inside the GotmContent itself? What possible other types and targets can it include?
@@ -26,3 +27,4 @@ Suggestions:
     - Same for 'get_by_key' and etc...
 - Static typing: Convert most functions to have return types. Maybe discuss the usage of strict return types vs variant returns inside this plugin. Some functions have several return types, maybe we should break them up. Yes, it is more code, but it is more safe and also it's not for end-users, also less safety checks.
     - i.e. _GotmContent fetch(), update(), get_by_key(), etc.
+- Rename files to have snake_case. https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_styleguide.html#file-names

@@ -78,7 +78,7 @@ var properties: Dictionary
 ## Is useful for scores that do not need to be accessible to other devices, such as scores in an offline game.
 var is_local: bool
 
-## UNIX epoch time (in milliseconds). Use OS.get_datetime_from_unix_time(score.created / 1000) to convert to date.
+## UNIX epoch time (in milliseconds). Use Time.get_datetime_string_from_unix_time(score.created) to convert to date.
 var created: int
 
 ##############################################################

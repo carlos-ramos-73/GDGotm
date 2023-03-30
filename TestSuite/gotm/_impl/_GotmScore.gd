@@ -70,6 +70,10 @@ static func fetch(score_or_id) -> GotmScore:
 		data = await _GotmScoreLocal.fetch(id)
 	else:
 		data = await _GotmStore.fetch(id)
+	if data.is_empty():
+		push_error("Invalid GotmScore or GotmScore.id string.")
+		return null
+
 	return _format(data, GotmScore.new())
 
 

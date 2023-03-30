@@ -291,6 +291,8 @@ static func get_nested_value(path_or_parts, object, undefined_value = null, path
 static func get_static_variable(script: Script, name: String, default_value):
 	if script.has_meta(name):
 		return script.get_meta(name)
+	if default_value == null:
+		return null
 	script.set_meta(name, default_value)
 	return script.get_meta(name)
 
@@ -369,6 +371,9 @@ static func parse_url(url: String) -> Dictionary:
 
 
 static func read_file(path: String) -> String:
+	if !FileAccess.file_exists(path):
+		return ""
+
 	var file := FileAccess.open(path, FileAccess.READ)
 	if file == null:
 		push_error("[FileAccess Error " + str(FileAccess.get_open_error()) +"] Cannot open file at path: ", path)
@@ -420,13 +425,12 @@ static func write_file(path: String, data) -> void:
 		return
 
 	if data == null:
-		DirAccess.open("res://").remove(path)
+		DirAccess.remove_absolute(path)
 		return
 
 	var file := FileAccess.open(path, FileAccess.WRITE)
 	if file == null:
-		var directory := DirAccess.open("res://")
-		directory.make_dir_recursive(path.get_base_dir())
+		DirAccess.make_dir_recursive_absolute(path.get_base_dir())
 		file = FileAccess.open(path, FileAccess.WRITE)
 		if file == null:
 			push_error("[FileAccess Error " + str(FileAccess.get_open_error()) +"] Cannot open file at path: ", path)

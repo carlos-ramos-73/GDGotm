@@ -22,15 +22,16 @@ static func _get_cache() -> _GotmAuthLocalCache:
 		_GotmUtility.copy(JSON.parse_string(content), _cache)
 		# TODO: Is the code below useless now that there is a _GotmAuthLocalCache class?
 		# Why would 'content' read from file have a property called 'user'?
-		if !_cache.get("owner") && _cache.get("user"):
+		# Is this for legacy support?
+		if _cache.get("owner") == "" && _cache.get("user"):
 			_cache.owner = _cache.user
 			_cache.erase("user")
-			_GotmUtility.write_file(file_path, JSON.stringify(_cache))
+			_GotmUtility.write_file(file_path, JSON.stringify(_cache.to_dict()))
 	else:
 		_cache.token = _GotmUtility.create_id()
 		_cache.project = _GotmUtility.create_resource_path("games")
 		_cache.owner = _GotmUtility.create_resource_path("users")
-		_GotmUtility.write_file(file_path, JSON.stringify(_cache))
+		_GotmUtility.write_file(file_path, JSON.stringify(_cache.to_dict()))
 	_cache.is_guest = true
 	return _cache
 
@@ -40,7 +41,10 @@ static func get_user() -> String:
 
 
 class _GotmAuthLocalCache:
-	var owner: String
-	var project: String
 	var token: String
+	var project: String
+	var owner: String
 	var is_guest: bool
+
+	func to_dict() -> Dictionary:
+		return {"token": token, "project": project, "owner": owner, "is_guest": is_guest}
