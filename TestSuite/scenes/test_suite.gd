@@ -1,10 +1,12 @@
 extends Node
 
+@export var project_key: String = ""
 var force_offline := false
 
 
 func initialize_gotm() -> void:
 	var config := GotmConfig.new()
+	config.project_key = project_key
 	if force_offline:
 		config.force_local_contents = true
 		config.force_local_marks = true
