@@ -30,7 +30,7 @@ static func coerce_resource_id(data, expected_api: String = ""):
 	if !(id is String):
 		return data
 	if !(id as String).is_empty() && !expected_api.is_empty() && !(id as String).begins_with(expected_api + "/"):
-		push_error("Expected an id starting with '" + expected_api + "/', got '" + id + "'.")
+		push_error("[Gotm] Expected an id starting with '" + expected_api + "/', got '" + id + "'.")
 		return
 	return id
 
@@ -59,7 +59,7 @@ static func create_query_string(dictionary: Dictionary) -> String:
 		if value is Object || value is Dictionary || value is Array:
 			value = to_stable_json(value)
 		elif value is bool:
-			value = String(value).to_lower()
+			value = str(value).to_lower()
 		string += String(key) + "=" + String(value)
 		if i < keys.size() - 1:
 			string += "&"
@@ -376,7 +376,7 @@ static func read_file(path: String) -> String:
 
 	var file := FileAccess.open(path, FileAccess.READ)
 	if file == null:
-		push_error("[FileAccess Error " + str(FileAccess.get_open_error()) +"] Cannot open file at path: ", path)
+		push_error("[Gotm FileAccess Error " + str(FileAccess.get_open_error()) +"] Cannot open file at path: ", path)
 		return ""
 
 	var content := file.get_as_text() if file.is_open() else ""
@@ -387,7 +387,7 @@ static func read_file(path: String) -> String:
 static func read_file_as_binary(path: String) -> PackedByteArray:
 	var file := FileAccess.open(path, FileAccess.READ)
 	if file == null:
-		push_error("[FileAccess Error " + str(FileAccess.get_open_error()) +"] Cannot open file at path: ", path)
+		push_error("[Gotm FileAccess Error " + str(FileAccess.get_open_error()) +"] Cannot open file at path: ", path)
 		return PackedByteArray()
 
 	var content := file.get_buffer(file.get_length()) if file.is_open() else PackedByteArray()
@@ -421,7 +421,7 @@ static func to_stable_json(value) -> String:
 
 static func write_file(path: String, data) -> void:
 	if !(data == null || data is String || data is PackedByteArray):
-		push_error("Data expected to be either null, String, or PackedByteArray.")
+		push_error("[Gotm] Data expected to be either null, String, or PackedByteArray.")
 		return
 
 	if data == null:
@@ -433,7 +433,7 @@ static func write_file(path: String, data) -> void:
 		DirAccess.make_dir_recursive_absolute(path.get_base_dir())
 		file = FileAccess.open(path, FileAccess.WRITE)
 		if file == null:
-			push_error("[FileAccess Error " + str(FileAccess.get_open_error()) +"] Cannot open file at path: ", path)
+			push_error("[Gotm FileAccess Error " + str(FileAccess.get_open_error()) +"] Cannot open file at path: ", path)
 			return
 
 	if file.is_open():

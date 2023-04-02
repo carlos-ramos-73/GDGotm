@@ -39,7 +39,7 @@ I will try to adhere to the official style guide here: https://docs.godotengine.
 | GotmContent.gd            | ☑      | 2     | —              | —             | —           | Some          | —        |
 | GotmDebug.gd              | Removed | —     | —              | —             | —           | —             | —        |
 | GotmFile.gd               | Removed | —     | —              | —             | —           | —             | —        |
-| GotmLeaderboard.gd        | ☑      | 0     | —              | —             | —           | Some          | —        |
+| GotmLeaderboard.gd        | ☑      | 0     | ☑              | —             | —           | Some          | —        |
 | GotmLobby.gd              | Removed | —     | —              | —             | —           | —             | —        |
 | GotmLobbyFetch.gd         | Removed | —     | —              | —             | —           | —             | —        |
 | GotmMark.gd               | ☑      | 1     | —              | —             | —           | Some          | —        |

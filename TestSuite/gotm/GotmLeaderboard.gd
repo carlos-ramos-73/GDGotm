@@ -62,7 +62,7 @@ var is_local: bool = false
 
 ## Get the number of scores that match this leaderboard.
 func get_count() -> int:
-	return (await get_counts(null, null, 1))[0]
+	return (await get_counts(-INF, INF, 1))[0]
 
 ## Get the number of scores that match this leaderboard within the provided value range.
 ## Useful for distribution graphs.
@@ -84,7 +84,7 @@ func get_count() -> int:
 ## The number of segments, where each segment is the number of scores within that segment's
 ## value range. All segments have equally sized value ranges except the last segment which
 ## has an inclusive maximum value, whereas non-last segments have exclusive maximum values.
-func get_counts(minimum_value = null, maximum_value = null, segment_count: int = 20) -> Array:
+func get_counts(minimum_value: float = -INF, maximum_value: float = INF, segment_count: int = 20) -> Array:
 	return await _GotmScore.get_counts(self, minimum_value, maximum_value, segment_count)
 
 ## Get the rank among all scores that match the filters of this leaderboard.
@@ -141,11 +141,16 @@ func get_surrounding_scores_by_rank(score_or_score_id_or_rank) -> SurroundingSco
 ## Returned by the [method GotmLeaderboard.get_surrounding_scores] and [method GotmLeaderboard.get_surrounding_scores_by_rank] functions.
 class SurroundingScores:
 	## Scores above "score" in descending order. The last element is the score above "score".
-	var before: Array
+	var before: Array = []
 	## The middle score
-	var score: GotmScore
+	var score: GotmScore = null
 	## Scores below "score" in descending order. The first element is the score below "score".
-	var after: Array
+	var after: Array = []
+
+	func is_valid() -> bool:
+		if score == null:
+			return false
+		return true
 
 
 ##############################################################

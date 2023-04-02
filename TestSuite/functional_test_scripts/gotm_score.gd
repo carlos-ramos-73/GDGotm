@@ -1,3 +1,4 @@
+class_name GotmScoreTest
 extends Node
 
 var copy_id_to_clipboard := true
@@ -17,7 +18,7 @@ func create_score(is_local: bool = false) -> void:
 		DisplayServer.clipboard_set(score.id)
 	if print_console:
 		print("GotmScore created...")
-		print(_gotm_score_to_string(score))
+		print(GotmScoreTest.gotm_score_to_string(score))
 
 
 func create_local_score() -> void:
@@ -39,7 +40,7 @@ func update_score() -> void:
 		DisplayServer.clipboard_set(score.id)
 	if print_console:
 		print("GotmScore updated...")
-		print(_gotm_score_to_string(score))
+		print(GotmScoreTest.gotm_score_to_string(score))
 
 
 func fetch_score() -> void:
@@ -53,7 +54,7 @@ func fetch_score() -> void:
 		DisplayServer.clipboard_set(score.id)
 	if print_console:
 		print("GotmScore fetched...")
-		print(_gotm_score_to_string(score))
+		print(GotmScoreTest.gotm_score_to_string(score))
 
 
 func delete_score() -> void:
@@ -61,6 +62,20 @@ func delete_score() -> void:
 	GotmScore.delete(id)
 	if print_console:
 		print("GotmScore deleted (id: " + id + ") ...")
+
+
+static func gotm_score_to_string(score: GotmScore) -> String:
+	var result := "\nGotmScore:\n"
+	result += "[name] " + score.name + "\n"
+	result += "[value] " + str(score.value) + "\n"
+	result += "[id] " + score.id + "\n"
+	result += "[user_id] " + score.user_id + "\n"
+	@warning_ignore("integer_division")
+	var created := Time.get_datetime_string_from_unix_time(score.created)
+	result += "[created] " + created  + "\n"
+	result += "[is_local] " + str(score.is_local) + "\n"
+	result += "[properties] " + str(score.properties) + "\n"
+	return result
 
 
 func _get_properties() -> Dictionary:
@@ -78,20 +93,6 @@ func _get_properties() -> Dictionary:
 	if prop_3_name != "":
 		props[prop_3_name] = prop_3_value
 	return props
-
-
-func _gotm_score_to_string(score: GotmScore) -> String:
-	var result := "\nGotmScore:\n"
-	result += "[name] " + score.name + "\n"
-	result += "[value] " + str(score.value) + "\n"
-	result += "[id] " + score.id + "\n"
-	result += "[user_id] " + score.user_id + "\n"
-	@warning_ignore("integer_division")
-	var created := Time.get_datetime_string_from_unix_time(score.created)
-	result += "[created] " + created  + "\n"
-	result += "[is_local] " + str(score.is_local) + "\n"
-	result += "[properties] " + str(score.properties) + "\n"
-	return result
 
 
 func _check_buttons(_param = null) -> void:

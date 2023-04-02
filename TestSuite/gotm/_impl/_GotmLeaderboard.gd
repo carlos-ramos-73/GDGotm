@@ -25,25 +25,44 @@ static func _get_surrounding_scores(leaderboard: GotmLeaderboard, center) -> Got
 		surrounding_scores.after = after
 		return surrounding_scores
 
-	var scores := []
+	var epsilon := 1e-10
+	var center_score: GotmScore
 	# Attempt to get the nearest GotmScore from center value or rank
+	# TODO: Validate changes, changed to a more true center score. Also fixes bug if there is only one score on leaderboard
 	if center is float:
-		scores = await _GotmScore._list(leaderboard, center, false, 1)
+		var descending_score := await _GotmScore._list(leaderboard, center + epsilon, false, 1)
+		var ascensing_score := await _GotmScore._list(leaderboard, center - epsilon, true, 1)
+		if descending_score.is_empty() && ascensing_score.is_empty(): # There are no scores
+			return GotmLeaderboard.SurroundingScores.new()
+		elif descending_score.is_empty():
+			center_score = ascensing_score[0]
+		elif ascensing_score.is_empty():
+			center_score = descending_score[0]
+		elif abs(center - descending_score[0].value) <= abs(center - ascensing_score[0].value):
+			center_score = descending_score[0]
+		else:
+			center_score = ascensing_score[0]
+	# Attempt to get rank
 	elif center is int && center > 1:
-		scores = await _GotmScore._list(leaderboard, center - 1, false, 1)
+		var scores := await _GotmScore._list(leaderboard, center - 1, false, 1)
+		if scores.is_empty():
+			push_error("Gotmleaderboard: Could not get rank.")
+			return GotmLeaderboard.SurroundingScores.new()
+		center_score = scores[0]
+	# Attempt to get the score with Rank 1
 	else:
-		scores = await _GotmScore._list(leaderboard, null, false, 1) # TODO: what does this mean exactly? Does it mean get the latest score inserted?
+		var scores := await _GotmScore._list(leaderboard, null, false, 1)
+		if scores.is_empty():
+			push_error("Gotmleaderboard: Could not get rank. Is the leaderboard empty?")
+			return GotmLeaderboard.SurroundingScores.new()
+		center_score = scores[0]
 
-	var score: GotmScore = scores[0] if !scores.is_empty() else null
-	if !score:
-		return null
-
-	var before := await _GotmScore._list(leaderboard, score, true)
+	var before := await _GotmScore._list(leaderboard, center_score, true)
 	before.reverse()
-	var after := await _GotmScore._list(leaderboard, score, false)
+	var after := await _GotmScore._list(leaderboard, center_score, false)
 	var surrounding_scores := GotmLeaderboard.SurroundingScores.new()
 	surrounding_scores.before = before
-	surrounding_scores.score = score
+	surrounding_scores.score = center_score
 	surrounding_scores.after = after
 	return surrounding_scores
 
@@ -51,7 +70,7 @@ static func _get_surrounding_scores(leaderboard: GotmLeaderboard, center) -> Got
 static func get_surrounding_scores(leaderboard: GotmLeaderboard, center) -> GotmLeaderboard.SurroundingScores:
 	if !(center is int || center is float || center is String || center is GotmScore):
 		await _GotmUtility.get_tree().process_frame
-		push_error("Expected an int, float, GotmScore or GotmScore.id string.")
+		push_error("Gotmleaderboard: Expected an int, float, GotmScore or GotmScore.id string.")
 		return null
 
 	if center is int:
@@ -62,7 +81,7 @@ static func get_surrounding_scores(leaderboard: GotmLeaderboard, center) -> Gotm
 static func get_surrounding_scores_by_rank(leaderboard: GotmLeaderboard, center) -> GotmLeaderboard.SurroundingScores:
 	if !(center is int || center is float || center is String || center is GotmScore):
 		await _GotmUtility.get_tree().process_frame
-		push_error("Expected an int, float, GotmScore or GotmScore.id string.")
+		push_error("Gotmleaderboard: Expected an int, float, GotmScore or GotmScore.id string.")
 		return null
 
 	if center is float:

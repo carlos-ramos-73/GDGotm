@@ -19,6 +19,7 @@ Notes:
     - Same for _GotmMark/GotmContent/etc...
 
 Suggestions:
+- make sure all push errors are properly standerized
 - implement Godot's new in-editor documentation feature wherever possible, include example code in the docs for all/most functions for end-user documentation?
 - move some _GotmScore functions to _GotmLeaderboard i.e. get_counts, get_rank, list, list_by_rank, etc. I think it is better to decouple as much as possible.
 - remove unused parameters in functions, i.e. _GotmBlobLocal.fetch()
@@ -28,3 +29,6 @@ Suggestions:
 - Static typing: Convert most functions to have return types. Maybe discuss the usage of strict return types vs variant returns inside this plugin. Some functions have several return types, maybe we should break them up. Yes, it is more code, but it is more safe and also it's not for end-users, also less safety checks.
     - i.e. _GotmContent fetch(), update(), get_by_key(), etc.
 - Rename files to have snake_case. https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_styleguide.html#file-names
+- We should do more safety checks for cases like this: https://discord.com/channels/553879501478690816/1091068986046816326
+- GotmContents maybe should have a property called "is_publicly_editable" (default false?). Other users besides owners CAN fetch but cannot update or delete content, only owner can do it. Adds add extra security for sharable GotmContents
+- Implement encryption when using HTTP Methods? Helps prevents spoofing score or content values

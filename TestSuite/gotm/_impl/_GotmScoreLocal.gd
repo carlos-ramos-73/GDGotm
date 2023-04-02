@@ -60,7 +60,7 @@ static func _fetch_by_score_sort(params: Dictionary) -> Array:
 		matches = scores_per_author.values()
 
 	var predicate := ScoreSearchPredicate.new()
-	predicate.is_oldest_first = !!params.get("isOldestFirst")
+	predicate.is_oldest_first = params.get("isOldestFirst") as bool
 	matches.sort_custom(predicate.is_greater_than if descending else predicate.is_less_than)
 	for i in range(0, matches.size()):
 		matches[i] = _format(matches[i])
@@ -70,7 +70,7 @@ static func _fetch_by_score_sort(params: Dictionary) -> Array:
 		var after_matches := []
 		for i in range(0, matches.size()):
 			var m = matches[i]
-			m = {"value": m.value, "path": m.path, "created": m.created}
+			m = {"value": m.value, "path": m.path, "created": m.created} # TODO: ??? Is this line useless? Because it sure looks like it
 			if cursor_score.path == m.path && cursor_score.value == m.value:
 				continue
 			if descending && predicate.is_greater_than(cursor_score, m) || !descending && predicate.is_less_than(cursor_score, m):
@@ -91,11 +91,11 @@ static func _fetch_counts(params: Dictionary) -> Array:
 	var fetch_params: Dictionary = _GotmUtility.copy(params, {})
 	fetch_params.descending = true
 	fetch_params.erase("limit")
-	var scores = _fetch_by_score_sort(fetch_params)
+	var scores := _fetch_by_score_sort(fetch_params)
 	var stats := []
 	for i in range(0, params.limit):
 		stats.append({"value": 0})
-	if scores.empty():
+	if scores.is_empty():
 		return stats
 
 	var min_value = params.get("min")

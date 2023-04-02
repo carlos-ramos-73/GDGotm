@@ -33,7 +33,7 @@ static func create(name: String, value: float, properties: Dictionary = {}, is_l
 static func delete(score_or_id) -> void:
 	if !(score_or_id is GotmScore || score_or_id is String):
 		await _GotmUtility.get_tree().process_frame
-		push_error("Expected a GotmScore or GotmScore.id string.")
+		push_error("[GotmScore] Expected a GotmScore or GotmScore.id string.")
 		return
 
 	var id := _coerce_id(score_or_id)
@@ -61,7 +61,7 @@ static func encode_cursor(score_id_or_value, ascending: bool) -> String:
 static func fetch(score_or_id) -> GotmScore:
 	if !(score_or_id is GotmScore || score_or_id is String):
 		await _GotmUtility.get_tree().process_frame
-		push_error("Expected a GotmScore or GotmScore.id string.")
+		push_error("[GotmScore] Expected a GotmScore or GotmScore.id string.")
 		return null
 
 	var id := _coerce_id(score_or_id)
@@ -71,7 +71,7 @@ static func fetch(score_or_id) -> GotmScore:
 	else:
 		data = await _GotmStore.fetch(id)
 	if data.is_empty():
-		push_error("Invalid GotmScore or GotmScore.id string.")
+		push_error("[GotmScore] Invalid GotmScore or GotmScore.id string.")
 		return null
 
 	return _format(data, GotmScore.new())
@@ -167,7 +167,7 @@ static func get_rank(leaderboard: GotmLeaderboard, score_id_or_value) -> int:
 	if !(score_id_or_value is GotmScore || score_id_or_value is String
 			|| score_id_or_value is int || score_id_or_value is float):
 		await _GotmUtility.get_tree().process_frame
-		push_error("Expected a GotmScore, GotmScore.id string, int, or float.")
+		push_error("[GotmScore] Expected a GotmScore, GotmScore.id string, int, or float.")
 		return 0
 
 	if score_id_or_value is float || score_id_or_value is int:
@@ -208,7 +208,7 @@ static func get_rank(leaderboard: GotmLeaderboard, score_id_or_value) -> int:
 static func _list(leaderboard: GotmLeaderboard, after, ascending: bool, limit: int = 0) -> Array:
 	if !(after is GotmScore || after is String || after is int || after is float || after == null):
 		await _GotmUtility.get_tree().process_frame
-		push_error("Expected a GotmScore, GotmScore.id string, int, or float.")
+		push_error("[GotmScore] Expected a GotmScore, GotmScore.id string, int, or float.")
 		return []
 
 	if after is int || after is float:
@@ -272,7 +272,7 @@ static func list_by_rank(leaderboard: GotmLeaderboard, after, ascending: bool) -
 static func update(score_or_id, value = null, properties = null) -> GotmScore:
 	if !(score_or_id is GotmScore || score_or_id is String):
 		await _GotmUtility.get_tree().process_frame
-		push_error("Expected a GotmScore or GotmScore.id string.")
+		push_error("[GotmScore] Expected a GotmScore or GotmScore.id string.")
 		return null
 
 	var id := _coerce_id(score_or_id)
