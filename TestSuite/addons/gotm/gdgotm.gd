@@ -1,12 +1,13 @@
 @tool
 extends EditorPlugin
 
+var gdgotm_toolbar: Control = preload("res://addons/gotm/scenes/toolbar/gd_gotm_toolbar.tscn").instantiate()
+
 
 func _enter_tree() -> void:
-	# Initialization of the plugin goes here.
-	pass
+	add_control_to_container(EditorPlugin.CONTAINER_TOOLBAR, gdgotm_toolbar)
 
 
 func _exit_tree() -> void:
-	# Clean-up of the plugin goes here.
-	pass
+	remove_control_from_container(EditorPlugin.CONTAINER_TOOLBAR, gdgotm_toolbar)
+	gdgotm_toolbar.queue_free()

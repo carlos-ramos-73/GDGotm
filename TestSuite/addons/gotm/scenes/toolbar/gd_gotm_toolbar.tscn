@@ -1,0 +1,74 @@
+[gd_scene load_steps=12 format=3 uid="uid://rtu6dj4m6hv8"]
+
+[ext_resource type="Texture2D" uid="uid://bj2p8u12bru27" path="res://addons/gotm/scenes/toolbar/gd_gotm_toolbar.tres" id="2_jex31"]
+[ext_resource type="Script" path="res://addons/gotm/scenes/toolbar/gd_gotm_toolbar.gd" id="3_d6ha8"]
+[ext_resource type="Texture2D" uid="uid://q7xjm0dwohp2" path="res://addons/gotm/icons/gotm-icon.svg" id="3_llcr4"]
+[ext_resource type="Texture2D" uid="uid://n7ix6ak67oin" path="res://addons/gotm/icons/upload.svg" id="4_gambc"]
+[ext_resource type="Script" path="res://addons/gotm/scenes/toolbar/menu/menu.gd" id="5_84viw"]
+[ext_resource type="Script" path="res://addons/gotm/scenes/toolbar/menu/build.gd" id="6_mi364"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kcd3u"]
+corner_radius_top_left = 22
+corner_radius_top_right = 22
+corner_radius_bottom_right = 22
+corner_radius_bottom_left = 22
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_64fhb"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+corner_radius_top_left = 22
+corner_radius_top_right = 22
+corner_radius_bottom_right = 22
+corner_radius_bottom_left = 22
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vo0ye"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_chott"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yihr3"]
+
+[node name="ToolbarPanel" type="Panel"]
+clip_children = 1
+custom_minimum_size = Vector2(44, 44)
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_kcd3u")
+script = ExtResource("3_d6ha8")
+hovered_colors = PackedColorArray(0.160784, 0.47451, 1, 1, 0.396078, 0.121569, 1, 1)
+
+[node name="Background" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_right = 44.0
+offset_bottom = 44.0
+texture = ExtResource("2_jex31")
+
+[node name="GDGotmButton" type="Button" parent="."]
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 0
+offset_right = 45.0
+offset_bottom = 45.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_64fhb")
+theme_override_styles/hover = SubResource("StyleBoxFlat_64fhb")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_vo0ye")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_chott")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_yihr3")
+icon = ExtResource("3_llcr4")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Menu" type="PopupMenu" parent="."]
+title = "Gotm Menu"
+size = Vector2i(227, 44)
+allow_search = false
+item_count = 1
+item_0/text = " Upload to Web Player"
+item_0/icon = ExtResource("4_gambc")
+item_0/id = 0
+script = ExtResource("5_84viw")
+
+[node name="Build" type="Node" parent="."]
+script = ExtResource("6_mi364")
+
+[connection signal="pressed" from="GDGotmButton" to="." method="_on_gd_gotm_button_pressed"]
+[connection signal="about_to_popup" from="Menu" to="Menu" method="_set_menu_position"]
+[connection signal="index_pressed" from="Menu" to="Menu" method="_on_index_pressed" flags=18]
