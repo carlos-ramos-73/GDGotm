@@ -15,10 +15,6 @@ func _ready() -> void:
 	close_requested.connect(func(): hide())
 
 
-func test() -> void:
-	pass
-
-
 func build_and_upload_to_web_player() -> void:
 	if build.build():
 		deploy.deploy_to_web_player(GOTM_WEB_PLAYER)

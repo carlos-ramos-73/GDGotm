@@ -105,8 +105,7 @@ func _is_pck_valid() -> bool:
 
 
 func _get_pck_chunk(chunk_number: int) -> PackedByteArray:
-	# place cursor at the beginning of the chunk
-	pck_file.seek(chunk_number * server.PACKET_SIZE)
+	pck_file.seek(chunk_number * server.PACKET_SIZE) # place cursor at the beginning of the chunk
 	return pck_file.get_buffer(server.PACKET_SIZE)
 
 
