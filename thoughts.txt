@@ -17,6 +17,7 @@ Notes:
 - const dictionaries/arrays used to be shallow in Godot 3. This plugin utilized that fact to make the equivilant of "static variables" (i.e. _global in _GotmUtility). That is no longer the case: https://github.com/godotengine/godot/pull/71051. Using get/set meta instead as a hacky workaround...
 - _GotmScore.get_implementation() changed return type to named enum to avoid unnecesary instantiation in the return. Instantiation is not needed because all functions are static, Editor throws warnings (no errors) about using a static function with an instanced variable.
     - Same for _GotmMark/GotmContent/etc...
+- plugin icon should resize with editor display scale Editor -> Editor Settings -> Interface/Editor -> Display Scale. Currently does not..
 
 Suggestions:
 - make sure all push errors are properly standerized

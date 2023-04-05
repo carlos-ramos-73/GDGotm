@@ -1,7 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dx67fngb65w0e"]
+[gd_scene load_steps=4 format=3 uid="uid://xtnuwxa2651d"]
 
-[ext_resource type="Script" path="res://functional_test_scripts/gotm_score.gd" id="1_duvt7"]
-[ext_resource type="PackedScene" uid="uid://d1ym2m3ne2msh" path="res://scenes/switch_test.tscn" id="2_drcgv"]
+[ext_resource type="Script" path="res://functional_testing/scripts/gotm_score.gd" id="1_p0fsb"]
+[ext_resource type="PackedScene" uid="uid://d1ym2m3ne2msh" path="res://scenes/switch_test.tscn" id="2_rowm4"]
 
 [sub_resource type="GDScript" id="GDScript_7a03l"]
 script/source = "extends LineEdit
@@ -22,7 +22,7 @@ func _on_text_changed(new_text: String) -> void:
 "
 
 [node name="GotmScore" type="Node"]
-script = ExtResource("1_duvt7")
+script = ExtResource("1_p0fsb")
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -38,7 +38,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 
-[node name="SwitchTest" parent="UI" instance=ExtResource("2_drcgv")]
+[node name="SwitchTest" parent="UI" instance=ExtResource("2_rowm4")]
 layout_mode = 1
 offset_right = 612.0
 offset_bottom = 96.0
