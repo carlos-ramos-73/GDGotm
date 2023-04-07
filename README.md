@@ -7,7 +7,7 @@ To accelerate the support with the plugin, and to personally get experince with 
 I will try to adhere to the official style guide here: https://docs.godotengine.org/en/4.0/tutorials/scripting/gdscript/gdscript_styleguide.html
 
 
-## Process
+## Progress
 | File Name                 | Status  | TODOs | Offline Tested | Online Tested | Unit Tested | Documentation | Reviewed |
 | ------------------------- |:-------:| -----:|:--------------:|:-------------:|:-----------:|:-------------:|:--------:|
 | impl/_Gotm.gd             | ☑      | 2     | N/A            | —             | —           | —             | —        |
@@ -46,4 +46,4 @@ I will try to adhere to the official style guide here: https://docs.godotengine.
 | GotmPeriod.gd             | ☑      | 0     | —              | —             | —           | ☑             | —        |
 | GotmQuery.gd              | ☑      | 2     | —              | —             | —           | ☑             | —        |
 | GotmScore.gd              | ☑      | 0     | ☑              | —             | —           | Some          | —        |
-| GotmUser.gd               | ☑      | 0     | —              | —             | —           | ☑             | —        |
+| GotmUser.gd               | ☑      | 0     | N/A            | —             | —           | ☑             | —        |

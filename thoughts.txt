@@ -20,6 +20,7 @@ Notes:
 - plugin icon should resize with editor display scale Editor -> Editor Settings -> Interface/Editor -> Display Scale. Currently does not..
 
 Suggestions:
+- test plugin with large pck files
 - make sure all push errors are properly standerized
 - implement Godot's new in-editor documentation feature wherever possible, include example code in the docs for all/most functions for end-user documentation?
 - move some _GotmScore functions to _GotmLeaderboard i.e. get_counts, get_rank, list, list_by_rank, etc. I think it is better to decouple as much as possible.

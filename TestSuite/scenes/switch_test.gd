@@ -2,8 +2,9 @@ class_name SwitchTest
 extends OptionButton
 
 const scenes := [
-	"res://scenes/functional_testing/gotm_score.tscn",
-	"res://scenes/functional_testing/gotm_leaderboard.tscn"
+	"res://functional_testing/gotm_score.tscn",
+	"res://functional_testing/gotm_leaderboard.tscn",
+	"res://functional_testing/gotm_user.tscn"
 	]
 
 

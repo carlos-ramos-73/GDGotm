@@ -16,7 +16,7 @@ func initialize_gotm() -> void:
 		config.force_local_scores = true
 		print("Forcing offline...")
 	Gotm.initialize(config)
-	get_tree().change_scene_to_file("res://scenes/functional_testing/gotm_score.tscn")
+	get_tree().change_scene_to_file("res://functional_testing/gotm_score.tscn")
 
 
 func _on_start_functional_pressed() -> void:
