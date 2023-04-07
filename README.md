@@ -33,9 +33,9 @@ I will try to adhere to the official style guide here: https://docs.godotengine.
 | impl/_GotmUtility.gd      | ☑      | 1     | N/A            | —             | —           | —             | —        |
 | impl/_LocalStore.gd       | ☑      | 0     | N/A            | —             | —           | —             | —        |
 | Gotm.gd                   | ☑      | 3     | —              | —             | —           | —             | —        |
-| GotmAuth.gd               | ☑      | 0     | —              | —             | —           | ☑             | —        |
+| GotmAuth.gd               | ☑      | 0     | ☑              | —             | —           | ☑            | —        |
 | GotmBlob.gd               | Removed | —     | —              | —             | —           | —             | —        |
-| GotmConfig.gd             | ☑      | 0     | —              | —             | —           | ☑             | —        |
+| GotmConfig.gd             | ☑      | 0     | N/A            | —             | —           | ☑             | —        |
 | GotmContent.gd            | ☑      | 2     | —              | —             | —           | Some          | —        |
 | GotmDebug.gd              | Removed | —     | —              | —             | —           | —             | —        |
 | GotmFile.gd               | Removed | —     | —              | —             | —           | —             | —        |
@@ -43,7 +43,7 @@ I will try to adhere to the official style guide here: https://docs.godotengine.
 | GotmLobby.gd              | Removed | —     | —              | —             | —           | —             | —        |
 | GotmLobbyFetch.gd         | Removed | —     | —              | —             | —           | —             | —        |
 | GotmMark.gd               | ☑      | 1     | —              | —             | —           | Some          | —        |
-| GotmPeriod.gd             | ☑      | 0     | —              | —             | —           | ☑             | —        |
+| GotmPeriod.gd             | ☑      | 0     | N/A            | —             | —           | ☑             | —        |
 | GotmQuery.gd              | ☑      | 2     | —              | —             | —           | ☑             | —        |
 | GotmScore.gd              | ☑      | 0     | ☑              | —             | —           | Some          | —        |
 | GotmUser.gd               | ☑      | 0     | N/A            | —             | —           | ☑             | —        |

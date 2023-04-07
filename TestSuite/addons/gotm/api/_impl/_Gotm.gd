@@ -17,10 +17,10 @@ static func get_global() -> _GotmGlobalData:
 
 
 static func get_local_path(path: String = "") -> String:
-	return get_path("local/" + path)
+	return get_user_path("local/" + path)
 
 
-static func get_path(path: String = "") -> String:
+static func get_user_path(path: String = "") -> String:
 	return "user://gotm/" + path
 
 

@@ -146,7 +146,7 @@ static func _is_auth_valid(auth: _GotmAuthData) -> bool:
 
 
 static func _read_auth(name: String) -> _GotmAuthData:
-	var content := _GotmUtility.read_file(_Gotm.get_path(name))
+	var content := _GotmUtility.read_file(_Gotm.get_user_path(name))
 	if content.is_empty():
 		return null
 	var parsed = JSON.parse_string(content)
@@ -173,7 +173,7 @@ static func _write_auth(auth: _GotmAuthData) -> void:
 		name = GUEST_AUTH_NAME
 	else:
 		return
-	_GotmUtility.write_file(_Gotm.get_path(name), JSON.stringify({"data": auth.data, "project_key": auth.project_key}))
+	_GotmUtility.write_file(_Gotm.get_user_path(name), JSON.stringify({"data": auth.data, "project_key": auth.project_key}))
 
 
 class _GotmAuthData:
