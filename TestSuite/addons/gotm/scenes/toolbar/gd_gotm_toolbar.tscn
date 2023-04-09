@@ -62,9 +62,10 @@ expand_icon = true
 
 [node name="Menu" type="PopupMenu" parent="."]
 title = "Gotm Menu"
-size = Vector2i(231, 129)
+size = Vector2i(231, 156)
+visible = true
 allow_search = false
-item_count = 3
+item_count = 4
 item_0/text = " Upload to Web Player"
 item_0/icon = ExtResource("4_gambc")
 item_0/id = 0
@@ -74,6 +75,10 @@ item_1/id = 1
 item_2/text = " Gotm.io "
 item_2/icon = ExtResource("6_qlnph")
 item_2/id = 2
+item_3/text = ""
+item_3/id = 100
+item_3/disabled = true
+item_3/separator = true
 script = ExtResource("5_pft2i")
 
 [node name="Build" type="Node" parent="."]

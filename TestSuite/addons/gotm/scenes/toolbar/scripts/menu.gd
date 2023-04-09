@@ -14,6 +14,15 @@ const y_offset := 10
 func _ready() -> void:
 	close_requested.connect(func(): hide())
 
+	# set version number with plugin version
+	if FileAccess.file_exists("res://addons/gotm/plugin.cfg"):
+		var plugin_info := FileAccess.get_file_as_string("res://addons/gotm/plugin.cfg")
+		var regex := RegEx.new()
+		regex.compile("version=\\s*\\\"([^\\\"]*)\\\"")
+		var result = regex.search(plugin_info)
+		if result:
+			set_item_text(get_item_index(100), "v" + result.get_string(1))
+
 
 func build_and_upload_to_web_player() -> void:
 	if build.build():
