@@ -218,7 +218,9 @@ static func _match_props(subset, superset) -> bool:
 
 
 static func _match_score(score: Dictionary, params: Dictionary) -> bool:
-	if params.name != score.name && params.get("author") && params.author != score.author:
+	if params.name != score.name:
+		return false
+	if params.get("author") && params.author != score.author:
 		return false
 	if params.get("min") is float && score.value < params.get("min"):
 		return false
