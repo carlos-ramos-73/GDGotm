@@ -97,6 +97,10 @@ static func get_auth_implementation() -> AuthImplementation:
 
 
 static func get_counts(leaderboard: GotmLeaderboard, minimum_value: float, maximum_value: float, segment_count: int) -> Array:
+	if !_GotmLeaderboard.is_valid(leaderboard):
+		await _GotmUtility.get_tree().process_frame
+		return []
+
 	minimum_value = _GotmUtility.clean_for_json(minimum_value)
 	maximum_value = _GotmUtility.clean_for_json(maximum_value)
 	segment_count = _GotmUtility.clean_for_json(segment_count)
@@ -170,6 +174,10 @@ static func get_rank(leaderboard: GotmLeaderboard, score_id_or_value) -> int:
 		push_error("[GotmScore] Expected a GotmScore, GotmScore.id string, int, or float.")
 		return 0
 
+	if !_GotmLeaderboard.is_valid(leaderboard):
+		await _GotmUtility.get_tree().process_frame
+		return 0
+
 	if score_id_or_value is float || score_id_or_value is int:
 		score_id_or_value = _GotmUtility.clean_for_json(score_id_or_value)
 	else:
@@ -209,6 +217,10 @@ static func _list(leaderboard: GotmLeaderboard, after, ascending: bool, limit: i
 	if !(after is GotmScore || after is String || after is int || after is float || after == null):
 		await _GotmUtility.get_tree().process_frame
 		push_error("[GotmScore] Expected a GotmScore, GotmScore.id string, int, or float.")
+		return []
+
+	if !_GotmLeaderboard.is_valid(leaderboard):
+		await _GotmUtility.get_tree().process_frame
 		return []
 
 	if after is int || after is float:

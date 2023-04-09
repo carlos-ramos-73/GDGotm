@@ -62,7 +62,8 @@ var is_local: bool = false
 
 ## Get the number of scores that match this leaderboard.
 func get_count() -> int:
-	return (await get_counts(-INF, INF, 1))[0]
+	var count := await get_counts(-INF, INF, 1)
+	return count[0] if !count.is_empty() else 0
 
 ## Get the number of scores that match this leaderboard within the provided value range.
 ## Useful for distribution graphs.
