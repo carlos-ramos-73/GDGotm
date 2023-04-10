@@ -7,6 +7,13 @@ To accelerate the support with the plugin, and to personally get experince with 
 I will try to adhere to the official style guide here: https://docs.godotengine.org/en/4.0/tutorials/scripting/gdscript/gdscript_styleguide.html
 
 
+## I want to try this plugin now
+
+If you want to help with testing or can't wait for a completed plugin release, you simply clone/download the repository and copy the "addons" folder into your Godot 4 project, (TestSuite/addons). To get an idea on how I use this plugin for testing, you can open up the project "TestSuite" in Godot 4.
+
+NOTE: There are still bugs. Updates happen very frequent. Please refer to the progress below to see what is implemented. If you have any questions or feedback please reach out to me preferably through Gotm's Discord.
+
+
 ## Progress
 | File Name                 | Status  | TODOs | Offline Tested | Online Tested | Unit Tested | Documentation | Reviewed |
 | ------------------------- |:-------:| -----:|:--------------:|:-------------:|:-----------:|:-------------:|:--------:|
