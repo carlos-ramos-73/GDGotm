@@ -295,6 +295,8 @@ static func update(score_or_id, value = null, properties = null) -> GotmScore:
 		data = await _GotmScoreLocal.update(id, _GotmUtility.delete_null({"value": value, "props": properties}))
 	else:
 		data = await _GotmStore.update(id, _GotmUtility.delete_null({"value": value, "props": properties}))
-	if !data.is_empty():
+	if data.is_empty():
+		push_error("[GotmScore] Could not update score with id %s. Note: Only the score owner can update." % id)
+	else:
 		_clear_cache()
 	return _format(data, GotmScore.new() if id is String else score_or_id)

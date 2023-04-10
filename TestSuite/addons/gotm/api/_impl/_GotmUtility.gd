@@ -133,7 +133,7 @@ static func encode_url_component(string: String) -> String:
 
 
 static func fetch_data(url: String, method: int = HTTPClient.METHOD_GET, body = null, headers: PackedStringArray = []) -> FetchDataResult:
-	var parsed_url = parse_url(url)
+	var parsed_url := parse_url(url)
 	var origin = parsed_url.origin
 	var host = parsed_url.host
 	var port = parsed_url.port
@@ -150,7 +150,7 @@ static func fetch_data(url: String, method: int = HTTPClient.METHOD_GET, body = 
 		client.poll()
 
 	var has_yielded := false
-	while client.get_status() == HTTPClient.STATUS_CONNECTING or client.get_status() == HTTPClient.STATUS_RESOLVING:
+	while client.get_status() == HTTPClient.STATUS_CONNECTING || client.get_status() == HTTPClient.STATUS_RESOLVING:
 		client.poll()
 		has_yielded = true
 		await get_tree().process_frame

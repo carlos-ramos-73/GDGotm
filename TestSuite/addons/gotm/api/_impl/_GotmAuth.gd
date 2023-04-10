@@ -27,8 +27,8 @@ static func fetch() -> GotmAuth:
 	return instance
 
 
-static func _format_auth_data(data) -> _GotmAuthData:
-	if !data:
+static func _format_auth_data(data: Dictionary) -> _GotmAuthData:
+	if data.is_empty():
 		return null
 	var auth := _GotmAuthData.new()
 	auth.data = data
@@ -50,7 +50,7 @@ static func get_auth() -> _GotmAuthData:
 		if auth:
 			_global.auth = auth
 	# Only return valid project auths
-	if !_is_auth_valid(auth) || !auth.project || !auth.project_key:
+	if !_is_auth_valid(auth) || auth.project.is_empty() || auth.project_key.is_empty():
 		return null
 	return auth
 
@@ -60,7 +60,7 @@ static func get_auth_async() -> _GotmAuthData:
 	if auth:
 		await _GotmUtility.get_tree().process_frame
 		return auth
-	
+
 	var _global: _GotmAuthGlobalData = _GotmUtility.get_static_variable(_GotmAuth, "_global", _GotmAuthGlobalData.new())
 	if _global.queue:
 		_global.queue.add()
@@ -71,7 +71,7 @@ static func get_auth_async() -> _GotmAuthData:
 
 	var gotm = _Gotm.get_singleton()
 	if gotm && !_global.gotm_auth:
-		_global.gotm_auth = _format_auth_data(await(gotm.get_auth())) # TODO: Where is gotm.get_auth()????
+		_global.gotm_auth = _format_auth_data(await(gotm.get_auth()))
 		auth = get_auth()
 		_global.auth = auth
 	if !auth:
@@ -89,8 +89,8 @@ static func _get_project_from_token(token: String) -> String:
 	var parts = token.split(".")
 	if parts.size() != 3:
 		return ""
-	var data = JSON.parse_string(Marshalls.base64_to_utf8(parts[1] + "=="))
-	if !data || !data.get("project"):
+	var data: Dictionary = JSON.parse_string(Marshalls.base64_to_utf8(parts[1] + "=="))
+	if data.is_empty() || data.get("project", "").is_empty():
 		return ""
 	return data.project
 
@@ -108,7 +108,6 @@ static func _get_refreshed_project_auth(auth: _GotmAuthData) -> _GotmAuthData:
 	# Gotm manages user auths for us.
 	var gotm = _Gotm.get_singleton()
 	if gotm:
-		# TODO: Where is gotm.create_project_authentication()???
 		var data = await gotm.create_project_authentication(project_key)
 		var formatted = _format_auth_data(data)
 		formatted.project_key = project_key
@@ -129,12 +128,15 @@ static func _get_refreshed_project_auth(auth: _GotmAuthData) -> _GotmAuthData:
 	if !user_auth:
 		return
 	var project_auth: _GotmAuthData = await _create_authentication({"project": project_key}, ["authorization: Bearer " + user_auth.token])
+	if !project_auth:
+		push_error("[GotmAuth] Could not get project authentication. Is project key valid?")
+		return
 	project_auth.project_key = project_key
 	return project_auth
 
 
 static func _is_auth_valid(auth: _GotmAuthData) -> bool:
-	if !auth || auth.token.is_empty() || !(auth.expired / 1000.0 > Time.get_unix_time_from_system() + 60):
+	if !auth || auth.token.is_empty() || !(auth.expired > Time.get_unix_time_from_system() + 60):
 		return false
 	if !auth.project.is_empty() && auth.project_key != _Gotm.get_project_key():
 		return false

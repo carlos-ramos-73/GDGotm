@@ -34,3 +34,4 @@ Suggestions:
 - We should do more safety checks for cases like this: https://discord.com/channels/553879501478690816/1091068986046816326
 - GotmContents maybe should have a property called "is_publicly_editable" (default false?). Other users besides owners CAN fetch but cannot update or delete content, only owner can do it. Adds add extra security for sharable GotmContents
 - Implement encryption when using HTTP Methods? Helps prevents spoofing score or content values
+- Should delete() from GotmScore, GotmContent, GotmMark return bool for success/fail?

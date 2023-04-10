@@ -81,8 +81,8 @@ static func list(api, query: String, params: Dictionary = {}, authenticate: bool
 	return data.data
 
 
-static func _request(path, method: int, body = null, authenticate: bool = false):
-	if !path:
+static func _request(path: String, method: int, body = null, authenticate: bool = false):
+	if path.is_empty():
 		await _GotmUtility.get_tree().process_frame
 		return {}
 	var headers := {}
@@ -150,7 +150,7 @@ static func _set_cache(path: String, data):
 			(existing_timer as SceneTreeTimer).timeout.disconnect(Callable(eviction_timer_on_timeout))
 
 	var _cache: Dictionary = _GotmUtility.get_static_variable(_GotmStore, "_cache", {})
-	if !data:
+	if data == null:
 		_cache.erase(path)
 		return null
 	if data is Dictionary:

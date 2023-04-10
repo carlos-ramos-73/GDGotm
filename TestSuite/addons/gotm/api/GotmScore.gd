@@ -95,12 +95,12 @@ static func create(_name: String, _value: float, _properties: Dictionary = {}) -
 static func create_local(_name: String, _value: float, _properties: Dictionary = {}) -> GotmScore:
 	return await _GotmScore.create(_name, _value, _properties, true)
 
-## Update an existing score.
+## Update an existing score. Note: Only the score owner can update the score.
 ## Null is ignored.
 static func update(score_or_id, _value = null, _properties = null) -> GotmScore:
 	return await _GotmScore.update(score_or_id, _value, _properties)
 
-## Delete an existing  score.
+## Delete an existing  score. Note: Only the score owner can delete the score.
 static func delete(score_or_id) -> void:
 	await _GotmScore.delete(score_or_id)
 	return

@@ -14,6 +14,9 @@ func create_score(is_local: bool = false) -> void:
 		score = await GotmScore.create_local(score_name, value, props)
 	else:
 		score = await GotmScore.create(score_name, value, props)
+	if !score:
+		push_error("Could not create score...")
+		return
 	if copy_id_to_clipboard:
 		DisplayServer.clipboard_set(score.id)
 	if print_console:
@@ -36,6 +39,9 @@ func update_score() -> void:
 	if props.is_empty():
 		props = null
 	var score := await GotmScore.update(id, value, props)
+	if !score:
+		push_error("Could not update score with id: ", id)
+		return
 	if copy_id_to_clipboard:
 		DisplayServer.clipboard_set(score.id)
 	if print_console:

@@ -11,7 +11,7 @@ I will try to adhere to the official style guide here: https://docs.godotengine.
 | File Name                 | Status  | TODOs | Offline Tested | Online Tested | Unit Tested | Documentation | Reviewed |
 | ------------------------- |:-------:| -----:|:--------------:|:-------------:|:-----------:|:-------------:|:--------:|
 | impl/_Gotm.gd             | ☑      | 2     | N/A            | —             | —           | —             | —        |
-| impl/_GotmAuth.gd         | ☑      | 2     | N/A            | —             | —           | —             | —        |
+| impl/_GotmAuth.gd         | ☑      | 0     | N/A            | —             | —           | —             | —        |
 | impl/_GotmAuthLocal.gd    | ☑      | 1     | N/A            | —             | —           | —             | —        |
 | impl/_GotmBlob.gd         | ☑      | 1     | N/A            | —             | —           | —             | —        |
 | impl/_GotmBlobLocal.gd    | ☑      | 1     | N/A            | —             | —           | —             | —        |
@@ -45,5 +45,5 @@ I will try to adhere to the official style guide here: https://docs.godotengine.
 | GotmMark.gd               | ☑      | 1     | —              | —             | —           | Some          | —        |
 | GotmPeriod.gd             | ☑      | 0     | N/A            | —             | —           | ☑             | —        |
 | GotmQuery.gd              | ☑      | 2     | —              | —             | —           | ☑             | —        |
-| GotmScore.gd              | ☑      | 0     | ☑              | —             | —           | Some          | —        |
+| GotmScore.gd              | ☑      | 0     | ☑              | ☑            | —           | Some          | —        |
 | GotmUser.gd               | ☑      | 0     | N/A            | —             | —           | ☑             | —        |
