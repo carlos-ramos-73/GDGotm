@@ -60,7 +60,7 @@ static func create_query_string(dictionary: Dictionary) -> String:
 			value = to_stable_json(value)
 		elif value is bool:
 			value = str(value).to_lower()
-		string += String(key) + "=" + String(value)
+		string += str(key) + "=" + str(value)
 		if i < keys.size() - 1:
 			string += "&"
 	if string:
@@ -125,7 +125,7 @@ static func encode_url_component(string: String) -> String:
 	var bytes: PackedByteArray = string.to_utf8_buffer()
 	var encoded: String = ""
 	for c in bytes:
-		if c == 46 or c == 45 or c == 95 or c == 126 or (c >= 97 && c <= 122) or (c >= 65 && c <= 90) or (c >= 48 && c <= 57):
+		if c == 46 || c == 45 || c == 95 || c == 126 || (c >= 97 && c <= 122) || (c >= 65 && c <= 90) || (c >= 48 && c <= 57):
 			encoded += char(c)
 		else:
 			encoded += "%%%02X" % [c]

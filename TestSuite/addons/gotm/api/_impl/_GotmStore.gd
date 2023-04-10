@@ -74,9 +74,9 @@ static func fetch_blob(path, query: String = "", params: Dictionary = {}, authen
 	return await _cached_get_request(create_request_path(path, query, params, options), authenticate)
 
 
-static func list(api, query: String, params: Dictionary = {}, authenticate: bool = false, options: Dictionary = {}) -> Array:
+static func list(api: String, query: String, params: Dictionary = {}, authenticate: bool = false, options: Dictionary = {}) -> Array:
 	var data: Dictionary = await _cached_get_request(create_request_path(api, query, params, options), authenticate)
-	if data.is_empty() || !data.has(data):
+	if data.is_empty() || !data.has("data"):
 		return []
 	return data.data
 

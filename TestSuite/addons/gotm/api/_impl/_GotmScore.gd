@@ -116,7 +116,7 @@ static func get_counts(leaderboard: GotmLeaderboard, minimum_value: float, maxim
 	if project.is_empty():
 		return counts
 
-	var params = _GotmUtility.delete_empty({
+	var params := _GotmUtility.delete_empty({
 		"name": leaderboard.name,
 		"target": project,
 		"props": leaderboard.properties,
@@ -186,7 +186,7 @@ static func get_rank(leaderboard: GotmLeaderboard, score_id_or_value) -> int:
 	if project.is_empty():
 		return 0
 
-	var params = _GotmUtility.delete_empty({
+	var params := _GotmUtility.delete_empty({
 		"name": leaderboard.name,
 		"target": project,
 		"props": leaderboard.properties,
@@ -204,7 +204,7 @@ static func get_rank(leaderboard: GotmLeaderboard, score_id_or_value) -> int:
 		return 0
 
 	var stat: Dictionary
-	if leaderboard.is_local || get_implementation(params.get("score")) == Implementation.GOTM_SCORE_LOCAL:
+	if leaderboard.is_local || get_implementation(params.get("score", "")) == Implementation.GOTM_SCORE_LOCAL:
 		stat = await _GotmScoreLocal.fetch("stats/rank", "rankByScoreSort", params)
 	else:
 		stat = await _GotmStore.fetch("stats/rank", "rankByScoreSort", params)
@@ -213,7 +213,7 @@ static func get_rank(leaderboard: GotmLeaderboard, score_id_or_value) -> int:
 	return stat.value
 
 
-static func _list(leaderboard: GotmLeaderboard, after, ascending: bool, limit: int = 0) -> Array:
+static func _list(leaderboard: GotmLeaderboard, after, ascending: bool, limit: int = 20) -> Array:
 	if !(after is GotmScore || after is String || after is int || after is float || after == null):
 		await _GotmUtility.get_tree().process_frame
 		push_error("[GotmScore] Expected a GotmScore, GotmScore.id string, int, or float.")
