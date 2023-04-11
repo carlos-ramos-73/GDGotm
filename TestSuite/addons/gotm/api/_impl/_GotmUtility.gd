@@ -60,7 +60,7 @@ static func create_query_string(dictionary: Dictionary) -> String:
 			value = to_stable_json(value)
 		elif value is bool:
 			value = str(value).to_lower()
-		string += str(key) + "=" + str(value)
+		string += str(key) + "=" + str(value).replace("+", "%2B")
 		if i < keys.size() - 1:
 			string += "&"
 	if string:
@@ -443,9 +443,9 @@ static func write_file(path: String, data) -> void:
 			file.store_buffer(data)
 	file.close()
 
-
-class FakeSignal:
-	signal completed()
+# TODO: See if needed after testing GotmAuth
+#class FakeSignal:
+#	signal completed()
 
 
 class FetchDataResult:
@@ -490,17 +490,17 @@ class GlobalData:
 			encoder[0] = regex
 		return encoders
 
-
-class QueueSignal:
-	var _queue := []
-	
-	func add() -> FakeSignal:
-		var sig = FakeSignal.new()
-		_queue.append(sig)
-		return sig
-
-	func trigger() -> void:
-		var queue = _queue
-		_queue = []
-		for sig in queue:
-			sig.emit_signal("completed")
+# TODO: See if needed after testing GotmAuth
+#class QueueSignal:
+#	var _queue := []
+#
+#	func add() -> FakeSignal:
+#		var sig = FakeSignal.new()
+#		_queue.append(sig)
+#		return sig
+#
+#	func trigger() -> void:
+#		var queue = _queue
+#		_queue = []
+#		for sig in queue:
+#			sig.emit_signal("completed")

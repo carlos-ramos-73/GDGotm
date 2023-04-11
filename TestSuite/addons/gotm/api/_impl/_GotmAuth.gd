@@ -62,12 +62,12 @@ static func get_auth_async() -> _GotmAuthData:
 		return auth
 
 	var _global: _GotmAuthGlobalData = _GotmUtility.get_static_variable(_GotmAuth, "_global", _GotmAuthGlobalData.new())
-	if _global.queue:
-		_global.queue.add()
-		return get_auth()
+#	if _global.queue:
+#		_global.queue.add()
+#		return get_auth()
 
-	var queue := _GotmUtility.QueueSignal.new()
-	_global.queue = queue
+#	var queue := _GotmUtility.QueueSignal.new()
+#	_global.queue = queue
 
 	var gotm = _Gotm.get_singleton()
 	if gotm && !_global.gotm_auth:
@@ -78,8 +78,8 @@ static func get_auth_async() -> _GotmAuthData:
 		auth = await _get_refreshed_project_auth(_global.auth)
 		_write_auth(auth)
 	_global.auth = auth
-	_global.queue = null
-	queue.trigger()
+#	_global.queue = null
+#	queue.trigger()
 	return get_auth()
 
 
@@ -192,7 +192,7 @@ class _GotmAuthData:
 
 class _GotmAuthGlobalData:
 	var auth: _GotmAuthData
-	var queue: _GotmUtility.QueueSignal
+#	var queue: _GotmUtility.QueueSignal
 	var has_read_from_file := false
 	var gotm_auth: _GotmAuthData
 

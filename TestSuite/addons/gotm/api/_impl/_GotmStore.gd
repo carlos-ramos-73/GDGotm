@@ -15,13 +15,6 @@ static func _cached_get_request(path: String, authenticate: bool = false):
 		await _GotmUtility.get_tree().process_frame
 		return value
 
-	var _signal_cache: Dictionary = _GotmUtility.get_static_variable(_GotmStore, "_signal_cache", {})
-	if path in _signal_cache:
-		await _GotmUtility.get_tree().process_frame
-		return _cache[path]
-
-	var queue_signal = _GotmUtility.QueueSignal.new()
-	_signal_cache[path] = queue_signal
 	var value = await _request(path, HTTPClient.METHOD_GET, null, authenticate)
 	if !value.is_empty():
 		value = _set_cache(path, value)
@@ -29,8 +22,6 @@ static func _cached_get_request(path: String, authenticate: bool = false):
 			for resource in value.data:
 				_set_cache(resource.path, resource)
 
-	_signal_cache.erase(path)
-	queue_signal.trigger()
 	return value
 
 
