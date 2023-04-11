@@ -25,6 +25,7 @@ func _ready() -> void:
 
 
 func build_and_upload_to_web_player() -> void:
+	deploy.stop_server() # stop server if running
 	if build.build():
 		deploy.deploy_to_web_player(GOTM_WEB_PLAYER)
 
