@@ -5,7 +5,8 @@ const scenes := [
 	"res://functional_testing/gotm_score.tscn",
 	"res://functional_testing/gotm_leaderboard.tscn",
 	"res://functional_testing/gotm_user.tscn",
-	"res://functional_testing/gotm_auth.tscn"
+	"res://functional_testing/gotm_auth.tscn",
+	"res://functional_testing/gotm_content.tscn"
 	]
 
 

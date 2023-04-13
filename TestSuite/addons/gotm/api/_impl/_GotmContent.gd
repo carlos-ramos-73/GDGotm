@@ -32,13 +32,13 @@ static func create(data = PackedByteArray(), properties: Dictionary = {},
 		key: String = "", name: String = "", parent_ids: Array = [],
 		is_private: bool = false, is_local: bool = false) -> GotmContent:
 
-	if key && await get_by_key(key):
-		return
+	if !key.is_empty() && await get_by_key(key):
+		return null
 
 	properties = _GotmUtility.clean_for_json(properties)
 	parent_ids = _coerce_ids(parent_ids)
 	var content_dict: Dictionary
-	
+
 	if is_local || get_implementation() == Implementation.GOTM_CONTENT_LOCAL || (is_private && await is_guest()):
 		content_dict = await _GotmContentLocal.create("contents",
 				{"props": properties, "key": key, "name": name,
@@ -57,7 +57,7 @@ static func create(data = PackedByteArray(), properties: Dictionary = {},
 static func delete(content_or_id) -> void:
 	if !(content_or_id is GotmContent || content_or_id is String):
 		await _GotmUtility.get_tree().process_frame
-		push_error("Expected a GotmContent or GotmContent.id string.")
+		push_error("[GotmContent] Expected a GotmContent or GotmContent.id string.")
 		return
 
 	var id = _coerce_id(content_or_id)
@@ -70,13 +70,16 @@ static func delete(content_or_id) -> void:
 
 static func delete_by_key(key: String) -> void:
 	var content = await get_by_key(key)
+	if content == null:
+		push_error("[GotmContent] Cannot delete. Content with key (%s) not found." % key)
+		return
 	await delete(content)
 
 
 static func fetch(content_or_id, type: String = ""):
 	if !(content_or_id is GotmContent || content_or_id is String):
 		await _GotmUtility.get_tree().process_frame
-		push_error("Expected a GotmContent or GotmContent.id string.")
+		push_error("[GotmContent] Expected a GotmContent or GotmContent.id string.")
 		return null
 
 	if type == "properties" && content_or_id is Object && content_or_id.has("properties"):
@@ -103,7 +106,6 @@ static func _format(data: Dictionary, content: GotmContent) -> GotmContent:
 	content.user_id = data.author
 	content.key = data.key
 	content.name = data.name
-	content.blob_id = data.data
 	content.properties = data.props if data.get("props") else {}
 	content.is_private = data.private
 	content.updated = data.updated
@@ -129,7 +131,7 @@ static func _format_filter(filter):
 		return
 	elif filter.prop == "updated" || filter.prop == "created":
 		for key in ["min", "max", "value"]:
-			var value = filter.get(key) # TODO: Verify from 3.X, old code might have been an error
+			var value = filter.get("key")
 			if value is int || value is float:
 				filter[key] = _GotmUtility.get_iso_from_unix_time(filter[key])
 	elif filter.prop == "parent_ids":
@@ -156,13 +158,13 @@ static func get_blob_implementation(id = null) -> BlobImplementation:
 
 static func get_by_key(key: String, type: String = ""):
 	if key.is_empty():
-		push_error("Cannot find content with empty key.")
-		return
+		push_error("[GotmContent] Cannot find content with empty key.")
+		return null
 
 	var project := await _get_project()
 	if project.is_empty():
-		push_error("Project is not setup correctly.")
-		return
+		push_error("[GotmContent] Project is not setup correctly.")
+		return null
 
 	var data_list := _GotmContentLocal.get_by_key_sync(key)
 	if data_list.is_empty():
@@ -171,8 +173,7 @@ static func get_by_key(key: String, type: String = ""):
 		else:
 			data_list = await _GotmStore.list("contents", "byKey", {"target": project, "key": key})
 	if data_list.is_empty():
-		push_error("Cannot find content with key: ", key)
-		return
+		return null
 
 	var data = data_list[0]
 	if data && !type.is_empty():
@@ -182,7 +183,7 @@ static func get_by_key(key: String, type: String = ""):
 	return _format(data, GotmContent.new())
 
 
-static func get_implementation(id = null) -> Implementation:
+static func get_implementation(id: String = "") -> Implementation:
 	if !_Gotm.is_global_api("contents") || !_LocalStore.fetch(id).is_empty():
 		return Implementation.GOTM_CONTENT_LOCAL
 	return Implementation.GOTM_STORE
@@ -271,11 +272,11 @@ static func list(query: GotmQuery, after_content_or_id = null) -> Array:
 static func update(content_or_id, data = null, properties = null, key = null, name = null) -> GotmContent:
 	if !(content_or_id is GotmContent || content_or_id is String):
 		await _GotmUtility.get_tree().process_frame
-		push_error("Expected a GotmContent or GotmContent.id string.")
+		push_error("[GotmContent] Expected a GotmContent or GotmContent.id string.")
 		return null
 
-	var id = _coerce_id(content_or_id)
-	if !id:
+	var id := _coerce_id(content_or_id)
+	if id.is_empty():
 		return null
 	if key:
 		var existing = await get_by_key(key)

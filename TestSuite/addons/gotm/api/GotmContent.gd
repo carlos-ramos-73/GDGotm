@@ -193,12 +193,12 @@ func list_marks_with_type(type: GotmMark.Types) -> Array:
 
 ## Update existing content.
 ## Null is ignored.
-static func update(content_or_id, data = null, _key = null, _properties = null, _name = null) -> GotmContent:
-	return await _GotmContent.update(content_or_id, data, _properties, _key, _name)
+static func update(content_or_id, new_data = null, new_key = null, new_properties = null, new_name = null) -> GotmContent:
+	return await _GotmContent.update(content_or_id, new_data, new_properties, new_key, new_name)
 
 ## Update existing content by key.
-static func update_by_key(_key: String, data = null, new_key = null, _properties = null, _name = null) -> GotmContent:
-	return await _GotmContent.update_by_key(_key, data, _properties, new_key, _name)
+static func update_by_key(_key: String, new_data = null, new_key = null, new_properties = null, new_name = null) -> GotmContent:
+	return await _GotmContent.update_by_key(_key, new_data, new_properties, new_key, new_name)
 
 
 ##############################################################

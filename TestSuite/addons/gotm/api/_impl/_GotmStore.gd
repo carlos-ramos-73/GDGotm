@@ -32,7 +32,7 @@ static func clear_cache(path: String) -> void:
 			_cache.erase(key)
 
 
-static func create(api, data: Dictionary, _options: Dictionary = {}) -> Dictionary:
+static func create(api: String, data: Dictionary, _options: Dictionary = {}) -> Dictionary:
 	var created: Dictionary = await _request(create_request_path(api, "", {}, {}), HTTPClient.METHOD_POST, data, true)
 	if !created.is_empty():
 		_set_cache(created.path, created)

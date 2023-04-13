@@ -22,7 +22,7 @@ NOTE: There are still bugs. Updates happen very frequent. Please refer to the pr
 | impl/_GotmAuthLocal.gd    | ☑      | 1     | N/A            | N/A           | —           | —             | —        |
 | impl/_GotmBlob.gd         | ☑      | 1     | N/A            | N/A           | —           | —             | —        |
 | impl/_GotmBlobLocal.gd    | ☑      | 1     | N/A            | N/A           | —           | —             | —        |
-| impl/_GotmContent.gd      | ☑      | 1     | N/A            | N/A           | —           | —             | —        |
+| impl/_GotmContent.gd      | ☑      | 0     | N/A            | N/A           | —           | —             | —        |
 | impl/_GotmContentLocal.gd | ☑      | 0     | N/A            | N/A           | —           | —             | —        |
 | impl/_GotmDebugImpl.gd    | Removed | —     | —              | —             | —           | —             | —        |
 | impl/_GotmImpl.gd         | Removed | —     | —              | —             | —           | —             | —        |
