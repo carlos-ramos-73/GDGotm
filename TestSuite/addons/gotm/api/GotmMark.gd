@@ -108,9 +108,8 @@ static func create_local(target_or_id, type: Types) -> GotmMark:
 	return await _GotmMark.create(target_or_id, type, true)
 
 ## Delete an existing mark.
-static func delete(mark_or_id) -> void:
-	await _GotmMark.delete(mark_or_id)
-	return
+static func delete(mark_or_id) -> bool:
+	return await _GotmMark.delete(mark_or_id)
 
 ## Get an existing mark.
 static func fetch(mark_or_id) -> GotmMark:

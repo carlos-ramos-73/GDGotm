@@ -65,7 +65,10 @@ func fetch_score() -> void:
 
 func delete_score() -> void:
 	var id: String = $"UI/Parameters/ID Parameter/ID".text
-	GotmScore.delete(id)
+	var result := await GotmScore.delete(id)
+	if !result:
+		push_error("Could not delete score with id: ", id)
+		return
 	if print_console:
 		print("GotmScore deleted (id: " + id + ") ...")
 

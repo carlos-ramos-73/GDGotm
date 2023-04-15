@@ -100,10 +100,14 @@ func delete(by_key: bool = false) -> void:
 	var _id: LineEdit = $UI/ParamsScrollContainer/Params/Delete/ID
 	var _key: LineEdit = $UI/ParamsScrollContainer/Params/Delete/Key
 	
+	var result := false
 	if by_key:
-		GotmContent.delete_by_key(_key.text)
+		result = await GotmContent.delete_by_key(_key.text)
 	else:
-		GotmContent.delete(_id.text)
+		result = await GotmContent.delete(_id.text)
+	if !result:
+		push_error("Could not delete content...")
+		return
 	if print_console:
 		print("GotmContent deleted...")
 

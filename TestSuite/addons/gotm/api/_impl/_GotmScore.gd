@@ -14,7 +14,10 @@ static func _clear_cache() -> void:
 
 
 static func _coerce_id(resource_or_id) -> String:
-	return _GotmUtility.coerce_resource_id(resource_or_id, "scores")
+	var id = _GotmUtility.coerce_resource_id(resource_or_id, "scores")
+	if !(id is String):
+		return ""
+	return id
 
 
 static func create(name: String, value: float, properties: Dictionary = {}, is_local: bool = false) -> GotmScore:
@@ -30,18 +33,20 @@ static func create(name: String, value: float, properties: Dictionary = {}, is_l
 	return _format(data, GotmScore.new())
 
 
-static func delete(score_or_id) -> void:
+static func delete(score_or_id) -> bool:
 	if !(score_or_id is GotmScore || score_or_id is String):
 		await _GotmUtility.get_tree().process_frame
 		push_error("[GotmScore] Expected a GotmScore or GotmScore.id string.")
-		return
+		return false
 
+	var result := false
 	var id := _coerce_id(score_or_id)
 	if get_implementation(id) == Implementation.GOTM_SCORE_LOCAL:
-		await _GotmScoreLocal.delete(id)
+		result = await _GotmScoreLocal.delete(id)
 	else:
-		await _GotmStore.delete(id)
+		result = await _GotmStore.delete(id)
 	_clear_cache()
+	return result
 
 
 static func encode_cursor(score_id_or_value, ascending: bool) -> String:

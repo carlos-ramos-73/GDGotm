@@ -7,11 +7,12 @@ static func create(data: Dictionary) -> Dictionary:
 	return data
 
 
-static func delete(path: String) -> void:
+static func delete(path: String) -> bool:
 	if path.is_empty():
-		return
-	_get_store(path).erase(path)
+		return false
+	var result := _get_store(path).erase(path)
 	_write_store(path)
+	return result
 
 
 static func fetch(path: String) -> Dictionary:

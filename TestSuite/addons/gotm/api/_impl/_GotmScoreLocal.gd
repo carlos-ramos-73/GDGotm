@@ -27,9 +27,9 @@ static func _decode_cursor(cursor: String) -> Array:
 	return decoded
 
 
-static func delete(id: String) -> void:
+static func delete(id: String) -> bool:
 	await _GotmUtility.get_tree().process_frame
-	_LocalStore.delete(id)
+	return _LocalStore.delete(id)
 
 
 static func fetch(path: String, query: String = "", params: Dictionary = {}, _authenticate: bool = false) -> Dictionary:

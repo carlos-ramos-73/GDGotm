@@ -14,6 +14,9 @@ static func _clear_cache() -> void:
 
 
 static func _coerce_id(resource_or_id) -> String:
+	var id = _GotmUtility.coerce_resource_id(resource_or_id, "contents")
+	if !(id is String):
+		return ""
 	return _GotmUtility.coerce_resource_id(resource_or_id, "contents")
 
 
@@ -54,26 +57,28 @@ static func create(data = PackedByteArray(), properties: Dictionary = {},
 	return content
 
 
-static func delete(content_or_id) -> void:
+static func delete(content_or_id) -> bool:
 	if !(content_or_id is GotmContent || content_or_id is String):
 		await _GotmUtility.get_tree().process_frame
 		push_error("[GotmContent] Expected a GotmContent or GotmContent.id string.")
-		return
+		return false
 
-	var id = _coerce_id(content_or_id)
+	var id := _coerce_id(content_or_id)
+	var result := false
 	if get_implementation(id) == Implementation.GOTM_CONTENT_LOCAL:
-		await _GotmContentLocal.delete(id)
+		result = await _GotmContentLocal.delete(id)
 	else:
-		await _GotmStore.delete(id)
+		result = await _GotmStore.delete(id)
 	_clear_cache()
+	return result
 
 
-static func delete_by_key(key: String) -> void:
+static func delete_by_key(key: String) -> bool:
 	var content = await get_by_key(key)
 	if content == null:
 		push_error("[GotmContent] Cannot delete. Content with key (%s) not found." % key)
-		return
-	await delete(content)
+		return false
+	return await delete(content)
 
 
 static func fetch(content_or_id, type: String = ""):

@@ -17,18 +17,23 @@ static func create(api: String, data: Dictionary) -> Dictionary:
 	return _format(_LocalStore.create(score))
 
 
-static func delete(id: String) -> void:
+static func delete(id: String) -> bool:
 	await _GotmUtility.get_tree().process_frame
-	_LocalStore.delete(id)
+	return _LocalStore.delete(id)
 
 
-static func delete_by_target_sync(target: String):
+static func delete_by_target_sync(target: String) -> bool:
+	var result := false
 	var to_delete := []
 	for mark in _LocalStore.get_all("marks"):
 		if mark.target == target:
 			to_delete.append(mark)
+	if !to_delete.is_empty():
+		result = true
 	for mark in to_delete:
-		_LocalStore.delete(mark.path)
+		if _LocalStore.delete(mark.path) == false:
+			result = false
+	return result
 
 
 static func fetch(path: String, query: String = "", params: Dictionary = {}, _authenticate: bool = false) -> Dictionary:

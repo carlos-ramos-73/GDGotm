@@ -31,7 +31,7 @@ static func coerce_resource_id(data, expected_api: String = ""):
 		return data
 	if !(id as String).is_empty() && !expected_api.is_empty() && !(id as String).begins_with(expected_api + "/"):
 		push_error("[Gotm] Expected an id starting with '" + expected_api + "/', got '" + id + "'.")
-		return
+		return null
 	return id
 
 

@@ -15,7 +15,7 @@ static func _cached_get_request(path: String, authenticate: bool = false):
 		await _GotmUtility.get_tree().process_frame
 		return value
 
-	var value = await _request(path, HTTPClient.METHOD_GET, null, authenticate)
+	var value = await _request_data(path, HTTPClient.METHOD_GET, null, authenticate)
 	if !value.is_empty():
 		value = _set_cache(path, value)
 		if value is Dictionary && value.get("data") is Array && value.get("next") is String:
@@ -33,7 +33,7 @@ static func clear_cache(path: String) -> void:
 
 
 static func create(api: String, data: Dictionary, _options: Dictionary = {}) -> Dictionary:
-	var created: Dictionary = await _request(create_request_path(api, "", {}, {}), HTTPClient.METHOD_POST, data, true)
+	var created: Dictionary = await _request_data(create_request_path(api, "", {}, {}), HTTPClient.METHOD_POST, data, true)
 	if !created.is_empty():
 		_set_cache(created.path, created)
 	return created
@@ -51,10 +51,13 @@ static func create_request_path(path: String, query: String = "", params: Dictio
 	return path + _GotmUtility.create_query_string(query_object)
 
 
-static func delete(path) -> void:
-	await _request(path, HTTPClient.METHOD_DELETE, null, true)
+static func delete(path) -> bool:
+	var result := await _request(path, HTTPClient.METHOD_DELETE, null, true)
+	if !result || !result.ok:
+		return false
 	var _cache: Dictionary = _GotmUtility.get_static_variable(_GotmStore, "_cache", {})
 	_cache.erase(path)
+	return true
 
 
 static func fetch(path, query: String = "", params: Dictionary = {}, authenticate: bool = false, options: Dictionary = {}) -> Dictionary:
@@ -72,17 +75,17 @@ static func list(api: String, query: String, params: Dictionary = {}, authentica
 	return data.data
 
 
-static func _request(path: String, method: int, body = null, authenticate: bool = false):
+static func _request(path: String, method: int, body = null, authenticate: bool = false) -> _GotmUtility.FetchDataResult:
 	if path.is_empty():
 		await _GotmUtility.get_tree().process_frame
-		return {}
+		return null
 	var headers := {}
 	if authenticate:
 		var auth = _GotmAuth.get_auth()
 		if !auth:
 			auth = await _GotmAuth.get_auth_async()
 		if !auth:
-			return {}
+			return null
 		headers.authorization = "Bearer " + auth.token
 
 	if method != HTTPClient.METHOD_GET && method != HTTPClient.METHOD_HEAD && method != HTTPClient.METHOD_POST:
@@ -108,7 +111,7 @@ static func _request(path: String, method: int, body = null, authenticate: bool 
 	while !_take_rate_limiting_token():
 		await _GotmUtility.get_tree().process_frame
 
-	var result
+	var result: _GotmUtility.FetchDataResult
 	if path.begins_with(_Gotm.get_global().storageApiEndpoint):
 		result = await _GotmUtility.fetch_data(path, method, body)
 	elif path.begins_with("blobs/upload") && body.get("data") is PackedByteArray:
@@ -122,9 +125,14 @@ static func _request(path: String, method: int, body = null, authenticate: bool 
 		result = await _GotmUtility.fetch_json(_Gotm.get_global().apiWorkerOrigin + "/" + path, method, bytes)
 	else:
 		result = await _GotmUtility.fetch_json(_Gotm.get_global().apiOrigin + "/" + path, method, body)
-	if !result.ok:
+	return result
+
+
+static func _request_data(path: String, method: int, body = null, authenticate: bool = false):
+	var request := await _request(path, method, body, authenticate)
+	if !request || !request.ok:
 		return {}
-	return result.data
+	return request.data
 
 
 static func _set_cache(path: String, data):
@@ -178,7 +186,7 @@ static func _take_rate_limiting_token() -> bool:
 
 
 static func update(path: String, data: Dictionary, options: Dictionary = {}) -> Dictionary:
-	var updated: Dictionary = await _request(create_request_path(path, "", {}, options), HTTPClient.METHOD_PATCH, data, true)
+	var updated: Dictionary = await _request_data(create_request_path(path, "", {}, options), HTTPClient.METHOD_PATCH, data, true)
 	if !updated.is_empty():
 		_set_cache(path, updated)
 	return updated

@@ -2,7 +2,10 @@ class_name _GotmLeaderboard
 
 
 static func _coerce_id(resource_or_id) -> String:
-	return _GotmUtility.coerce_resource_id(resource_or_id, "scores")
+	var id = _GotmUtility.coerce_resource_id(resource_or_id, "scores")
+	if !(id is String):
+		return ""
+	return id
 
 
 static func _get_surrounding_scores(leaderboard: GotmLeaderboard, center) -> GotmLeaderboard.SurroundingScores:

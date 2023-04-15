@@ -101,9 +101,8 @@ static func update(score_or_id, _value = null, _properties = null) -> GotmScore:
 	return await _GotmScore.update(score_or_id, _value, _properties)
 
 ## Delete an existing  score. Note: Only the score owner can delete the score.
-static func delete(score_or_id) -> void:
-	await _GotmScore.delete(score_or_id)
-	return
+static func delete(score_or_id) -> bool:
+	return await _GotmScore.delete(score_or_id)
 
 ## Get an existing score.
 static func fetch(score_or_id) -> GotmScore:

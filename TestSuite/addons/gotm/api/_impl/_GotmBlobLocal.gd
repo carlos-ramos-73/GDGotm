@@ -18,12 +18,13 @@ static func create(api: String, body: Dictionary) -> Dictionary:
 	return _format(_LocalStore.create(blob))
 
 
-static func delete_sync(path: String) -> void:
+static func delete_sync(path: String) -> bool:
 	var blob := _LocalStore.fetch(path)
 	if blob.is_empty():
-		return
-	_LocalStore.delete(path)
+		return false
+	var result := _LocalStore.delete(path)
 	_GotmUtility.write_file(_Gotm.get_local_path(blob.path), null)
+	return result
 
 
 # TODO: Validate changes from 3.X, old code didnt make sense to me since there was a non-dictionary return as PackedByteArray when returning the 'read_file' line

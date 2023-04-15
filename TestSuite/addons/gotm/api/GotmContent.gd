@@ -78,12 +78,12 @@ func create_mark(type: GotmMark.Types) -> GotmMark:
 	return await _GotmMark.create(self, type)
 
 ## Delete existing content.
-static func delete(content_or_id) -> void:
-	await _GotmContent.delete(content_or_id)
+static func delete(content_or_id) -> bool:
+	return await _GotmContent.delete(content_or_id)
 
 ## Delete existing content by key.
-static func delete_by_key(_key: String) -> void:
-	await _GotmContent.delete_by_key(_key)
+static func delete_by_key(_key: String) -> bool:
+	return await _GotmContent.delete_by_key(_key)
 
 ## Get existing content.
 static func fetch(content_or_id) -> GotmContent:

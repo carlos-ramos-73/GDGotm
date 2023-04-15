@@ -20,7 +20,10 @@ static func _clear_cache() -> void:
 
 
 static func _coerce_id(resource_or_id) -> String:
-	return _GotmUtility.coerce_resource_id(resource_or_id, "marks")
+	var id = _GotmUtility.coerce_resource_id(resource_or_id, "marks")
+	if !(id is String):
+		return ""
+	return id
 
 
 static func create(target_or_id, type: GotmMark.Types, is_local: bool = false) -> GotmMark:
@@ -44,18 +47,20 @@ static func create(target_or_id, type: GotmMark.Types, is_local: bool = false) -
 	return _format(data, GotmMark.new())
 
 
-static func delete(mark_or_id) -> void:
+static func delete(mark_or_id) -> bool:
 	if !(mark_or_id is GotmMark || mark_or_id is String):
 		await _GotmUtility.get_tree().process_frame
 		push_error("Expected a GotmMark or GotmMark.id string.")
-		return
+		return false
 
+	var result := false
 	var id := _coerce_id(mark_or_id)
 	if get_implementation(id) == Implementation.GOTM_MARK_LOCAL:
-		await _GotmMarkLocal.delete(id)
+		result = await _GotmMarkLocal.delete(id)
 	else:
-		await _GotmStore.delete(id)
+		result = await _GotmStore.delete(id)
 	_clear_cache()
+	return result
 
 
 static func fetch(mark_or_id) -> GotmMark:
