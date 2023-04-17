@@ -23,26 +23,26 @@ var is_local: bool
 
 ## Optionally make this content inaccessible to other users. Private content can only be fetched by the user
 ## who created it via GotmContent.list. Is useful for personal data such as game saves.
-var is_private: bool = false
+var is_private: bool
 
 ## Optional unique key.
-var key: String = ""
+var key: String
 
 ## Optional name searchable with partial search.
-var name: String = ""
+var name: String
 
 ## Optionally make this content a child to other contents.
 ## If all parents are deleted, this content is deleted too.
-var parent_ids: Array = []
+var parent_ids: Array
 
 ## Optional metadata to attach to the content, 
 ## for example {level: "desert1", difficulty: "hard"}.
 ## When listing contents GotmContent.list, you can optionally 
 ## filter and sort with these properties. 
-var properties: Dictionary = {}
+var properties: Dictionary
 
 ## The size of the contents's data in bytes.
-var size: int # TODO: Might need to check where code uses this and do changes
+var size: int
 
 ## UNIX epoch time (in milliseconds). Use OS.get_datetime_from_unix_time(content.created / 1000) to convert to date.
 var updated: int

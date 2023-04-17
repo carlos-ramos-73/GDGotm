@@ -16,6 +16,7 @@ func _on_item_selected(index: int) -> void:
 		0: $\"../ParamsScrollContainer/Params/Create\".visible = true
 		1: $\"../ParamsScrollContainer/Params/Update\".visible = true
 		2: $\"../ParamsScrollContainer/Params/Delete\".visible = true
+		3: $\"../ParamsScrollContainer/Params/Fetch&GetByKey\".visible = true
 
 
 func _hide_all() -> void:
@@ -216,7 +217,7 @@ offset_bottom = 142.256
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 32
 alignment = 1
-item_count = 3
+item_count = 4
 selected = 0
 popup/item_0/text = "Create/Create Local"
 popup/item_0/id = 0
@@ -224,6 +225,8 @@ popup/item_1/text = "Update/Update By Key"
 popup/item_1/id = 1
 popup/item_2/text = "Delete/Delete By Key"
 popup/item_2/id = 2
+popup/item_3/text = "Fetch/Get By Key"
+popup/item_3/id = 3
 script = SubResource("GDScript_exucl")
 
 [node name="ParamsScrollContainer" type="ScrollContainer" parent="UI"]
@@ -559,6 +562,38 @@ size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 32
 alignment = 1
 
+[node name="Fetch&GetByKey" type="GridContainer" parent="UI/ParamsScrollContainer/Params"]
+visible = false
+layout_mode = 2
+offset_right = 621.0
+offset_bottom = 452.0
+size_flags_horizontal = 3
+columns = 2
+
+[node name="IDLabel" type="Label" parent="UI/ParamsScrollContainer/Params/Fetch&GetByKey"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "ID: "
+horizontal_alignment = 2
+
+[node name="ID" type="LineEdit" parent="UI/ParamsScrollContainer/Params/Fetch&GetByKey"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
+alignment = 1
+
+[node name="KeyLabel" type="Label" parent="UI/ParamsScrollContainer/Params/Fetch&GetByKey"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Key: "
+horizontal_alignment = 2
+
+[node name="Key" type="LineEdit" parent="UI/ParamsScrollContainer/Params/Fetch&GetByKey"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
+alignment = 1
+
 [connection signal="toggled" from="UI/MenuScrollContainer/Menu/ConsolePrint" to="." method="_on_console_print_toggled"]
 [connection signal="pressed" from="UI/MenuScrollContainer/Menu/Create" to="." method="create"]
 [connection signal="pressed" from="UI/MenuScrollContainer/Menu/CreateLocal" to="." method="create_local"]
@@ -566,6 +601,8 @@ alignment = 1
 [connection signal="pressed" from="UI/MenuScrollContainer/Menu/UpdateByKey" to="." method="update_by_key"]
 [connection signal="pressed" from="UI/MenuScrollContainer/Menu/Delete" to="." method="delete"]
 [connection signal="pressed" from="UI/MenuScrollContainer/Menu/DeleteByKey" to="." method="delete_by_key"]
+[connection signal="pressed" from="UI/MenuScrollContainer/Menu/Fetch" to="." method="fetch"]
+[connection signal="pressed" from="UI/MenuScrollContainer/Menu/GetByKey" to="." method="get_by_key"]
 [connection signal="item_selected" from="UI/ParameterGroup" to="UI/ParameterGroup" method="_on_item_selected"]
 [connection signal="item_selected" from="UI/ParamsScrollContainer/Params/Create/DataOptionButton" to="UI/ParamsScrollContainer/Params/Create/DataOptionButton" method="_on_item_selected"]
 [connection signal="text_changed" from="UI/ParamsScrollContainer/Params/Update/ID" to="." method="_check_menu"]
@@ -573,3 +610,5 @@ alignment = 1
 [connection signal="item_selected" from="UI/ParamsScrollContainer/Params/Update/DataOptionButton" to="UI/ParamsScrollContainer/Params/Update/DataOptionButton" method="_on_item_selected"]
 [connection signal="text_changed" from="UI/ParamsScrollContainer/Params/Delete/ID" to="." method="_check_menu"]
 [connection signal="text_changed" from="UI/ParamsScrollContainer/Params/Delete/Key" to="." method="_check_menu"]
+[connection signal="text_changed" from="UI/ParamsScrollContainer/Params/Fetch&GetByKey/ID" to="." method="_check_menu"]
+[connection signal="text_changed" from="UI/ParamsScrollContainer/Params/Fetch&GetByKey/Key" to="." method="_check_menu"]

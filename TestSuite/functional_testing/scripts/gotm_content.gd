@@ -72,7 +72,7 @@ func update(by_key: bool = false) -> void:
 		0: data = null
 		1: data = _data.text
 		2: data = _data.text.to_utf8_buffer()
-		3: data = Node.new(); data.name = _data.text
+		3: data = Node.new(); data.name = _data.text if !_data.text.is_empty() else "node"
 	var props = {}
 	if !_prop_name_1.text.is_empty(): props[_prop_name_1.text] = _prop_value_1.text
 	if !_prop_name_2.text.is_empty(): props[_prop_name_2.text] = _prop_value_2.text
@@ -99,7 +99,7 @@ func update_by_key() -> void:
 func delete(by_key: bool = false) -> void:
 	var _id: LineEdit = $UI/ParamsScrollContainer/Params/Delete/ID
 	var _key: LineEdit = $UI/ParamsScrollContainer/Params/Delete/Key
-	
+
 	var result := false
 	if by_key:
 		result = await GotmContent.delete_by_key(_key.text)
@@ -114,6 +114,30 @@ func delete(by_key: bool = false) -> void:
 
 func delete_by_key() -> void:
 	delete(true)
+
+
+func fetch() -> void:
+	var _id: LineEdit = $"UI/ParamsScrollContainer/Params/Fetch&GetByKey/ID"
+
+	var content := await GotmContent.fetch(_id.text)
+	if !content:
+		push_error("Could not fetch content...")
+		return
+	if print_console:
+		print("GotmContent fetched...")
+		print(GotmContentTest.gotm_content_to_string(content))
+
+
+func get_by_key() -> void:
+	var _key: LineEdit = $"UI/ParamsScrollContainer/Params/Fetch&GetByKey/Key"
+
+	var content := await GotmContent.get_by_key(_key.text)
+	if !content:
+		push_error("Could not get content by key...")
+		return
+	if print_console:
+		print("GotmContent got content by key...")
+		print(GotmContentTest.gotm_content_to_string(content))
 
 
 static func gotm_content_to_string(content: GotmContent) -> String:
@@ -146,6 +170,12 @@ func _check_menu(_param = null) -> void:
 	# Delete By Key Button
 	if $UI/ParamsScrollContainer/Params/Delete/Key.text != "":
 		$UI/MenuScrollContainer/Menu/DeleteByKey.disabled = false
+	# Fetch Button
+	if $"UI/ParamsScrollContainer/Params/Fetch&GetByKey/ID".text != "":
+		$UI/MenuScrollContainer/Menu/Fetch.disabled = false
+	# Get By Key Button
+	if $"UI/ParamsScrollContainer/Params/Fetch&GetByKey/Key".text != "":
+		$UI/MenuScrollContainer/Menu/GetByKey.disabled = false
 
 
 func _disable_menu() -> void:

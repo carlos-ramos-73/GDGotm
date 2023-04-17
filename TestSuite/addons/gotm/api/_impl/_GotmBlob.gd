@@ -5,13 +5,13 @@ enum Implementation { GOTM_STORE, GOTM_BLOB_LOCAL }
 
 # TODO: Validate changes from 3.X, old code didnt make sense to me since "data" is type Dictionary from fetch functions, but cannot be used in 'bytes_to_var_with_objects'
 static func get_data(id: String, type: String = "bytes"):
-
 	if type.is_empty():
 		return null
 
 	if id.is_empty():
 		await _GotmUtility.get_tree().process_frame
 		return null
+
 	var binary_data: PackedByteArray
 	if get_implementation(id) == Implementation.GOTM_BLOB_LOCAL:
 		binary_data = await _GotmBlobLocal.fetch_blob(id)

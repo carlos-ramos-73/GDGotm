@@ -35,7 +35,7 @@ static func create(data = PackedByteArray(), properties: Dictionary = {},
 		key: String = "", name: String = "", parent_ids: Array = [],
 		is_private: bool = false, is_local: bool = false) -> GotmContent:
 
-	if !key.is_empty() && await get_by_key(key):
+	if !key.is_empty() && await _get_by_key(key):
 		return null
 
 	properties = _GotmUtility.clean_for_json(properties)
@@ -74,7 +74,7 @@ static func delete(content_or_id) -> bool:
 
 
 static func delete_by_key(key: String) -> bool:
-	var content = await get_by_key(key)
+	var content = await _get_by_key(key)
 	if content == null:
 		push_error("[GotmContent] Cannot delete. Content with key (%s) not found." % key)
 		return false
@@ -101,12 +101,17 @@ static func fetch(content_or_id, type: String = ""):
 		if type == "properties":
 			return data.props
 		return await _GotmBlob.get_data(data.data, type)
-	return _format(data, GotmContent.new())
+	var content := _format(data, GotmContent.new())
+	if !content:
+		push_error("[GotmContent] Cannot fetch content with id: ", id)
+		return null
+	return content
 
 
 static func _format(data: Dictionary, content: GotmContent) -> GotmContent:
 	if data.is_empty() || !content:
 		return null
+
 	content.id = data.path
 	content.user_id = data.author
 	content.key = data.key
@@ -117,6 +122,8 @@ static func _format(data: Dictionary, content: GotmContent) -> GotmContent:
 	content.created = data.created
 	content.parent_ids = data.parents
 	content.is_local = !_LocalStore.fetch(data.path).is_empty()
+	if data.has("size"):
+		content.size = data["size"]
 	return content
 
 
@@ -161,7 +168,7 @@ static func get_blob_implementation(id = null) -> BlobImplementation:
 	return BlobImplementation.GOTM_STORE
 
 
-static func get_by_key(key: String, type: String = ""):
+static func _get_by_key(key: String, type: String = ""):
 	if key.is_empty():
 		push_error("[GotmContent] Cannot find content with empty key.")
 		return null
@@ -186,6 +193,15 @@ static func get_by_key(key: String, type: String = ""):
 			return data.props
 		return await _GotmBlob.get_data(data.data, type)
 	return _format(data, GotmContent.new())
+
+
+static func get_by_key(key: String, type: String = ""):
+	var result = await _get_by_key(key, type)
+	if result == null:
+		push_error("[GotmContent] Cannot find with key: ", key)
+		if type == "properties":
+			return {}
+	return result
 
 
 static func get_implementation(id: String = "") -> Implementation:
@@ -284,7 +300,7 @@ static func update(content_or_id, data = null, properties = null, key = null, na
 	if id.is_empty():
 		return null
 	if key:
-		var existing = await get_by_key(key)
+		var existing = await _get_by_key(key)
 		if existing && existing.id != id:
 			return null
 	properties = _GotmUtility.clean_for_json(properties)
@@ -293,6 +309,7 @@ static func update(content_or_id, data = null, properties = null, key = null, na
 		"key": key,
 		"name": name,
 	})
+	var content_size: int = 0
 	if data != null:
 		if data is Node:
 			var packed_scene := PackedScene.new()
@@ -307,6 +324,7 @@ static func update(content_or_id, data = null, properties = null, key = null, na
 			blob = await _GotmStore.create("blobs/upload", {"target": id, "data": data})
 		if !blob.is_empty():
 			body.data = blob.path
+			content_size = blob["size"]
 	var content: Dictionary
 	if get_implementation(id) == Implementation.GOTM_CONTENT_LOCAL:
 		content = await _GotmContentLocal.update(id, body)
@@ -314,9 +332,10 @@ static func update(content_or_id, data = null, properties = null, key = null, na
 		content = await _GotmStore.update(id, body)
 	if !content.is_empty():
 		_clear_cache()
+	content["size"] = content_size
 	return _format(content, GotmContent.new())
 
 
 static func update_by_key(key: String, data = null, properties = null, new_key = null, name = null) -> GotmContent:
-	var content = await get_by_key(key)
+	var content = await _get_by_key(key)
 	return await update(content, data, properties, new_key, name)
