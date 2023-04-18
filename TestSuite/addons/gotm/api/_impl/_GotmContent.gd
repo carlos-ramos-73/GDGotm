@@ -17,7 +17,7 @@ static func _coerce_id(resource_or_id) -> String:
 	var id = _GotmUtility.coerce_resource_id(resource_or_id, "contents")
 	if !(id is String):
 		return ""
-	return _GotmUtility.coerce_resource_id(resource_or_id, "contents")
+	return id
 
 
 static func _coerce_ids(contents_or_ids: Array) -> Array:
@@ -50,7 +50,7 @@ static func create(data = PackedByteArray(), properties: Dictionary = {},
 		content_dict = await _GotmStore.create("contents",
 				{"props": properties, "key": key, "name": name,
 				"private": is_private, "parents": parent_ids})
-	var content := _format(content_dict, GotmContent.new())
+	var content := await _format(content_dict, GotmContent.new())
 	if data != null:
 		return await update(content, data)
 	_clear_cache()
@@ -101,7 +101,7 @@ static func fetch(content_or_id, type: String = ""):
 		if type == "properties":
 			return data.props
 		return await _GotmBlob.get_data(data.data, type)
-	var content := _format(data, GotmContent.new())
+	var content := await _format(data, GotmContent.new())
 	if !content:
 		push_error("[GotmContent] Cannot fetch content with id: ", id)
 		return null
@@ -124,6 +124,8 @@ static func _format(data: Dictionary, content: GotmContent) -> GotmContent:
 	content.is_local = !_LocalStore.fetch(data.path).is_empty()
 	if data.has("size"):
 		content.size = data["size"]
+	elif data.has("data"):
+		content.size = await _GotmBlob.get_size(data.data)
 	return content
 
 
@@ -192,7 +194,7 @@ static func _get_by_key(key: String, type: String = ""):
 		if type == "properties":
 			return data.props
 		return await _GotmBlob.get_data(data.data, type)
-	return _format(data, GotmContent.new())
+	return await _format(data, GotmContent.new())
 
 
 static func get_by_key(key: String, type: String = ""):
@@ -286,7 +288,7 @@ static func list(query: GotmQuery, after_content_or_id = null) -> Array:
 
 	var contents = []
 	for data in data_list:
-		contents.append(_format(data, GotmContent.new()))
+		contents.append(await _format(data, GotmContent.new()))
 	return contents
 
 
@@ -333,9 +335,11 @@ static func update(content_or_id, data = null, properties = null, key = null, na
 	if !content.is_empty():
 		_clear_cache()
 	content["size"] = content_size
-	return _format(content, GotmContent.new())
+	return await _format(content, GotmContent.new())
 
 
 static func update_by_key(key: String, data = null, properties = null, new_key = null, name = null) -> GotmContent:
 	var content = await _get_by_key(key)
+	if content == null:
+		push_error("[GotmContent] Cannot find with key: ", key)
 	return await update(content, data, properties, new_key, name)

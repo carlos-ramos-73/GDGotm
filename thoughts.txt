@@ -16,6 +16,7 @@ Notes:
 - All functions have been sorted alphabetically for legibility reasons, this is due to the new documentation generation in Godot 4 putting everything alphabetically.
 - #warnings-disable does not work. They seemed to be in favor of removing: https://github.com/godotengine/godot-proposals/issues/753#issuecomment-619533712 ... perhaps for the better?
 - const dictionaries/arrays used to be shallow in Godot 3. This plugin utilized that fact to make the equivilant of "static variables" (i.e. _global in _GotmUtility). That is no longer the case: https://github.com/godotengine/godot/pull/71051. Using get/set meta instead as a hacky workaround...
+- delete() from GotmScore, GotmContent, GotmMark now return bool for success/fail
 
 Suggestions:
 - move some _GotmScore functions to _GotmLeaderboard i.e. get_counts, get_rank, list, list_by_rank, etc. I think it is better to decouple as much as possible.
@@ -24,7 +25,6 @@ Suggestions:
 - Static typing: Convert most functions to have return types. Maybe discuss the usage of strict return types vs variant returns inside this plugin. Some functions have several return types, maybe we should break them up. Yes, it is more code, but it is more safe and also it's not for end-users, also less safety checks.
     - i.e. _GotmContent fetch(), update(), get_by_key(), etc.
 - Implement encryption when using HTTP Methods? Helps prevents spoofing score or content values
-- Should delete() from GotmScore, GotmContent, GotmMark return bool for success/fail?
 
 General Todo:
 - Rename files to have snake_case. https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_styleguide.html#file-names
@@ -33,3 +33,5 @@ General Todo:
 - make sure all push errors are properly standerized
 - implement Godot's new in-editor documentation feature wherever possible, include example code in the docs for all/most functions for end-user documentation?
 - plugin icon should resize with editor display scale Editor -> Editor Settings -> Interface/Editor -> Display Scale. Currently does not..
+- Backend call for GotmBlob size?
+    - When fetching GotmContent, currently to display size of GotmContent, you have to get the content's data. It might be easier to make a call for GotmBlob to get size.
