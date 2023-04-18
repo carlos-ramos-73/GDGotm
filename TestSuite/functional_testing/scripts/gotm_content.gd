@@ -140,6 +140,26 @@ func get_by_key() -> void:
 		print(GotmContentTest.gotm_content_to_string(content))
 
 
+func get_data(by_key: bool = false) -> void:
+	var _id: LineEdit = $UI/ParamsScrollContainer/Params/GetData/ID
+	var _key: LineEdit = $UI/ParamsScrollContainer/Params/GetData/Key
+
+	var data: PackedByteArray
+	if by_key:
+		data = await GotmContent.get_data_by_key(_key.text)
+	else:
+		data = await GotmContent.get_data(_id.text)
+	if data == null:
+		push_error("Could not get content data as PackedByteArray...")
+		return
+	if print_console:
+		print("GotmContent Data: ", data)
+
+
+func get_data_by_key() -> void:
+	get_data(true)
+
+
 static func gotm_content_to_string(content: GotmContent) -> String:
 	var result := "\nGotmContent:\n"
 	result += "[id] %s\n" % content.id
@@ -176,6 +196,12 @@ func _check_menu(_param = null) -> void:
 	# Get By Key Button
 	if $"UI/ParamsScrollContainer/Params/Fetch&GetByKey/Key".text != "":
 		$UI/MenuScrollContainer/Menu/GetByKey.disabled = false
+	# Get Data Button
+	if $UI/ParamsScrollContainer/Params/GetData/ID.text != "":
+		$UI/MenuScrollContainer/Menu/GetData.disabled = false
+	# Get Data By Key Button
+	if $UI/ParamsScrollContainer/Params/GetData/Key.text != "":
+		$UI/MenuScrollContainer/Menu/GetDataByKey.disabled = false
 
 
 func _disable_menu() -> void:

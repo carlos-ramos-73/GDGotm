@@ -5,7 +5,7 @@ static func create(api: String, body: Dictionary) -> Dictionary:
 	await _GotmUtility.get_tree().process_frame
 	api = api.split("/")[0]
 	var data = body.data
-	if !(data is PackedByteArray):
+	if !(data is PackedByteArray) || data == PackedByteArray():
 		return {}
 
 	var blob = {

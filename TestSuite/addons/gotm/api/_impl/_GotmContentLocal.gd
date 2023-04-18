@@ -32,12 +32,7 @@ static func _decode_cursor(cursor: String) -> Array:
 
 
 static func delete(id: String) -> bool:
-	await _GotmUtility.get_tree().process_frame
-	var content = _LocalStore.fetch(id)
-	if content.is_empty():
-		return false
-
-	_GotmBlobLocal.delete_sync(content.data)
+	await delete_blob(id)
 	_GotmMarkLocal.delete_by_target_sync(id)
 	var result := _LocalStore.delete(id)
 	var to_delete := []
@@ -53,6 +48,14 @@ static func delete(id: String) -> bool:
 	for child in to_delete:
 		delete(child.path)
 	return result
+
+
+static func delete_blob(content_id: String) -> bool:
+	await _GotmUtility.get_tree().process_frame
+	var content := _LocalStore.fetch(content_id)
+	if content.is_empty():
+		return false
+	return _GotmBlobLocal.delete_sync(content.data)
 
 
 static func fetch(path: String) -> Dictionary:

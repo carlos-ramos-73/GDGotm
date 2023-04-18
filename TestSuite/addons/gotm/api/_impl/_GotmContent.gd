@@ -122,9 +122,7 @@ static func _format(data: Dictionary, content: GotmContent) -> GotmContent:
 	content.created = data.created
 	content.parent_ids = data.parents
 	content.is_local = !_LocalStore.fetch(data.path).is_empty()
-	if data.has("size"):
-		content.size = data["size"]
-	elif data.has("data"):
+	if data.has("data"):
 		content.size = await _GotmBlob.get_size(data.data)
 	return content
 
@@ -311,7 +309,7 @@ static func update(content_or_id, data = null, properties = null, key = null, na
 		"key": key,
 		"name": name,
 	})
-	var content_size: int = 0
+	var ignore_blob := true
 	if data != null:
 		if data is Node:
 			var packed_scene := PackedScene.new()
@@ -326,15 +324,16 @@ static func update(content_or_id, data = null, properties = null, key = null, na
 			blob = await _GotmStore.create("blobs/upload", {"target": id, "data": data})
 		if !blob.is_empty():
 			body.data = blob.path
-			content_size = blob["size"]
+			ignore_blob = false
 	var content: Dictionary
 	if get_implementation(id) == Implementation.GOTM_CONTENT_LOCAL:
+		if !ignore_blob:
+			await _GotmContentLocal.delete_blob(id) # delete old blob content
 		content = await _GotmContentLocal.update(id, body)
 	else:
 		content = await _GotmStore.update(id, body)
 	if !content.is_empty():
 		_clear_cache()
-	content["size"] = content_size
 	return await _format(content, GotmContent.new())
 
 

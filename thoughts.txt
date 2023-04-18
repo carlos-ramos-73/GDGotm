@@ -3,8 +3,6 @@ Questions
     - Answer: 2.0.0
 - Discuss the usage of GotmMark. It is strictly just to upvote and downvote GotmContent as of this moment. What future usage can this class hold? Would it be better to move the upvote and downvote functionality inside the GotmContent itself? What possible other types and targets can it include?
     - Answer: Keep GotmMark API, but also add functionality to GotmContent directly
-- Discuss GotmBlob. To the end user, GotmBlob seems confusing. Little documentation and end-user usage is weird. Would it be better to put functionality inside of GotmContent? Does blob have any future prospects besides GotmContent?
-    - Answer: Remove GotmBlob, move functionality to GotmContent
 - Do I need _impl in GotmUser and in other end-user classes? Is there no better way to store private variables in objects? Currently there are no "private" vars or functions. Maybe we can use get/set meta as well? (not on the script but on the instanced objects)
     - Remove anything and everything _impl
 - Are Leaderboards/Scores/Content/etc. still beta features?
@@ -17,6 +15,7 @@ Notes:
 - #warnings-disable does not work. They seemed to be in favor of removing: https://github.com/godotengine/godot-proposals/issues/753#issuecomment-619533712 ... perhaps for the better?
 - const dictionaries/arrays used to be shallow in Godot 3. This plugin utilized that fact to make the equivilant of "static variables" (i.e. _global in _GotmUtility). That is no longer the case: https://github.com/godotengine/godot/pull/71051. Using get/set meta instead as a hacky workaround...
 - delete() from GotmScore, GotmContent, GotmMark now return bool for success/fail
+- Removed GotmBlob, moved functionality to GotmContent (_GotmBlob still exists)
 
 Suggestions:
 - move some _GotmScore functions to _GotmLeaderboard i.e. get_counts, get_rank, list, list_by_rank, etc. I think it is better to decouple as much as possible.

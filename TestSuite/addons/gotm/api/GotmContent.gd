@@ -95,11 +95,17 @@ static func get_by_key(_key: String) -> GotmContent:
 
 ## Get existing content's data as bytes.
 static func get_data(content_or_id) -> PackedByteArray:
-	return await _GotmContent.fetch(content_or_id, "data")
+	var result = await _GotmContent.fetch(content_or_id, "data")
+	if !(result is PackedByteArray):
+		return PackedByteArray()
+	return result
 
 ## Get existing content's data as bytes by key.
 static func get_data_by_key(_key: String) -> PackedByteArray:
-	return await _GotmContent.get_by_key(_key, "data")
+	var result = await _GotmContent.get_by_key(_key, "data")
+	if !(result is PackedByteArray):
+		return PackedByteArray()
+	return result
 
 ## Get the number of marks all users have assigned to this content.
 func get_mark_count() -> int:
@@ -123,7 +129,10 @@ static func get_properties(content_or_id):
 
 ## Get existing content's properties bytes by key.
 static func get_properties_by_key(_key: String) -> Dictionary:
-	return await _GotmContent.get_by_key(_key, "properties")
+	var result = await _GotmContent.get_by_key(_key, "properties")
+	if !(result is Dictionary):
+		return Dictionary()
+	return result
 
 ## Get existing content's data as a Variant.
 static func get_variant(content_or_id):
@@ -133,7 +142,7 @@ static func get_variant(content_or_id):
 static func get_variant_by_key(_key: String):
 	return await _GotmContent.get_by_key(_key, "variant")
 
-# TODO: Better formatting below...
+# TODO: Better formatting below plus redo...
 
 ## Use complex filtering with a GotmQuery instance.
 ## For example, calling yield(GotmContent.list(GotmQuery.new().filter("properties/difficulty", "hard").sort("created"))
@@ -193,6 +202,7 @@ func list_marks_with_type(type: GotmMark.Types) -> Array:
 
 ## Update existing content.
 ## Null is ignored.
+## Empty PackedByteArray is also ignored for data.
 static func update(content_or_id, new_data = null, new_key = null, new_properties = null, new_name = null) -> GotmContent:
 	return await _GotmContent.update(content_or_id, new_data, new_properties, new_key, new_name)
 
