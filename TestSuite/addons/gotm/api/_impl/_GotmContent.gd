@@ -36,6 +36,7 @@ static func create(data = PackedByteArray(), properties: Dictionary = {},
 		is_private: bool = false, is_local: bool = false) -> GotmContent:
 
 	if !key.is_empty() && await _get_by_key(key):
+		push_error("[GotmContent] Cannot create content with key %s. Content with key already exists." % key)
 		return null
 
 	properties = _GotmUtility.clean_for_json(properties)
@@ -100,7 +101,14 @@ static func fetch(content_or_id, type: String = ""):
 	if !data.is_empty() && !type.is_empty():
 		if type == "properties":
 			return data.props
-		return await _GotmBlob.get_data(data.data, type)
+		var content_data = await _GotmBlob.get_data(data.data, type)
+		if type == "node" && content_data == null:
+			push_error("[GotmContent] Cannot find node with id: %s. Does content extend Node?" % id)
+			return null
+		if type == "variant" && content_data == null:
+			push_error("[GotmContent] Cannot find variant with id: %s. Note, variant cannot be a PackedByteArray or null." % id)
+			return null
+		return await content_data
 	var content := await _format(data, GotmContent.new())
 	if !content:
 		push_error("[GotmContent] Cannot fetch content with id: ", id)
@@ -197,6 +205,14 @@ static func _get_by_key(key: String, type: String = ""):
 
 static func get_by_key(key: String, type: String = ""):
 	var result = await _get_by_key(key, type)
+	if result == null && type == "node":
+		push_error("[GotmContent] Cannot find node with key: %s. Does content extend Node?" % key)
+		return null
+
+	if result == null && type == "variant":
+		push_error("[GotmContent] Cannot find variant with key: %s. Note, variant cannot be a PackedByteArray or null." % key)
+		return null
+
 	if result == null:
 		push_error("[GotmContent] Cannot find with key: ", key)
 		if type == "properties":

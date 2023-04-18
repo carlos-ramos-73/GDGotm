@@ -40,7 +40,10 @@ static func get_data(id: String, type: String = "bytes"):
 
 	match type:
 		"node":
-			return bytes_to_var_with_objects(binary_data).instantiate()
+			var node = bytes_to_var_with_objects(binary_data)
+			if !(node is Object):
+				return null
+			return node.instantiate()
 		"variant":
 			return bytes_to_var_with_objects(binary_data)
 		_:

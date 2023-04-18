@@ -160,6 +160,48 @@ func get_data_by_key() -> void:
 	get_data(true)
 
 
+func get_node_content(by_key: bool = false) -> void:
+	var _id: LineEdit = $UI/ParamsScrollContainer/Params/GetNode/ID
+	var _key: LineEdit = $UI/ParamsScrollContainer/Params/GetNode/Key
+	
+	var node: Node = null
+	if by_key:
+		node = await GotmContent.get_node_by_key(_key.text)
+	else:
+		node = await GotmContent.get_node(_id.text)
+	if node == null:
+		push_error("Could not get content as Node...")
+		return
+	if print_console:
+		print("GotmContent Node Name: ", node.name)
+
+
+func get_node_content_by_key() -> void:
+	get_node_content(true)
+
+
+func get_variant(by_key: bool = false) -> void:
+	var _id: LineEdit = $UI/ParamsScrollContainer/Params/GetVariant/ID
+	var _key: LineEdit = $UI/ParamsScrollContainer/Params/GetVariant/Key
+	
+	var content
+	if by_key:
+		content = await GotmContent.get_variant_by_key(_key.text)
+	else:
+		content = await GotmContent.get_variant(_id.text)
+	if content == null:
+		push_error("Could not get content as Variant...")
+		return
+	if print_console:
+		print("GotmContent variant type %d" % typeof(content))
+		print("---------------------------")
+		print(var_to_str(content), "\n")
+
+
+func get_variant_by_key() -> void:
+	get_variant(true)
+
+
 static func gotm_content_to_string(content: GotmContent) -> String:
 	var result := "\nGotmContent:\n"
 	result += "[id] %s\n" % content.id
@@ -202,6 +244,18 @@ func _check_menu(_param = null) -> void:
 	# Get Data By Key Button
 	if $UI/ParamsScrollContainer/Params/GetData/Key.text != "":
 		$UI/MenuScrollContainer/Menu/GetDataByKey.disabled = false
+	# Get Node Button
+	if $UI/ParamsScrollContainer/Params/GetNode/ID.text != "":
+		$UI/MenuScrollContainer/Menu/GetNode.disabled = false
+	# Get Node By Key Button
+	if $UI/ParamsScrollContainer/Params/GetNode/Key.text != "":
+		$UI/MenuScrollContainer/Menu/GetNodeByKey.disabled = false
+	# Get Variant Button
+	if $UI/ParamsScrollContainer/Params/GetVariant/ID.text != "":
+		$UI/MenuScrollContainer/Menu/GetVariant.disabled = false
+	# Get Variant By Key Button
+	if $UI/ParamsScrollContainer/Params/GetVariant/Key.text != "":
+		$UI/MenuScrollContainer/Menu/GetVariantByKey.disabled = false
 
 
 func _disable_menu() -> void:
