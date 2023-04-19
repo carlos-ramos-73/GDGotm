@@ -14,6 +14,7 @@ Notes:
 - All functions have been sorted alphabetically for legibility reasons, this is due to the new documentation generation in Godot 4 putting everything alphabetically.
 - #warnings-disable does not work. They seemed to be in favor of removing: https://github.com/godotengine/godot-proposals/issues/753#issuecomment-619533712 ... perhaps for the better?
 - const dictionaries/arrays used to be shallow in Godot 3. This plugin utilized that fact to make the equivilant of "static variables" (i.e. _global in _GotmUtility). That is no longer the case: https://github.com/godotengine/godot/pull/71051. Using get/set meta instead as a hacky workaround...
+- Strings cannot longer user the unary NOT operator (i.e. !String). Switching to String.is_empty() instead.
 - delete() from GotmScore, GotmContent, GotmMark now return bool for success/fail
 - Removed GotmBlob, moved functionality to GotmContent (_GotmBlob still exists)
 

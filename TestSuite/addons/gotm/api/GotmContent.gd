@@ -124,8 +124,11 @@ static func get_node_by_key(_key: String) -> Node:
 	return await _GotmContent.get_by_key(_key, "node")
 
 ## Get existing content's properties.
-static func get_properties(content_or_id):
-	return await _GotmContent.fetch(content_or_id, "properties")
+static func get_properties(content_or_id) -> Dictionary:
+	var result = await _GotmContent.fetch(content_or_id, "properties")
+	if !(result is Dictionary):
+		return Dictionary()
+	return result
 
 ## Get existing content's properties bytes by key.
 static func get_properties_by_key(_key: String) -> Dictionary:

@@ -28,7 +28,7 @@ static func filter_min(query: GotmQuery, property_path: String, value, is_exclus
 
 
 static func _format_filter(_filter: Dictionary) -> Dictionary:
-	if !_filter.get("property_path"):
+	if _filter.get("property_path").is_empty():
 		return {}
 	var formatted = {}
 	formatted.prop = _filter.property_path
@@ -49,7 +49,7 @@ static func _format_filter(_filter: Dictionary) -> Dictionary:
 
 
 static func _format_sort(_sort: Dictionary) -> Dictionary:
-	if !_sort.get("property_path"):
+	if _sort.get("property_path").is_empty():
 		return {}
 	var formatted = {}
 	formatted.prop = _sort.property_path

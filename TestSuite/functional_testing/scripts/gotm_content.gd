@@ -202,6 +202,102 @@ func get_variant_by_key() -> void:
 	get_variant(true)
 
 
+func get_properties(by_key: bool = false) -> void:
+	var _id: LineEdit = $UI/ParamsScrollContainer/Params/GetProperties/ID
+	var _key: LineEdit = $UI/ParamsScrollContainer/Params/GetProperties/Key
+	
+	var props: Dictionary
+	if by_key:
+		props = await GotmContent.get_properties_by_key(_key.text)
+	else:
+		props = await GotmContent.get_properties(_id.text)
+	if print_console:
+		print("GotmContent Properties:")
+		print("---------------------------")
+		print(props)
+
+
+func get_properties_by_key() -> void:
+	get_properties(true)
+
+
+func list() -> void:
+	var _filter_option_1: OptionButton = $UI/ParamsScrollContainer/Params/List/QueryButton1
+	var _filter_option_2: OptionButton = $UI/ParamsScrollContainer/Params/List/QueryButton2
+	var _filter_option_3: OptionButton = $UI/ParamsScrollContainer/Params/List/QueryButton3
+	var _filter_path_1: LineEdit = $UI/ParamsScrollContainer/Params/List/Path1
+	var _filter_path_2: LineEdit = $UI/ParamsScrollContainer/Params/List/Path2
+	var _filter_path_3: LineEdit = $UI/ParamsScrollContainer/Params/List/Path3
+	var _filter_value_1: LineEdit = $UI/ParamsScrollContainer/Params/List/Value1
+	var _filter_value_2: LineEdit = $UI/ParamsScrollContainer/Params/List/Value2
+	var _filter_value_3: LineEdit = $UI/ParamsScrollContainer/Params/List/Value3
+	var _sort_path: LineEdit = $UI/ParamsScrollContainer/Params/List/Sort/Path
+	var _ascending_value: CheckButton = $UI/ParamsScrollContainer/Params/List/Sort/Value
+	var _after_id: LineEdit = $UI/ParamsScrollContainer/Params/List/AfterID
+
+	var string_representation := "GotmQuery.new()"
+	var query := GotmQuery.new()
+
+	match _filter_option_1.selected:
+		0: pass
+		1:
+			string_representation += (".filter(\"%s\", \"%s\")" % [_filter_path_1.text, _filter_value_1.text])
+			query = query.filter(_filter_path_1.text, _filter_value_1.text)
+		2:
+			string_representation += (".filter_min(\"%s\", \"%s\")" % [_filter_path_1.text, _filter_value_1.text])
+			query = query.filter_min(_filter_path_1.text, _filter_value_1.text)
+		3:
+			string_representation += (".filter_max(\"%s\", \"%s\")" % [_filter_path_1.text, _filter_value_1.text])
+			query = query.filter_max(_filter_path_1.text, _filter_value_1.text)
+
+	match _filter_option_2.selected:
+		0: pass
+		1:
+			string_representation += (".filter(\"%s\", \"%s\")" % [_filter_path_2.text, _filter_value_2.text])
+			query = query.filter(_filter_path_2.text, _filter_value_2.text)
+		2:
+			string_representation += (".filter_min(\"%s\", \"%s\")" % [_filter_path_2.text, _filter_value_2.text])
+			query = query.filter_min(_filter_path_2.text, _filter_value_2.text)
+		3:
+			string_representation += (".filter_max(\"%s\", \"%s\")" % [_filter_path_2.text, _filter_value_2.text])
+			query = query.filter_max(_filter_path_2.text, _filter_value_2.text)
+
+
+	match _filter_option_3.selected:
+		0: pass
+		1:
+			string_representation += (".filter(\"%s\", \"%s\")" % [_filter_path_3.text, _filter_value_3.text])
+			query = query.filter(_filter_path_3.text, _filter_value_3.text)
+		2:
+			string_representation += (".filter_min(\"%s\", \"%s\")" % [_filter_path_3.text, _filter_value_3.text])
+			query = query.filter_min(_filter_path_3.text, _filter_value_3.text)
+		3:
+			string_representation += (".filter_max(\"%s\", \"%s\")" % [_filter_path_3.text, _filter_value_3.text])
+			query = query.filter_max(_filter_path_3.text, _filter_value_3.text)
+
+	if !_sort_path.text.is_empty():
+		string_representation += (".sort(\"%s\", %s)" % [_sort_path.text, str(_ascending_value.button_pressed)])
+		query.sort(_sort_path.text, _ascending_value.button_pressed)
+
+	var after_id = null
+	if !_after_id.text.is_empty():
+		after_id = _after_id.text
+
+	if print_console:
+		print("GotmContent.list() called...")
+		print("Query: ", string_representation)
+		print("Filters: ", query.filters)
+		print("Sorts: ", query.sorts)
+
+	var result := await GotmContent.list(query, after_id)
+	if print_console:
+		print("GotmContent ID List: ")
+		var result_ids := []
+		for content in result:
+			result_ids.append(content.id)
+		print(result_ids, "\n")
+
+
 static func gotm_content_to_string(content: GotmContent) -> String:
 	var result := "\nGotmContent:\n"
 	result += "[id] %s\n" % content.id
@@ -256,6 +352,12 @@ func _check_menu(_param = null) -> void:
 	# Get Variant By Key Button
 	if $UI/ParamsScrollContainer/Params/GetVariant/Key.text != "":
 		$UI/MenuScrollContainer/Menu/GetVariantByKey.disabled = false
+	# Get Properties Button
+	if $UI/ParamsScrollContainer/Params/GetProperties/ID.text != "":
+		$UI/MenuScrollContainer/Menu/GetProperties.disabled = false
+	# Get Properties By Key Button
+	if $UI/ParamsScrollContainer/Params/GetProperties/Key.text != "":
+		$UI/MenuScrollContainer/Menu/GetPropertiesByKey.disabled = false
 
 
 func _disable_menu() -> void:
@@ -278,7 +380,6 @@ func _disable_menu() -> void:
 	$UI/MenuScrollContainer/Menu/GetNodeByKey.disabled = true
 	$UI/MenuScrollContainer/Menu/GetVariantByKey.disabled = true
 	$UI/MenuScrollContainer/Menu/GetPropertiesByKey.disabled = true
-	$UI/MenuScrollContainer/Menu/List.disabled = true
 
 
 func _on_console_print_toggled(button_pressed: bool) -> void:
