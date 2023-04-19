@@ -98,6 +98,7 @@ static func _get_by_content_sort(params: Dictionary) -> Array:
 		m.value = _get_content_value(sort.prop, m, UNDEFINED)
 	matches.sort_custom(predicate.is_greater_than if descending else predicate.is_less_than)
 	if params.get("after"):
+		print_debug(params)
 		var cursor := _decode_cursor(params.after)
 		var cursor_content = {"value": cursor[0], "path": cursor[1]}
 		var after_matches := []

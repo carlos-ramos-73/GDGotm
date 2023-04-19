@@ -35,3 +35,4 @@ General Todo:
 - plugin icon should resize with editor display scale Editor -> Editor Settings -> Interface/Editor -> Display Scale. Currently does not..
 - Backend call for GotmBlob size?
     - When fetching GotmContent, currently to display size of GotmContent, you have to get the content's data. It might be easier to make a call for GotmBlob to get size.
+- GotmContent functionality needs more testing

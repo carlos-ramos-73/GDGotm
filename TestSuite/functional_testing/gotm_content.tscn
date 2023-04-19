@@ -182,36 +182,6 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "List"
 
-[node name="CreateMark" type="Button" parent="UI/MenuScrollContainer/Menu"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-disabled = true
-text = "Create Mark"
-
-[node name="CreateLocalMark" type="Button" parent="UI/MenuScrollContainer/Menu"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-disabled = true
-text = "Create Local Mark"
-
-[node name="GetMarkCount" type="Button" parent="UI/MenuScrollContainer/Menu"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-disabled = true
-text = "Get Mark Count"
-
-[node name="ListMarks" type="Button" parent="UI/MenuScrollContainer/Menu"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-disabled = true
-text = "List Marks"
-
-[node name="ListMarksWithType" type="Button" parent="UI/MenuScrollContainer/Menu"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-disabled = true
-text = "List Marks With Type"
-
 [node name="ParameterGroup" type="OptionButton" parent="UI"]
 layout_mode = 2
 offset_left = 683.16
