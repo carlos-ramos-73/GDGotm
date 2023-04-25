@@ -23,8 +23,8 @@ static func all() -> GotmPeriod:
 ## For example, if granularity is GotmPeriod.TimeGranularity.MONTH,
 ## year is 2019 and month is 1, the period will start on the first day of February at 00:00
 ## and end at the last day of February at 23:59.
-static func at(_granularity: String, _year: int = -1, _month: int = -1, _day: int = -1) -> GotmPeriod:
-	return _GotmPeriod.at(_granularity, _year, _month, _day)
+static func at(granularity: String, year: int = -1, month: int = -1, day: int = -1) -> GotmPeriod:
+	return _GotmPeriod.at(granularity, year, month, day)
 
 
 ## Make a deep copy of a GotmPeriod instance.
@@ -46,16 +46,16 @@ func get_start_datetime(utc: bool = false) -> Dictionary:
 ## For example, if the current period is today, granularity is
 ## GotmPeriod.TimeGranularity.DAY and offset is 1, the
 ## period will be incremented by one day and becomes tomorrow.
-func move(_granularity: String, _offset: int = 0) -> GotmPeriod:
-	return _GotmPeriod.move(self, _granularity, _offset)
+func move(granularity: String, offset: int = 0) -> GotmPeriod:
+	return _GotmPeriod.move(self, granularity, offset)
 
 
 ## Get a period starting and ending within a current time unit.
 ## For example, if granularity is GotmPeriod.TimeGranularity.WEEK,
 ## the period will start on Monday of the current week at 00:00
 ## and end on Sunday of the current week at 23:59.
-static func now(_granularity: String) -> GotmPeriod:
-	return _GotmPeriod.now(_granularity)
+static func now(granularity: String) -> GotmPeriod:
+	return _GotmPeriod.now(granularity)
 
 
 ## Get a period starting and ending within a certain time unit relative to now.
@@ -63,8 +63,8 @@ static func now(_granularity: String) -> GotmPeriod:
 ## the period will start at 00:00 and end at 23:59 in <offset> days from today.
 ## So, if offset is 1, the period will start at 00:00 tomorrow and end at 23:59 tomorrow.
 ## If offset is -1, the period will start at 00:00 yesterday and end at 23:59 yesterday.
-static func offset(_granularity: String, _offset: int = 0) -> GotmPeriod:
-	return _GotmPeriod.offset(_granularity, _offset)
+static func offset(granularity: String, offset: int = 0) -> GotmPeriod:
+	return _GotmPeriod.offset(granularity, offset)
 
 
 ## Get a period ending now, but starting one time unit ago.
@@ -73,8 +73,8 @@ static func offset(_granularity: String, _offset: int = 0) -> GotmPeriod:
 ## The start and end of the period is not static, which means that
 ## it always ends now, even if the GotmPeriod instance was created 
 ## several hours ago.
-static func sliding(_granularity: String) -> GotmPeriod:
-	return _GotmPeriod.sliding(_granularity)
+static func sliding(granularity: String) -> GotmPeriod:
+	return _GotmPeriod.sliding(granularity)
 
 
 ## Get the UNIX epoch time (in milliseconds) for when the period starts. 

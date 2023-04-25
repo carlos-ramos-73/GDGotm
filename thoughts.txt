@@ -27,12 +27,13 @@ Suggestions:
 - Implement encryption when using HTTP Methods? Helps prevents spoofing score or content values
 
 General Todo:
-- Rename files to have snake_case. https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_styleguide.html#file-names
-- due to overshadowing variable warnings, many scripts have function parameters that begin with underscore, i.e GotmScore, GotmContent, etc. Try to rename variables better?
 - test plugin with large pck files
 - make sure all push errors are properly standerized
 - implement Godot's new in-editor documentation feature wherever possible, include example code in the docs for all/most functions for end-user documentation?
 - plugin icon should resize with editor display scale Editor -> Editor Settings -> Interface/Editor -> Display Scale. Currently does not..
-- Backend call for GotmBlob size?
-    - When fetching GotmContent, currently to display size of GotmContent, you have to get the content's data. It might be easier to make a call for GotmBlob to get size.
 - GotmContent functionality needs more testing
+    - Especially after_content_id in list()
+
+WebRTC in Plugin:
+- When exporting to Android, make sure to enable the INTERNET permission in the Android export preset before exporting the project or using one-click deploy. Otherwise, network communication of any kind will be blocked by Android.
+    - Could maybe have the plugin check this

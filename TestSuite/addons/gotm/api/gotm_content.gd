@@ -62,12 +62,12 @@ var user_id: String
 
 ## Create content for the current user.
 ## See PROPERTIES above for descriptions of the arguments.
-static func create(data = null, _key: String = "", _properties: Dictionary = {}, _name: String = "", _parent_ids: Array = [], _is_private: bool = false)  -> GotmContent:
-	return await _GotmContent.create(data, _properties, _key, _name, _parent_ids, _is_private)
+static func create(data = null, key: String = "", properties: Dictionary = {}, name: String = "", parent_ids: Array = [], is_private: bool = false)  -> GotmContent:
+	return await _GotmContent.create(data, properties, key, name, parent_ids, is_private)
 
 ## Create content that is only stored locally on the user's device. Local content is not accessible to any other player or device.
-static func create_local(data = null, _key: String = "", _properties: Dictionary = {}, _name: String = "", _parent_ids: Array = [], _is_private: bool = false)  -> GotmContent:
-	return await _GotmContent.create(data, _properties, _key, _name, _parent_ids, _is_private, true)
+static func create_local(data = null, key: String = "", properties: Dictionary = {}, name: String = "", parent_ids: Array = [], is_private: bool = false)  -> GotmContent:
+	return await _GotmContent.create(data, properties, key, name, parent_ids, is_private, true)
 
 # Creates a local mark on the content
 func create_local_mark(type: GotmMark.Types) -> GotmMark:
@@ -82,16 +82,16 @@ static func delete(content_or_id) -> bool:
 	return await _GotmContent.delete(content_or_id)
 
 ## Delete existing content by key.
-static func delete_by_key(_key: String) -> bool:
-	return await _GotmContent.delete_by_key(_key)
+static func delete_by_key(key: String) -> bool:
+	return await _GotmContent.delete_by_key(key)
 
 ## Get existing content.
 static func fetch(content_or_id) -> GotmContent:
 	return await _GotmContent.fetch(content_or_id)
 
 ## Get existing content by key.
-static func get_by_key(_key: String) -> GotmContent:
-	return await _GotmContent.get_by_key(_key)
+static func get_by_key(key: String) -> GotmContent:
+	return await _GotmContent.get_by_key(key)
 
 ## Get existing content's data as bytes.
 static func get_data(content_or_id) -> PackedByteArray:
@@ -101,8 +101,8 @@ static func get_data(content_or_id) -> PackedByteArray:
 	return result
 
 ## Get existing content's data as bytes by key.
-static func get_data_by_key(_key: String) -> PackedByteArray:
-	var result = await _GotmContent.get_by_key(_key, "data")
+static func get_data_by_key(key: String) -> PackedByteArray:
+	var result = await _GotmContent.get_by_key(key, "data")
 	if !(result is PackedByteArray):
 		return PackedByteArray()
 	return result
@@ -120,8 +120,8 @@ static func get_node(content_or_id) -> Node:
 	return await _GotmContent.fetch(content_or_id, "node")
 
 ## Get existing content's data as an instanced Node by key.
-static func get_node_by_key(_key: String) -> Node:
-	return await _GotmContent.get_by_key(_key, "node")
+static func get_node_by_key(key: String) -> Node:
+	return await _GotmContent.get_by_key(key, "node")
 
 ## Get existing content's properties.
 static func get_properties(content_or_id) -> Dictionary:
@@ -131,8 +131,8 @@ static func get_properties(content_or_id) -> Dictionary:
 	return result
 
 ## Get existing content's properties bytes by key.
-static func get_properties_by_key(_key: String) -> Dictionary:
-	var result = await _GotmContent.get_by_key(_key, "properties")
+static func get_properties_by_key(key: String) -> Dictionary:
+	var result = await _GotmContent.get_by_key(key, "properties")
 	if !(result is Dictionary):
 		return Dictionary()
 	return result
@@ -142,8 +142,8 @@ static func get_variant(content_or_id):
 	return await _GotmContent.fetch(content_or_id, "variant")
 
 ## Get existing content's data as a Variant by key.
-static func get_variant_by_key(_key: String):
-	return await _GotmContent.get_by_key(_key, "variant")
+static func get_variant_by_key(key: String):
+	return await _GotmContent.get_by_key(key, "variant")
 
 # TODO: Better formatting below plus redo...
 
@@ -210,8 +210,8 @@ static func update(content_or_id, new_data = null, new_key = null, new_propertie
 	return await _GotmContent.update(content_or_id, new_data, new_properties, new_key, new_name)
 
 ## Update existing content by key.
-static func update_by_key(_key: String, new_data = null, new_key = null, new_properties = null, new_name = null) -> GotmContent:
-	return await _GotmContent.update_by_key(_key, new_data, new_properties, new_key, new_name)
+static func update_by_key(key: String, new_data = null, new_key = null, new_properties = null, new_name = null) -> GotmContent:
+	return await _GotmContent.update_by_key(key, new_data, new_properties, new_key, new_name)
 
 
 ##############################################################

@@ -43,7 +43,7 @@ NOTE: There are still bugs. Updates happen very frequent. Please refer to the pr
 | GotmAuth.gd               | ☑      | 0     | ☑              | —             | —           | ☑            | —        |
 | GotmBlob.gd               | Removed | —     | —              | —             | —           | —             | —        |
 | GotmConfig.gd             | ☑      | 0     | N/A            | N/A           | —           | ☑             | —        |
-| GotmContent.gd            | ☑      | 2     | —              | —             | —           | Some          | —        |
+| GotmContent.gd            | ☑      | 2     | ☑              | ☑            | —           | Some          | —        |
 | GotmDebug.gd              | Removed | —     | —              | —             | —           | —             | —        |
 | GotmFile.gd               | Removed | —     | —              | —             | —           | —             | —        |
 | GotmLeaderboard.gd        | ☑      | 0     | ☑              | ☑            | —           | Some          | —        |

@@ -22,8 +22,8 @@ func copy() -> GotmQuery:
 ## For example, doing [code]GotmQuery.create([{"property_path": "name", value: "my_name"}, [{"property_path": "created"}])[/code]
 ## would fetch only things whose name equals [code]"my_name"[/code] sorted by creation date in descending order (newest first).
 ## It is the same as doing [code]GotmQuery.new().filter("name", "my_name").sort("created")[/code].
-static func create(_filters: Array = [], _sorts: Array = []) -> GotmQuery:
-	return _GotmQuery.create(_filters, _sorts)
+static func create(filters: Array = [], sorts: Array = []) -> GotmQuery:
+	return _GotmQuery.create(filters, sorts)
 
 
 ## Fetch only things where the property_path's property equals the specified value.

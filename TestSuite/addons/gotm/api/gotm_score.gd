@@ -88,17 +88,17 @@ var created: int
 ## Create a score entry for the current user.
 ## Scores can be fetched via a GotmLeaderboard instance.
 ## See PROPERTIES above for descriptions of the arguments.
-static func create(_name: String, _value: float, _properties: Dictionary = {}) -> GotmScore:
-	return await _GotmScore.create(_name, _value, _properties, false)
+static func create(name: String, value: float, properties: Dictionary = {}) -> GotmScore:
+	return await _GotmScore.create(name, value, properties, false)
 
 ## Create a score that is only stored locally on the user's device. Local scores are not accessible to any other player or device.
-static func create_local(_name: String, _value: float, _properties: Dictionary = {}) -> GotmScore:
-	return await _GotmScore.create(_name, _value, _properties, true)
+static func create_local(name: String, value: float, properties: Dictionary = {}) -> GotmScore:
+	return await _GotmScore.create(name, value, properties, true)
 
 ## Update an existing score. Note: Only the score owner can update the score.
 ## Null is ignored.
-static func update(score_or_id, _value = null, _properties = null) -> GotmScore:
-	return await _GotmScore.update(score_or_id, _value, _properties)
+static func update(score_or_id, value = null, properties = null) -> GotmScore:
+	return await _GotmScore.update(score_or_id, value, properties)
 
 ## Delete an existing  score. Note: Only the score owner can delete the score.
 static func delete(score_or_id) -> bool:
