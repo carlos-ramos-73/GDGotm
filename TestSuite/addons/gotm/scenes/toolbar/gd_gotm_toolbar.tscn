@@ -1,5 +1,6 @@
-[gd_scene load_steps=16 format=3 uid="uid://dcy3xjkgff4vs"]
+[gd_scene load_steps=17 format=3 uid="uid://dcy3xjkgff4vs"]
 
+[ext_resource type="Script" path="res://addons/gotm/scenes/toolbar/gd_gotm_toolbar.gd" id="1_w3ova"]
 [ext_resource type="Texture2D" uid="uid://bj2p8u12bru27" path="res://addons/gotm/scenes/toolbar/gd_gotm_toolbar.tres" id="2_jex31"]
 [ext_resource type="Script" path="res://addons/gotm/scenes/toolbar/scripts/background.gd" id="2_vmjxi"]
 [ext_resource type="Texture2D" uid="uid://q7xjm0dwohp2" path="res://addons/gotm/icons/button-icon.svg" id="3_s5itb"]
@@ -32,25 +33,20 @@ corner_radius_bottom_left = 22
 
 [node name="ToolbarPanel" type="Panel"]
 clip_children = 1
-custom_minimum_size = Vector2(44, 44)
-offset_right = 40.0
-offset_bottom = 40.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_kcd3u")
+script = ExtResource("1_w3ova")
 
 [node name="Background" type="TextureRect" parent="."]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
-offset_right = 44.0
-offset_bottom = 44.0
+offset_right = 100.0
+offset_bottom = 100.0
 texture = ExtResource("2_jex31")
 script = ExtResource("2_vmjxi")
 hovered_colors = PackedColorArray(0.160784, 0.47451, 1, 1, 0.396078, 0.121569, 1, 1)
 
 [node name="GDGotmButton" type="Button" parent="."]
-custom_minimum_size = Vector2(45, 45)
 layout_mode = 0
-offset_right = 45.0
-offset_bottom = 45.0
 theme_override_styles/normal = SubResource("StyleBoxFlat_64fhb")
 theme_override_styles/hover = SubResource("StyleBoxFlat_64fhb")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_vo0ye")

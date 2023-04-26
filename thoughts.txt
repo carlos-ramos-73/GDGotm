@@ -27,10 +27,8 @@ Suggestions:
 - Implement encryption when using HTTP Methods? Helps prevents spoofing score or content values
 
 General Todo:
-- test plugin with large pck files
 - make sure all push errors are properly standerized
 - implement Godot's new in-editor documentation feature wherever possible, include example code in the docs for all/most functions for end-user documentation?
-- plugin icon should resize with editor display scale Editor -> Editor Settings -> Interface/Editor -> Display Scale. Currently does not..
 - GotmContent functionality needs more testing
     - Especially after_content_id in list()
 

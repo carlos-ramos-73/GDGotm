@@ -5,6 +5,7 @@ var gdgotm_toolbar: Control = preload("res://addons/gotm/scenes/toolbar/gd_gotm_
 
 
 func _enter_tree() -> void:
+	gdgotm_toolbar.scale_toolbar_icon(get_editor_interface().get_editor_scale())
 	add_control_to_container(EditorPlugin.CONTAINER_TOOLBAR, gdgotm_toolbar)
 
 

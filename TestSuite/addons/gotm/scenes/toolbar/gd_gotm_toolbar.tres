@@ -7,7 +7,7 @@ colors = PackedColorArray(0.160784, 0.47451, 1, 1, 0.396078, 0.121569, 1, 1)
 frequency = 0.005
 
 [resource]
-width = 44
-height = 44
+width = 100
+height = 100
 color_ramp = SubResource("Gradient_r8qld")
 noise = SubResource("FastNoiseLite_jgttl")
