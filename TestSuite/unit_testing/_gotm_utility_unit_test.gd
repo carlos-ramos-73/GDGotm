@@ -1,15 +1,7 @@
+class_name GotmUnitTest_Utility
 extends Node
 
-var test_script := preload("res://unit_test_scripts/_GotmUtilityTest_1.gd")
-
-
-func _ready() -> void:
-	pass
-#	test_copy()
-#	test_delete_empty()
-#	test_delete_null()
-#	test_get_keys()
-#	print("_impl/_GotmUtility\t\t\t☑ (WIP)")
+var test_script := preload("res://unit_testing/_gotm_utility_unit_test_1.gd")
 
 
 func test_copy() -> void:
@@ -23,8 +15,8 @@ func test_copy() -> void:
 	_GotmUtility.copy(dict2, dict1)
 	assert(dict1 == dict2)
 
-	var node1 := test_script.new()
-	var node2 := test_script.new()
+	var node1: Node = test_script.new()
+	var node2: Node = test_script.new()
 	node2.test1 = 123; node2.test2 = 456; node2.test3 = 789
 	_GotmUtility.copy(node2, node1)
 	assert(node1.test1 == node2.test1 && node1.test2 == node2.test2 && node1.test3 == node2.test3)
@@ -54,4 +46,3 @@ func test_get_keys() -> void:
 
 	result = _GotmUtility._get_keys(test_script.new())
 	assert(result == ["test1", "test2", "test3"])
-

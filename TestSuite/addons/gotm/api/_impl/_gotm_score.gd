@@ -139,12 +139,12 @@ static func get_counts(leaderboard: GotmLeaderboard, minimum_value: float, maxim
 		stats = await _GotmScoreLocal.list("stats", "countByScoreSort", params)
 	else:
 		stats = await _GotmStore.list("stats", "countByScoreSort", params)
-	
+
 	if stats.size() != counts.size():
 		return counts
-	
+
 	for i in range(stats.size()):
-		counts[i] = stats[i].value
+		counts[i] = int(stats[i].value)
 	return counts
 
 
