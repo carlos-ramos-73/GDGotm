@@ -1,4 +1,6 @@
-# Godot 4 Port Attempt
+# Godot 4 Port
+
+UPDATE: This has been merged with to the main branch, but alas, as of 6th of February 2024, gotm.io is no more. Thank you Mikael for your support and all the learning expierence. It has been fun while it lasted.
 
 This is an attempt to port the current gotm plugin/addon.
 Godot 4.0 recently released and the developers at gotm.io are currently trying to support it on their platform.
